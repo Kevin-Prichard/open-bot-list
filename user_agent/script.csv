@@ -22,6 +22,7 @@ JS Axios,bot_script,axios/,
 Go,bot_script,go-resty/,https://github.com/go-resty/resty
 NodeJS got,bot_script,github.com/sindresorhus/got,https://github.com/sindresorhus/got
 Go,bot_script,grpcurl/,https://github.com/fullstorydev/grpcurl
+Go,bot_script,quic-go,
 Ruby,bot_script,http.rb/,https://github.com/httprb/http
 Perl,bot_script,libwww-perl/,
 Perl,bot_script,perl/,

@@ -1,2 +1,2 @@
-organization,url,format,selector,flags,docs_url
+organization,flags,url,format,selector,docs_url
 Tor,tor|proxy,https://check.torproject.org/torbulkexitlist,nlsv,,https://check.torproject.org

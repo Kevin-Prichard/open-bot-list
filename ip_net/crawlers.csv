@@ -1,4 +1,4 @@
-organization,url,format,selector,flags,docs_url
+organization,flags,url,format,selector,docs_url
 Fastly,cdn|org_fastly,https://api.fastly.com/public-ip-list',json,[.[][]],https://www.fastly.com/documentation/reference/api/utils/public-ip-list/
 Google,crawler|crawler_search|org_google,https://developers.google.com/static/search/apis/ipranges/googlebot.json,json,[.prefixes[][]],https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers
 Google,crawler|crawler_ads|org_google,https://developers.google.com/static/search/apis/ipranges/special-crawlers.json,json,[.prefixes[][]],https://developers.google.com/crawling/docs/crawlers-fetchers/google-special-case-crawlers
