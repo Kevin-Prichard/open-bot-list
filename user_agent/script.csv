@@ -1,0 +1,32 @@
+notes,flags,user_agent_sub,docs_url
+.net,bot_script,.NET HttpClient,
+Java,bot_script,Apache-HttpClient,
+Java,bot_script,Java,
+Apple,bot_script,CFNetwork,
+Apple,bot_script,NetworkingExtension,
+,bot_script,AsyncHttpClient,
+JS Deno,bot_script,Deno/,
+Fuzzer tool Ffuf,bot_script,Fuzz Faster U Fool,http://github.com/ffuf/ffuf
+Golang,bot_script,Go-http-client,
+PHP,bot_script,Guzzle/,
+PHP,bot_script,GuzzleHttp/,
+Curl,bot_script,Curl,
+Curl,bot_script,curl,
+Postman,bot_script,PostmanRuntime/,
+PowerShell,bot_script,PowerShell/,
+Wget,bot_script,Wget,
+JS Axios,bot_script,axios/,
+Go,bot_script,go-resty/,https://github.com/go-resty/resty
+NodeJS got,bot_script,github.com/sindresorhus/got,https://github.com/sindresorhus/got
+Go,bot_script,grpcurl/,https://github.com/fullstorydev/grpcurl
+Ruby,bot_script,http.rb/,https://github.com/httprb/http
+Perl,bot_script,libwww-perl/,
+NodeJS node-fetch,bot_script,node-fetch,https://github.com/node-fetch/node-fetch
+?,bot_script,okhttp/,
+Python,bot_script,urllib/,
+Python,bot_script,aiohttp/,
+Python,bot_script,python-httpx/,
+Python,bot_script,python-requests/,
+Python,bot_script,python-urllib3/,
+Ruby,bot_script,ruby/,
+Ruby,bot_script,ruby-rest-client/,

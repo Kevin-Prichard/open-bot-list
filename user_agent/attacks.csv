@@ -1,0 +1,2 @@
+notes,flags,user_agent_sub
+LOG4SHELL,attack|script_bot,jndi:ldap://
