@@ -62,4 +62,10 @@ w3.org,crawler|crawler_user,W3C_Validator/,https://validator.w3.org/
 Slack,crawler|org_slack,api.slack.com,https://api.slack.com/robots
 GitHub,crawler|org_github,github-camo,
 Repology,crawler,repology.org,https://repology.org/docs/bots
-Serpstat,crawler,serpstatbot.com,https://serpstatbot.com/;
+Serpstat,crawler,serpstatbot.com,https://serpstatbot.com/
+Omigili,crawler,Omigili,http://buzz.omgili.com/about.html
+Diffbot,crawler|crawler_provider,Diffbot,https://www.diffbot.com/products/crawl/
+Apify,crawler|crawler_provider,apify,https://docs.apify.com/academy/anti-scraping
+Imagesift,crawler,ImagesiftBot,https://imagesift.com/about
+LinkedIn,crawler,LinkedInBot,
+AdsDefender,crawler,adsdefender,https://adsdefender.com

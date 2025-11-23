@@ -10,6 +10,9 @@ Fuzzer tool Ffuf,bot_script,Fuzz Faster U Fool,http://github.com/ffuf/ffuf
 Golang,bot_script,Go-http-client,
 PHP,bot_script,Guzzle/,
 PHP,bot_script,GuzzleHttp/,
+PHP,bot_script,phpcrawl,
+PHP,bot_script,Zend_Http_Client,
+PHP,bot_script,Symfony-HttpClient,
 Curl,bot_script,Curl,
 Curl,bot_script,curl,
 Postman,bot_script,PostmanRuntime/,
@@ -21,6 +24,7 @@ NodeJS got,bot_script,github.com/sindresorhus/got,https://github.com/sindresorhu
 Go,bot_script,grpcurl/,https://github.com/fullstorydev/grpcurl
 Ruby,bot_script,http.rb/,https://github.com/httprb/http
 Perl,bot_script,libwww-perl/,
+Perl,bot_script,perl/,
 NodeJS node-fetch,bot_script,node-fetch,https://github.com/node-fetch/node-fetch
 ?,bot_script,okhttp/,
 Python,bot_script,urllib/,
@@ -28,5 +32,13 @@ Python,bot_script,aiohttp/,
 Python,bot_script,python-httpx/,
 Python,bot_script,python-requests/,
 Python,bot_script,python-urllib3/,
+Python,bot_script,httpcore,
+Python,bot_script,httputil,
+Python,bot_script,scrapy,
 Ruby,bot_script,ruby/,
 Ruby,bot_script,ruby-rest-client/,
+OpenSSL,bot_script,OpenSSL,
+Golang,bot_script,grpc-go,
+Golang,bot_script,colly,
+C++,bot_script,cpp-httplib,
+Apache Nutch,crawler|bot_script,Nutch,https://nutch.apache.org/

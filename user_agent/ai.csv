@@ -17,3 +17,4 @@ Alibaba,crawler|crawler_ai_data|org_alibaba,AliyunSecBot,
 DuckDuckGo,crawler|crawler_ai_search|crawler_user|org_duckduckgo,DuckAssistBot/,https://duckduckgo.com/duckduckgo-help-pages/results/duckassistbot
 Exa-AI,crawler|crawler_ai_search|org_exa,/exa.ai,https://exa.ai
 Mistral-AI,crawler|crawler_user|crawler_ai_user|org_mistral,MistralAI-User,https://docs.mistral.ai/robots
+Cohere-AI,crawler|crawler_user|crawler_ai_user|org_cohere,cohere-ai,
