@@ -10,19 +10,19 @@ Microsoft,crawler|crawler_search|org_microsoft,Bingbot/,https://www.bing.com/bin
 Microsoft,crawler|crawler_search|org_microsoft,msnbot/,http://search.msn.com/msnbot.htm
 Amazon,crawler|crawler_user|org_amazon,AMZN-User,https://developer.amazon.com/amazonbot
 Geedo,crawler|org_geedo,geedo.com,
-Facebook,crawler|crawler_ads|org_facebook,meta-externalads,
-Facebook,crawler|crawler_user|org_facebook,facebookexternalhit,
-Facebook,crawler|org_facebook,facebook.com,
+Facebook,crawler|crawler_ads|crawler_socialmedia|org_facebook,meta-externalads,
+Facebook,crawler|crawler_user|crawler_socialmedia|org_facebook,facebookexternalhit,
+Facebook,crawler|crawler_socialmedia|org_facebook,facebook.com,
 Idealo,crawler|crawler_ecommerce|org_idealo,idealo.com,
 Idealo,crawler|crawler_ecommerce|org_idealo,idealo.de,
 Geizhals,crawler|crawler_ecommerce|org_geizhals,geizhals.at,
 Seznam,crawler,o-seznam.cz,
-Pinterest,crawler|org_pinterest,pinterest.com,
+Pinterest,crawler|crawler_socialmedia|org_pinterest,pinterest.com,
 Babbar,crawler,babbar.tech,
 Ibou,crawler,ibou.io,
 Awario,crawler|org_awario,/awario.com,
 MJ12,crawler,mj12bot.com,
-Tiktok,crawler|org_tiktok,tiktok.com,
+Tiktok,crawler|crawler_socialmedia|org_tiktok,tiktok.com,
 Bytedance,crawler|crawler_ai_data|org_bytedance,bytedance.com,
 Apple,crawler|org_apple,Applebot/,https://support.apple.com/en-us/119829
 Nokia,crawler|org_nokia,www.nokia.com/genomecrawler,https://www.nokia.com/genomecrawler/
@@ -30,6 +30,8 @@ Nokia,crawler|org_nokia,www.nokia.com/genomecrawler,https://www.nokia.com/genome
 Ayeh,crawler|crawler_search,/ayeh.io,https://ayeh.io/about
 Cert.at,crawler,www.cert.at,https://www.cert.at/about/consec/content.html
 Cybaa,crawler|crawler_monitoring,/cybaa.io,https://cybaa.io
+Better Uptime,crawler|crawler_monitoring,Better Uptime Bot,https://betterstack.com/docs/uptime/frequently-asked-questions/
+Uptime Robot,crawler|crawler_monitoring,uptimerobot.com,https://uptimerobot.com/help/locations/
 Domainstats,crawler|crawler_search,/domainstats.com,https://domainstats.com/pages/our-bot
 DuckDuckGo,crawler|crawler_search|org_duckduckgo,DuckDuckGo/,https://duckduckgo.com/duckduckgo-help-pages/results/duckassistbot
 Fynd,crawler|crawler_search,/fynd.bot,https://fynd.bot
@@ -67,5 +69,5 @@ Omigili,crawler,Omigili,http://buzz.omgili.com/about.html
 Diffbot,crawler|crawler_provider,Diffbot,https://www.diffbot.com/products/crawl/
 Apify,crawler|crawler_provider,apify,https://docs.apify.com/academy/anti-scraping
 Imagesift,crawler,ImagesiftBot,https://imagesift.com/about
-LinkedIn,crawler,LinkedInBot,
+LinkedIn,crawler|crawler_socialmedia|org_linkedin,LinkedInBot,
 AdsDefender,crawler,adsdefender,https://adsdefender.com

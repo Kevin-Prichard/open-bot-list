@@ -1,11 +1,11 @@
 software,flags,user_agent_sub
-Akkoma,software_bot,https://akkoma.dev/AkkomaGang/akkoma/
-Ansible,software_bot,https://www.ansible.com
-AnyConnect,software_vpn,
-Dell SonicWALL NetExtender,software_vpn,Dell SonicWALL NetExtender
-Discord,software_bot,Discord/
-Friendica,software_socialmedia,Friendica/
-Mastodon,software_socialmedia,Mastodon/
+Akkoma,software_bot,Akkoma,https://akkoma.dev/AkkomaGang/akkoma/
+Ansible,software_bot,Ansible,https://www.ansible.com
+AnyConnect,software_vpn,AnyConnect,
+Dell SonicWALL NetExtender,software_vpn,Dell SonicWALL NetExtender,
+Discord,software_bot,Discord/,
+Friendica,software_socialmedia,Friendica/,
+Mastodon,software_socialmedia,Mastodon/,
 Odin,software_bot|scanner,docs.getodin.com,https://docs.getodin.com/
 WhatsApp,software_bot,WhatsApp/,
 WordPress,software_bot|bot_script,WordPress/,

@@ -70,4 +70,4 @@ Example:
 * Validate a Google-Bot by the official IP/Network Lists
 * Categorize the validated client by matching its User-Agent (`Google-Extended = AI, Googlebot = Search, etc`)
 
-Some User-Agents might match multiple times - the first match should count. (top: specific matches => bottom: general matches)
+Some User-Agents might match multiple times - only the first match should be used. (top: specific matches => bottom: general matches)
