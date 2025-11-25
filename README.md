@@ -30,13 +30,6 @@ Examples:
 
 The lists are in CSV-format so they can be easily parsed by many systems.
 
-Example linux shell:
-
-```bash
-cd ip_net/
-cut -d ',' -f3 < crawlers.csv
-```
-
 ----
 
 ## IP/Network Lists
