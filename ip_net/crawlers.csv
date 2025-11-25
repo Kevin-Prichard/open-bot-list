@@ -9,6 +9,6 @@
 "Seekport","crawler|crawler_search|org_seekport","https://bot.seekport.com/seekportbot_ips.txt","nlsv","","","","https://bot.seekport.com/"
 "Qwant","crawler|org_qwant","https://help.qwant.com/wp-content/uploads/sites/2/2025/01/qwantbot.json","json","$.prefixes.*['ipv4Prefix','ipv6Prefix']","[.prefixes[] | .ipv4Prefix, .ipv6Prefix | select( . != null )]","","https://help.qwant.com/bot/"
 "CommonCrawl","crawler|org_commoncrawl","https://index.commoncrawl.org/ccbot.json","json","$.prefixes.*['ipv4Prefix','ipv6Prefix']","[.prefixes[] | .ipv4Prefix, .ipv6Prefix | select( . != null )]","","https://help.qwant.com/bot/"
-"AHrefs","crawler|org_ahrefs","https://api.ahrefs.com/v3/public/crawler-ips","json","$.ips.*.ip_address","[.ips[].ip_address]","",""
+"AHrefs","crawler|org_ahrefs","https://api.ahrefs.com/v3/public/crawler-ip-ranges","json","$.prefixes.*['ipv4Prefix', 'ipv6Prefix']","[.prefixes[] | .ipv4Prefix, .ipv6Prefix | select( . != null )]","","https://help.ahrefs.com/en/articles/78658-what-is-the-list-of-your-ip-ranges"
 "Amazon","crawler|crawler_user|org_amazon","https://developer.amazon.com/amazonbot/live-ip-addresses/","html","","",".*<code.*>(.*)<\/code>.*","https://developer.amazon.com/amazonbot"
 "Telegram","crawler|crawler_user|org_telegram","https://core.telegram.org/resources/cidr.txt","nlsv","","","",""
