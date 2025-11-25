@@ -50,6 +50,10 @@ Valid formats:
 
   Plaintext file, empty lines & lines starting with '#' or ';' or '//' are ignored
 
+* **HTML** => Embedded inside HTML
+
+  Sadly some providers do for some unknown reason not provide an API.. :'(
+
 ----
 
 ## HTTP User Agents
