@@ -1,2 +1,2 @@
-organization,flags,url,format,selector,docs_url
-Tor,tor|proxy,https://check.torproject.org/torbulkexitlist,nlsv,,https://check.torproject.org
+organization,flags,url,format,jsonpath_rfc9535,jsonpath_jq,docs_url
+Tor,tor|proxy,https://check.torproject.org/torbulkexitlist,nlsv,,,https://check.torproject.org

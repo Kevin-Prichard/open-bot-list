@@ -1,15 +1,14 @@
-organization,flags,url,format,selector,docs_url
-Fastly,cdn|org_fastly,https://api.fastly.com/public-ip-list',json,[.[][]],https://www.fastly.com/documentation/reference/api/utils/public-ip-list/
-Google,crawler|crawler_search|org_google,https://developers.google.com/static/search/apis/ipranges/googlebot.json,json,[.prefixes[][]],https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers
-Google,crawler|crawler_ads|org_google,https://developers.google.com/static/search/apis/ipranges/special-crawlers.json,json,[.prefixes[][]],https://developers.google.com/crawling/docs/crawlers-fetchers/google-special-case-crawlers
-Google,crawler|crawler_user|org_google,https://developers.google.com/static/search/apis/ipranges/user-triggered-fetchers.json,json,[.prefixes[][]],https://developers.google.com/crawling/docs/crawlers-fetchers/google-user-triggered-fetchers
-Google,crawler|crawler_user|org_google,https://developers.google.com/static/search/apis/ipranges/user-triggered-fetchers-google.json,json,[.prefixes[][]],https://developers.google.com/crawling/docs/crawlers-fetchers/google-user-triggered-fetchers
-Microsoft,crawler|crawler_user|org_microsoft,https://www.bing.com/toolbox/bingbot.json,json,[.prefixes[][]],https://developers.google.com/crawling/docs/crawlers-fetchers/google-user-triggered-fetchers
-Apple,crawler|crawler_search|crawler_ai_data|org_applie,https://search.developer.apple.com/applebot.json,json,[.prefixes[][]],https://support.apple.com/en-us/119829
-OpenAI,crawler|crawler_search|crawler_ai_search|org_openai,https://openai.com/searchbot.json,json,[.prefixes[][]],https://platform.openai.com/docs/bots
-OpenAI,crawler|crawler_user|crawler_ai_user|org_openai,https://openai.com/chatgpt-user.json,json,[.prefixes[][]],https://platform.openai.com/docs/bots
-OpenAI,crawler|crawler_ai_data|org_openai,https://openai.com/gptbot.json,json,[.prefixes[][]],https://platform.openai.com/docs/bots
-Perplexity,crawler|crawler_user|crawler_ai_user|org_perplexity,https://www.perplexity.com/perplexity-user.json,json,[.prefixes[][]],https://docs.perplexity.ai/guides/bots
-Perplexity,crawler|crawler_ai_data|org_perplexity,https://www.perplexity.com/perplexitybot.json,json,[.prefixes[][]],https://docs.perplexity.ai/guides/bots
-,,,,,
-,,,,,
+organization,flags,url,format,jsonpath_rfc9535,jsonpath_jq,regex,docs_url
+Google,crawler|crawler_search|org_google,https://developers.google.com/static/search/apis/ipranges/googlebot.json,json,$.prefixes.*['ipv4Prefix','ipv6Prefix'],[.prefixes[] | .ipv4Prefix, .ipv6Prefix | select( . != null )],,https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers
+Google,crawler|crawler_ads|org_google,https://developers.google.com/static/search/apis/ipranges/special-crawlers.json,json,$.prefixes.*['ipv4Prefix','ipv6Prefix'],[.prefixes[] | .ipv4Prefix, .ipv6Prefix | select( . != null )],,https://developers.google.com/crawling/docs/crawlers-fetchers/google-special-case-crawlers
+Google,crawler|crawler_user|org_google,https://developers.google.com/static/search/apis/ipranges/user-triggered-fetchers.json,json,$.prefixes.*['ipv4Prefix','ipv6Prefix'],[.prefixes[] | .ipv4Prefix, .ipv6Prefix | select( . != null )],,https://developers.google.com/crawling/docs/crawlers-fetchers/google-user-triggered-fetchers
+Google,crawler|crawler_user|org_google,https://developers.google.com/static/search/apis/ipranges/user-triggered-fetchers-google.json,json,$.prefixes.*['ipv4Prefix','ipv6Prefix'],[.prefixes[] | .ipv4Prefix, .ipv6Prefix | select( . != null )],,https://developers.google.com/crawling/docs/crawlers-fetchers/google-user-triggered-fetchers
+Microsoft,crawler|crawler_user|org_microsoft,https://www.bing.com/toolbox/bingbot.json,json,$.prefixes.*['ipv4Prefix','ipv6Prefix'],[.prefixes[] | .ipv4Prefix, .ipv6Prefix | select( . != null )],,https://developers.google.com/crawling/docs/crawlers-fetchers/google-user-triggered-fetchers
+Apple,crawler|crawler_search|crawler_ai_data|org_apple,https://search.developer.apple.com/applebot.json,json,$.prefixes.*['ipv4Prefix','ipv6Prefix'],[.prefixes[] | .ipv4Prefix, .ipv6Prefix | select( . != null )],,https://support.apple.com/en-us/119829
+DuckDuckGo,crawler|crawler_search|org_duckduckgo,https://duckduckgo.com/duckduckbot.json,json,$.prefixes.*['ipv4Prefix','ipv6Prefix'],[.prefixes[] | .ipv4Prefix, .ipv6Prefix | select( . != null )],,https://duckduckgo.com/duckduckgo-help-pages/results/duckduckbot
+Seekport,crawler|crawler_search|org_seekport,https://bot.seekport.com/seekportbot_ips.txt,nlsv,,,,https://bot.seekport.com/
+Qwant,crawler|org_qwant,https://help.qwant.com/wp-content/uploads/sites/2/2025/01/qwantbot.json,jqon,$.prefixes.*['ipv4Prefix','ipv6Prefix'],[.prefixes[] | .ipv4Prefix, .ipv6Prefix | select( . != null )],,https://help.qwant.com/bot/
+CommonCrawl,crawler|org_commoncrawl,https://index.commoncrawl.org/ccbot.json,jqon,$.prefixes.*['ipv4Prefix','ipv6Prefix'],[.prefixes[] | .ipv4Prefix, .ipv6Prefix | select( . != null )],,https://help.qwant.com/bot/
+AHrefs,crawler|org_ahrefs,https://api.ahrefs.com/v3/public/crawler-ips,jqon,$.ips.*.ip_address,[.ips[].ip_address],,
+Amazon,crawler|crawler_user|org_amazon,https://developer.amazon.com/amazonbot/live-ip-addresses/,html,,,.*<code.*>(.*)<\/code>.*,https://developer.amazon.com/amazonbot
+Telegram,crawler|crawler_user|org_telegram,https://core.telegram.org/resources/cidr.txt,nlsv,,,,

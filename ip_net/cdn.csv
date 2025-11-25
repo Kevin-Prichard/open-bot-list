@@ -1,0 +1,5 @@
+organization,flags,url,format,jsonpath_rfc9535,jsonpath_jq,docs_url
+Fastly,cdn|org_fastly,https://api.fastly.com/public-ip-list,json,$..['addresses','ipv6_addresses'].*,[.addresses, .ipv6_addresses | .[]],https://www.fastly.com/documentation/reference/api/utils/public-ip-list/
+Cloudflare,cdn|org_cloudflare,https://api.cloudflare.com/client/v4/ips,json,$.result['ipv4_cidrs','ipv6_cidrs'].*,[.result | [.ipv4_cidrs, .ipv6_cidrs][][]],https://www.cloudflare.com/ips/
+BunnyWay,cdn|org_bunnyway,https://bunnycdn.com/api/system/edgeserverlist/plain,nlsv,,,https://support.bunny.net/hc/en-us/articles/115003578911-How-to-detect-when-BunnyCDN-PoP-servers-are-accessing-your-backend
+BunnyWay,cdn|org_bunnyway,https://bunnycdn.com/api/system/edgeserverlist/IPv6/plain,nlsv,,,https://support.bunny.net/hc/en-us/articles/115003578911-How-to-detect-when-BunnyCDN-PoP-servers-are-accessing-your-backend

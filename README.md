@@ -47,7 +47,7 @@ Valid formats:
 
 * **JSON**
 
-  Selector => JSON-Query to extract the flat list (test it with the cli-tool `jq`)
+  Selector => JSON-Query to extract the flat list in [RFC 9535](https://jsonpath.com/) and `jq`-cli-tool format
 
 * **CSV** => Comma-separated values
 
