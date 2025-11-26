@@ -1,2 +1,0 @@
-"organization","flags","url","format","jsonpath_rfc9535","jsonpath_jq","docs_url"
-"Stripe","crawler_webhook|org_stripe","https://stripe.com/files/ips/ips_webhooks.txt","nlsv","","","https://docs.stripe.com/ips#ip-addresses"

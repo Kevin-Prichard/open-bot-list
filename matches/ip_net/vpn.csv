@@ -1,0 +1,2 @@
+"organization","match_name","url","format","selector","docs_url"
+"Apple","vpn|org_apple #TODO","https://mask-api.icloud.com/egress-ip-ranges.csv","csv","0","https://developer.apple.com/icloud/prepare-your-network-for-icloud-private-relay/"

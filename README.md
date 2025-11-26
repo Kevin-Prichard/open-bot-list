@@ -1,4 +1,4 @@
-# SHIELD-WALL WAF Lists
+# Open Bot List
 
 <p align="center">
     <a title="Support this Project (Donate, Support-Licenses)" href="https://shop.oxl.app/collections/open-source">
@@ -8,63 +8,57 @@
 
 This repository is used to collect information that can be used to categorize & match traffic.
 
+We will auto-generate full lists in plaintext and JSON later on!
+
 ----
 
-## SHIELD-WALL WAF Project
+## Contribute
 
-Check-out the main [SHIELD-WALL WAF Project](https://github.com/O-X-L/shieldwall-waf) | [demo.waf.shield-wall.net](https://demo.waf.shield-wall.net)
+Contributions are very welcome.
+
+If you:
+
+* know of official IP-Lists we missed
+* found other missing/incorrect information
+
+..feel free to either [open a ticket](https://github.com/O-X-L/open-bot-list/issues) or [email us directly](mailto://contact+openbotlist@OXL.at)
 
 ---
 
-## Categorization
+## How it works
 
-We use **Flags** to categorize matches.
+To transparently match & categorize bots we need to combine:
 
-Examples:
+* **Traffic Matches**
+  * Matching the source-IP with IP- or ASN-Lists
+    * Separating different kinds of bots by their HTTP User-Agent (*if they use the same IP-range*)
+    * Categorizing the source-IP into hosting/vpn/isp/proxy/isp-cgnat (*not that easy.. (; *)
+  * Separating different bot-categories like 'script bots', 'hidden bots', 'search-engine crawlers', 'AI-data crawlers', 'AI-user crawlers', 'social-media crawlers', 'crawlers for ADs', 'crawlers for ecommerce', ...
+    * Matching clear script-bots by their User-Agent (*dumb script-kiddies*)
+    * Matching 'hidden' bots by their client-fingerprints (*[JA4](https://github.com/O-X-L/haproxy-ja4-fingerprint), etc.*)
+    * ... *to be extended* ...
 
-* `crawler|crawler_search|org_google` => A crawler, is used for search-engines, the organization is Google
-* `crawler|crawler_ai_data|org_google` => A crawler, gathers data for AI training, the organization is Google
-* `crawler|crawler_search|crawler_ai_search|crawler_user|org_openai` => A crawler, is used for search-engines and user-initiated AI-search, the organization is OpenAI
+* **PTR-checks**
+  * Some organizations only supply us with a PTR-match to validate if a crawler-IP is theirs (*no simple IP-list lookups*)
 
-### Format
-
-The lists are in CSV-format so they can be easily parsed by many systems.
-
-----
-
-## IP/Network Lists
-
-We only use IP-Lists that are published **official** by the providers.    
-
-Valid formats:
-
-* **JSON**
-
-  Selector => JSON-Query to extract the flat list in [RFC 9535](https://jsonpath.com/) and `jq`-cli-tool format
-
-* **CSV** => Comma-separated values
-
-  Selector => Number of the field to extract
-
-* **NLSV** => New-line separated values 
-
-  Plaintext file, empty lines & lines starting with '#' or ';' or '//' are ignored
-
-* **HTML** => Embedded inside HTML
-
-  Sadly some providers do for some unknown reason not provide an API.. :'(
+* **Traffic Flagging**
+  * We provide you with abstract configuration that shows how the matches can be combined
+  * Practical configuration examples for proxy-services will be added later on
 
 ----
 
-## HTTP User Agents
+## Motivation
 
-These matches should only be used if you have no other choice as the client can easily modify its User-Agent.
+We are working on building a [FOSS WAF-platform](https://github.com/O-X-L/shieldwall-waf) (*and centrally manageable network-firewalls*) which require such a collection of bot-related information.
 
-Sometimes we are required to check them as the organizations to not provide separate official IP/Network Lists for clean categorization.
+With our [IP-Abuse Reporting-System & Databases](https://github.com/O-X-L/risk-db) we have already started to collect information for it.
 
-Example:
+As the mindset of Open-Source is at the core of our being - we want to transparently share it with the whole world.
 
-* Validate a Google-Bot by the official IP/Network Lists
-* Categorize the validated client by matching its User-Agent (`Google-Extended = AI, Googlebot = Search, etc`)
+----
 
-Some User-Agents might match multiple times - only the first match should be used. (top: specific matches => bottom: general matches)
+### SHIELD-WALL WAF Project
+
+This information-collection is part of our [SHIELD-WALL WAF Project](https://github.com/O-X-L/shieldwall-waf).
+
+Check-out the demo: [demo.waf.shield-wall.net](https://demo.waf.shield-wall.net)
