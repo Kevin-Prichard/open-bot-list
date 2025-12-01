@@ -2,3 +2,5 @@ organization,match_name,user_agent_sub,docs_url
 Cybaa,http_user_agent_mon_cybaa,/cybaa.io,https://cybaa.io
 Better Uptime,http_user_agent_mon_betteruptime,Better Uptime Bot,https://betterstack.com/docs/uptime/frequently-asked-questions/
 Uptime Robot,http_user_agent_mon_uptimerobot,uptimerobot.com,https://uptimerobot.com/help/locations/
+Solarwinds,http_user_agent_mon_solarwinds,solarwinds,
+Catchpoint,http_user_agent_mon_catchpoint,catchpoint,
