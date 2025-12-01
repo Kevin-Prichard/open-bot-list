@@ -1,3 +1,20 @@
 # Open Bot List - Fingerprints
 
-For now see: [OXL IP-Abuse Database Lists](https://github.com/O-X-L/risk-db-lists/tree/main/other)
+**ToDo**: Check all JA4-fingerprints for false-positives.
+
+Be aware that multiple different crawlers and bots can match the same JA4 TLS-fingerprint. That mainly is the case if they use the same underlying client-library.
+
+## Differentiation
+
+* **Crawler** => Organizational crawlers for search engines or cloud-services
+
+  File match: `tls_ja4_crawler`
+
+* **Script** => Default User-Agents HTTP-Client libraries (often used by dumb script-bots) and crawler-libraries without that do not belong to organizations
+
+  File match: `tls_ja4_script`
+
+* **Scanner** => End-user-software and libraries built to scan applications for vulnerabilities (or even attack them)
+
+  File match: `tls_ja4_scanner`
+

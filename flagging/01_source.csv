@@ -1,0 +1,6 @@
+"comment","matching","flags"
+"Tor-Network","src_net_proxy_tor","proxy|proxy_tor"
+"Apple Privacy-Relay VPN","src_net_vpn_apple_privacyrelay","vpn|org_apple"
+"CDN Fastly","src_net_cdn_fastly","cdn|org_fastly"
+"CDN Cloudflare","src_net_cdn_cloudflare","cdn|org_cloudflare"
+"CDN BunnyWay","src_net_cdn_bunnyway","cdn|org_bunnyway"

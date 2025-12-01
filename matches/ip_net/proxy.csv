@@ -1,2 +1,2 @@
 "organization","match_name","url","format","jsonpath_rfc9535","jsonpath_jq","docs_url"
-"Tor","tor|proxy #TODO","https://check.torproject.org/torbulkexitlist","nlsv","","","https://check.torproject.org"
+"Tor","src_net_proxy_tor","https://check.torproject.org/torbulkexitlist","nlsv","","","https://check.torproject.org"

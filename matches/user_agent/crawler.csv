@@ -9,65 +9,62 @@ Google,http_user_agent_crawler_google_fallback,Google,https://developers.google.
 Microsoft,http_user_agent_crawler_microsoft_bing,Bingbot/,https://www.bing.com/bingbot.htm
 Microsoft,http_user_agent_crawler_microsoft_msn,msnbot/,http://search.msn.com/msnbot.htm
 Amazon,http_user_agent_crawler_amazon_user,AMZN-User,https://developer.amazon.com/amazonbot
-Geedo,crawler|org_geedo #TODO,geedo.com,
+Geedo,http_user_agent_crawler_geedo,geedo.com,
 Meta,http_user_agent_crawler_meta_ads,meta-externalads,
 Meta,http_user_agent_crawler_meta_user,facebookexternalhit,
 Meta,http_user_agent_crawler_meta_facebook,facebook.com,
-Idealo,crawler|crawler_ecommerce|org_idealo #TODO,idealo.com,
-Idealo,crawler|crawler_ecommerce|org_idealo #TODO,idealo.de,
-Geizhals,crawler|crawler_ecommerce|org_geizhals #TODO,geizhals.at,
-Seznam,crawler #TODO,o-seznam.cz,
-Pinterest,crawler|crawler_socialmedia|org_pinterest #TODO,pinterest.com,
-Babbar,crawler #TODO,babbar.tech,
-Ibou,crawler #TODO,ibou.io,
-Awario,crawler|org_awario #TODO,/awario.com,
-MJ12,crawler #TODO,mj12bot.com,
-Tiktok,crawler|crawler_socialmedia|org_tiktok #TODO,tiktok.com,
-Bytedance,crawler|crawler_ai_data|org_bytedance #TODO,bytedance.com,
+Idealo,http_user_agent_crawler_idealo_com,idealo.com,
+Idealo,http_user_agent_crawler_idealo_de,idealo.de,
+Geizhals,http_user_agent_crawler_geizhals,geizhals.at,
+Seznam,http_user_agent_crawler_seznam,o-seznam.cz,
+Pinterest,http_user_agent_crawler_pinterest,pinterest.com,
+Babbar,http_user_agent_crawler_babbar,babbar.tech,
+Ibou,http_user_agent_crawler_ibou,ibou.io,
+Awario,http_user_agent_crawler_awario,/awario.com,
+MJ12,http_user_agent_crawler_mj12,mj12bot.com,
+Tiktok,http_user_agent_crawler_tiktok,tiktok.com,
+Bytedance,http_user_agent_crawler_bytedance,bytedance.com,
 Apple,http_user_agent_crawler_applebotextended #TODO,Applebot/,https://support.apple.com/en-us/119829
-Nokia,crawler|org_nokia,www.nokia.com/genomecrawler #TODO,https://www.nokia.com/genomecrawler/
-2ip,crawler #TODO,/2ip.io,
-Ayeh,crawler|crawler_search #TODO,/ayeh.io,https://ayeh.io/about
-Cert.at,crawler #TODO,www.cert.at,https://www.cert.at/about/consec/content.html
-Cybaa,crawler|crawler_monitoring #TODO,/cybaa.io,https://cybaa.io
-Better Uptime,crawler|crawler_monitoring #TODO,Better Uptime Bot,https://betterstack.com/docs/uptime/frequently-asked-questions/
-Uptime Robot,crawler|crawler_monitoring #TODO,uptimerobot.com,https://uptimerobot.com/help/locations/
-Domainstats,crawler|crawler_search #TODO,/domainstats.com,https://domainstats.com/pages/our-bot
+Nokia,http_user_agent_crawler_nokia_genome,www.nokia.com/genomecrawler #TODO,https://www.nokia.com/genomecrawler/
+2ip,http_user_agent_crawler_2ip,/2ip.io,
+Ayeh,http_user_agent_crawler_ayeh,/ayeh.io,https://ayeh.io/about
+Cert.at,http_user_agent_crawler_certat,www.cert.at,https://www.cert.at/about/consec/content.html
+Domainstats,http_user_agent_crawler_domainstats,/domainstats.com,https://domainstats.com/pages/our-bot
 DuckDuckGo,http_user_agent_crawler_duckduckgo_search #TODO,DuckDuckGo/,https://duckduckgo.com/duckduckgo-help-pages/results/duckassistbot
-Fynd,crawler|crawler_search #TODO,/fynd.bot,https://fynd.bot
-Grammarly,crawler #TODO,Grammarly/,https://www.grammarly.com
-Iframely,crawler|crawler_user #TODO,Iframely/,https://iframely.com/docs/about
-Jugendschutzprogramm,crawler|crawler_compliance #TODO,jugendschutzprogramm.de,https://www.jugendschutzprogramm.de
-Semantic Scholar,crawler|crawler_search #TODO,/www.semanticscholar.org,https://www.semanticscholar.org/crawler
-AhrefsBot,crawler|crawler_search #TODO,/ahrefs.com,https://ahrefs.com/robot/
-SE Ranking,crawler #TODO,seranking.com,https://help.seranking.com/en/blex-crawler
-Censys,crawler|scanner #TODO,CensysInspect/,https://about.censys.io/
-DataForSeo,crawler #TODO,DataForSeoBot/,https://dataforseo.com/dataforseo-bot
-Dataprovider,crawler #TODO,Dataprovider.com,https://www.dataprovider.com/spider/
-Moz DotBot,crawler #TODO,opensiteexplorer.org/,https://moz.com/link-explorer
-Imagesift,crawler|crawler_search #TODO,imagesift.com,https://imagesift.com
-driftnet,crawler|scanner #TODO,internet-measurement.com,https://internet-measurement.com/
-ORT,crawler #TODO,ORTc.me,https://ortc.me
-Qwant,crawler #TODO,Qwantbot/,https://help.qwant.com/bot/
-SaaSBrowser,crawler|crawler_search #TODO,saasbrowser.com,https://saasbrowser.com/bot/
-Seekport,crawler|crawler_search #TODO,bot.seekport.com,https://bot.seekport.com/
-Semrush,crawler|scanner #TODO,semrush.com,https://www.semrush.com/bot.html
-Yahoo,crawler|crawler_search|org_yahoo #TODO,Yahoo! Slurp,http://help.yahoo.com/help/us/ysearch/slurp
-Yandex,crawler|crawler_user|org_yandex #TODO,YandexUserproxy,http://yandex.com/bots
-Yandex,crawler|crawler_search|org_yandex #TODO,yandex.com,http://yandex.com/bots
-Archive.org,crawler|crawler_archive|org_archive-org #TODO,archive.org,http://archive.org/details/archive.org_bot
-Huawei,crawler|crawler_search|org_huawei #TODO,petalsearch.com,https://webmaster.petalsearch.com/site/petalbot
-Brave,crawler|crawler_search|org_brave #TODO,search.brave.com,https://search.brave.com/help/brave-search-crawler
-OpenIntel,crawler #TODO,openintel.nl,https://openintel.nl/webcrawl/
-w3.org,crawler|crawler_user #TODO,P3P Validator,https://www.w3.org/P3P/validator.html
-w3.org,crawler|crawler_user #TODO,W3C_Validator/,https://validator.w3.org/
-Slack,crawler|org_slack #TODO,api.slack.com,https://api.slack.com/robots
-GitHub,crawler|org_github #TODO,github-camo,
-Repology,crawler #TODO,repology.org,https://repology.org/docs/bots
-Serpstat,crawler #TODO,serpstatbot.com,https://serpstatbot.com/
-Omigili,crawler #TODO,Omigili,http://buzz.omgili.com/about.html
-Diffbot,crawler|crawler_provider #TODO,Diffbot,https://www.diffbot.com/products/crawl/
-Apify,crawler|crawler_provider #TODO,apify,https://docs.apify.com/academy/anti-scraping
-Imagesift,crawler #TODO,ImagesiftBot,https://imagesift.com/about
-LinkedIn,crawler|crawler_socialmedia|org_linkedin #TODO,LinkedInBot,
-AdsDefender,crawler #TODO,adsdefender,https://adsdefender.com
+Fynd,http_user_agent_crawler_fynd,/fynd.bot,https://fynd.bot
+Grammarly,http_user_agent_crawler_grammarly,Grammarly/,https://www.grammarly.com
+Iframely,http_user_agent_crawler_iframely,Iframely/,https://iframely.com/docs/about
+Jugendschutzprogramm,http_user_agent_crawler_jugendschutzprogramm,jugendschutzprogramm.de,https://www.jugendschutzprogramm.de
+Semantic Scholar,http_user_agent_crawler_semanticscholar,/www.semanticscholar.org,https://www.semanticscholar.org/crawler
+AhrefsBot,http_user_agent_crawler_ahrefs,/ahrefs.com,https://ahrefs.com/robot/
+SE Ranking,http_user_agent_crawler_seranking,seranking.com,https://help.seranking.com/en/blex-crawler
+Censys,http_user_agent_crawler_censys,CensysInspect/,https://about.censys.io/
+DataForSeo,http_user_agent_crawler_dataforseo,DataForSeoBot/,https://dataforseo.com/dataforseo-bot
+Dataprovider,http_user_agent_crawler_dataprovider,Dataprovider.com,https://www.dataprovider.com/spider/
+Moz DotBot,http_user_agent_crawler_opensiteexplorer,opensiteexplorer.org/,https://moz.com/link-explorer
+driftnet,http_user_agent_crawler_internetmeasure,internet-measurement.com,https://internet-measurement.com/
+ORT,http_user_agent_crawler_ortc,ORTc.me,https://ortc.me
+Qwant,http_user_agent_crawler_qwant,Qwantbot/,https://help.qwant.com/bot/
+SaaSBrowser,http_user_agent_crawler_saasbrowser,saasbrowser.com,https://saasbrowser.com/bot/
+Seekport,http_user_agent_crawler_seekport,bot.seekport.com,https://bot.seekport.com/
+Semrush,http_user_agent_crawler_semrush,https://www.semrush.com/bot.html
+Yahoo,http_user_agent_crawler_yahoo,Yahoo! Slurp,http://help.yahoo.com/help/us/ysearch/slurp
+Yandex,http_user_agent_crawler_yandex_user,YandexUserproxy,http://yandex.com/bots
+Yandex,http_user_agent_crawler_yandex,yandex.com,http://yandex.com/bots
+Archive.org,http_user_agent_crawler_archiveorg,archive.org,http://archive.org/details/archive.org_bot
+Huawei,http_user_agent_crawler_huawei_petalsearch,petalsearch.com,https://webmaster.petalsearch.com/site/petalbot
+Brave,http_user_agent_crawler_brave_search,search.brave.com,https://search.brave.com/help/brave-search-crawler
+OpenIntel,http_user_agent_crawler_openintel,openintel.nl,https://openintel.nl/webcrawl/
+w3.org,http_user_agent_crawler_w3org_p3p,P3P Validator,https://www.w3.org/P3P/validator.html
+w3.org,http_user_agent_crawler_w3org_w3c,W3C_Validator/,https://validator.w3.org/
+Slack,http_user_agent_crawler_slack,api.slack.com,https://api.slack.com/robots
+GitHub,http_user_agent_crawler_github_camo,github-camo,
+Repology,http_user_agent_crawler_repology,repology.org,https://repology.org/docs/bots
+Serpstat,http_user_agent_crawler_serpastat,serpstatbot.com,https://serpstatbot.com/
+Omigili,http_user_agent_crawler_omigili,Omigili,http://buzz.omgili.com/about.html
+Diffbot,http_user_agent_crawler_diffbot,Diffbot,https://www.diffbot.com/products/crawl/
+Apify,http_user_agent_crawler_apify,apify,https://docs.apify.com/academy/anti-scraping
+Imagesift,http_user_agent_crawler_imagesift,ImagesiftBot,https://imagesift.com/about
+LinkedIn,http_user_agent_crawler_linkedin,LinkedInBot,
+AdsDefender,http_user_agent_crawler_adsdefender,https://adsdefender.com
+CommonCrawl,http_user_agent_crawler_commoncrawl,CCBot,
