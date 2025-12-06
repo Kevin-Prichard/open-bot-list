@@ -44,10 +44,3 @@ jobs:
             echo "> $file"
             go run github.com/Clever/csvlint/cmd/csvlint@v0.3.0 "$file"
           done
-
-
-
-      - name: csvlinter
-        uses: kcheriyath/csvlinter@V0.6.0
-        with:
-          find_pattern: '*.csv'
