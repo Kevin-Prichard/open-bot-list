@@ -44,6 +44,8 @@ jobs:
           FILE_LOG='/tmp/oxl-open-bot-list.log'
           bash scripts/functional_test_downloader.sh | tee -a "$FILE_LOG"
 
+          echo ''
+          echo '### CHECKING FOR ERROR-LOGS ###'
           if grep -E 'ERROR|failed' < "$FILE_LOG"
           then
             exit 1
