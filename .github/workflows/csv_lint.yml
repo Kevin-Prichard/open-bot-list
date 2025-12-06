@@ -27,6 +27,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: 'downloader/go.mod'
+
+      - name: Install dependencies
+        run: |
+          sudo apt install git
+          go install github.com/Clever/csvlint/cmd/csvlint@v0.3.0
+
+      - name: Linting
+        run: |
+          for file in $(find . -type f -name "*.csv")
+          do
+            echo "> $file"
+            go run github.com/Clever/csvlint/cmd/csvlint@v0.3.0 "$file"
+          done
+
+
+
       - name: csvlinter
         uses: kcheriyath/csvlinter@V0.6.0
         with:
