@@ -1,6 +1,5 @@
 "file","kind","match"
 "ai","*","http_user_agent_ai"
-"attacks","*","http_user_agent_attacks"
 "crawler","*","http_user_agent_crawler"
 "ecommerce","*","http_user_agent_ecommerce"
 "monitoring","*","http_user_agent_monitoring"
