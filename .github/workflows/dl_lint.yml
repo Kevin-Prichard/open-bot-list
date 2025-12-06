@@ -1,0 +1,53 @@
+---
+
+name: Lint Downloader
+
+on:
+  push:
+    branches: [latest]
+    paths:
+      - 'downloader/**.go'
+      - 'downloader/.golangci_fail.yml'
+      - 'downloader/.golangci_warn.yml'
+      - '.github/workflows/dl_lint.yml'
+      - 'scripts/lint_downloader.sh'
+  pull_request:
+    branches: [latest]
+    paths:
+      - 'downloader/**.go'
+      - 'downloader/.golangci_fail.yml'
+      - 'downloader/.golangci_warn.yml'
+      - '.github/workflows/dl_lint.yml'
+      - 'scripts/lint_downloader.sh'
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: 'downloader/go.mod'
+
+      # NOTE: not using 'golangci/golangci-lint-action' because of warn/error split
+      - name: Install dependencies
+        run: |
+          sudo apt install curl
+          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/HEAD/install.sh | sh -s -- -b $(go env GOPATH)/bin v2.6.0
+
+      - name: Verifying golangci-lint
+        run: |
+          which golangci-lint
+          golangci-lint version
+
+      - name: Linting
+        run: bash scripts/lint_downloader.sh
