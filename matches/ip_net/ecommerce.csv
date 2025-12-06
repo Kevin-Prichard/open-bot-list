@@ -1,2 +1,2 @@
-"organization","match_name","url","format","jsonpath_rfc9535","jsonpath_jq","docs_url"
-"Stripe","src_net_crawler_ecom_stripe","https://stripe.com/files/ips/ips_webhooks.txt","nlsv","","","https://docs.stripe.com/ips#ip-addresses"
+"organization","match_name","url","format","jsonpath_rfc9535","jsonpath_jq","regex","csv_field","plain","docs_url"
+"Stripe","src_net_crawler_ecom_stripe","https://stripe.com/files/ips/ips_webhooks.txt","nlsv","","","","","","https://docs.stripe.com/ips#ip-addresses"

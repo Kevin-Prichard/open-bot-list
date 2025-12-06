@@ -6,6 +6,9 @@
     </a>
 </p>
 
+[![Lint Downloader](https://github.com/O-X-L/open-bot-list/actions/workflows/dl_lint.yml/badge.svg)](https://github.com/O-X-L/open-bot-list/actions/workflows/dl_lint.yml)
+[![Unit Test Downloader](https://github.com/O-X-L/open-bot-list/actions/workflows/dl_unit_test.yml/badge.svg)](https://github.com/O-X-L/open-bot-list/actions/workflows/dl_unit_test.yml)
+
 This repository is used to collect information that can be used to categorize & match traffic.
 
 We will auto-generate full lists in plaintext and JSON later on!
