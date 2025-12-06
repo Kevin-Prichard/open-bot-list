@@ -1,5 +1,5 @@
-software,match_name,user_agent_sub
-Odin,http_user_agent_scanner_odin,docs.getodin.com,https://docs.getodin.com/
-nmap,http_user_agent_scanner_nmap,nmap,
-Metasploit,http_user_agent_scanner_metasploit,Metasploit,
-Fuzzer tool Ffuf,http_user_agent_scanner_ffuf,Fuzz Faster U Fool,http://github.com/ffuf/ffuf
+"software","match_name","user_agent_sub","docs_url"
+"Odin","http_user_agent_scanner_odin","docs.getodin.com","https://docs.getodin.com/"
+"nmap","http_user_agent_scanner_nmap","nmap",""
+"Metasploit","http_user_agent_scanner_metasploit","Metasploit",""
+"Fuzzer tool Ffuf","http_user_agent_scanner_ffuf","Fuzz Faster U Fool","http://github.com/ffuf/ffuf"

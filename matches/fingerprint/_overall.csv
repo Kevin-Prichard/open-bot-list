@@ -1,0 +1,7 @@
+"file","kind","match"
+"crawler","*","fingerprint_crawler"
+"scanner","*","fingerprint_scanner"
+"script","*","fingerprint_script"
+"crawler","ja4","fingerprint_tls_ja4_crawler"
+"scanner","ja4","fingerprint_tls_ja4_scanner"
+"script","ja4","fingerprint_tls_ja4_script"

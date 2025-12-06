@@ -8,13 +8,6 @@ Be aware that multiple different crawlers and bots can match the same JA4 TLS-fi
 
 * **Crawler** => Organizational crawlers for search engines or cloud-services
 
-  File match: `tls_ja4_crawler`
-
 * **Script** => Default User-Agents HTTP-Client libraries (often used by dumb script-bots) and crawler-libraries without that do not belong to organizations
 
-  File match: `tls_ja4_script`
-
 * **Scanner** => End-user-software and libraries built to scan applications for vulnerabilities (or even attack them)
-
-  File match: `tls_ja4_scanner`
-

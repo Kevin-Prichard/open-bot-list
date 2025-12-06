@@ -1,0 +1,3 @@
+"organization","match_name","ptr_sub","docs_url"
+"Amazon","ptr_crawler_amazon_main",".crawl.amazonbot.amazon",""
+"Pinterest","ptr_crawler_pinterest",".pinterest.com|.pinterestcrawler.com","https://help.pinterest.com/en/business/article/pinterestbot"
