@@ -47,7 +47,7 @@
 "Qwant","http_user_agent_crawler_qwant","Qwantbot/","https://help.qwant.com/bot/"
 "SaaSBrowser","http_user_agent_crawler_saasbrowser","saasbrowser.com","https://saasbrowser.com/bot/"
 "Seekport","http_user_agent_crawler_seekport","bot.seekport.com","https://bot.seekport.com/"
-"Semrush","http_user_agent_crawler_semrush","https://www.semrush.com/bot.html"
+"Semrush","http_user_agent_crawler_semrush","semrush","https://www.semrush.com/bot.html"
 "Yahoo","http_user_agent_crawler_yahoo","Yahoo! Slurp","http://help.yahoo.com/help/us/ysearch/slurp"
 "Yandex","http_user_agent_crawler_yandex_user","YandexUserproxy","http://yandex.com/bots"
 "Yandex","http_user_agent_crawler_yandex","yandex.com","http://yandex.com/bots"

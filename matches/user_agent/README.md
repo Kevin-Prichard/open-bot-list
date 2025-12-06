@@ -12,6 +12,22 @@ All matches should be done case-insensitive!
 
   File match: `http_user_agent_crawler`
 
+* **eCommerce** => Organizational crawlers for eCommerce-related services
+
+  File match: `http_user_agent_ecommerce`
+
+* **Monitoring** => Organizational crawlers for Monitoring-related services
+
+  File match: `http_user_agent_monitoring`
+
+* **Random** => Non-Organizational random crawlers that you might want to block
+
+  File match: `http_user_agent_random`
+
+* **Scanner** => End-user-software and libraries built to scan applications for vulnerabilities (or even run automated attacks)
+
+  File match: `http_user_agent_scanner`
+
 * **Script** => Default User-Agents HTTP-Client libraries (often used by dumb script-bots) and crawler-libraries without that do not belong to organizations
 
   File match: `http_user_agent_script`
@@ -19,9 +35,3 @@ All matches should be done case-insensitive!
 * **Software** => Bots used by end-user-software (not libraries)
 
   File match: `http_user_agent_software`
-
-  Some software is more prone to be used for script-bots (or explicitly designed for it) - these are also listed in 'script'
-
-* **Scanner** => End-user-software and libraries built to scan applications for vulnerabilities (or even attack them)
-
-  File match: `http_user_agent_scanner`

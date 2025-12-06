@@ -1,4 +1,4 @@
 "notes","match_name","user_agent_sub","docs_url"
-"?","bot_script #TODO","ALittle Client",""
-"?","bot_script #TODO","fidget-spinner-bot",""
-"?","bot_script #TODO","tiny-bot",""
+"","http_user_agent_random_alittlecli","ALittle Client",""
+"","http_user_agent_random_fidgetspinner","fidget-spinner-bot",""
+"","http_user_agent_random_tinybot","tiny-bot",""

@@ -1,2 +1,2 @@
-"organization","match_name","user_agent_sub"
-"Stripe","http_user_agent_ecom_stripe","stripe"
+"organization","match_name","user_agent_sub","docs_url"
+"Stripe","http_user_agent_ecom_stripe","stripe",""
