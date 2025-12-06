@@ -42,7 +42,7 @@ jobs:
       - name: Functional Tests
         run: |
           FILE_LOG='/tmp/oxl-open-bot-list.log'
-          bash scripts/unit_test_downloader.sh | tee -a "$FILE_LOG"
+          bash scripts/functional_test_downloader.sh | tee -a "$FILE_LOG"
 
           if grep -E 'ERROR|failed' < "$FILE_LOG"
           then
