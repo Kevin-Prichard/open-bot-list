@@ -39,8 +39,14 @@ jobs:
 
       - name: Linting
         run: |
+          FILE_ERROR='/tmp/oxl-open-bot-list-error.txt'
           for file in $(find . -type f -name "*.csv")
           do
             echo "> $file"
-            go run github.com/Clever/csvlint/cmd/csvlint@v0.3.0 "$file"
+            go run github.com/Clever/csvlint/cmd/csvlint@v0.3.0 "$file" || touch "$FILE_ERROR"
           done
+
+          if [ -f "$FILE_ERROR" ]
+          then
+            exit 1
+          fi
