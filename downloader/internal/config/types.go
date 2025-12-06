@@ -1,4 +1,4 @@
-package internal
+package config
 
 type FormatManifestMatchOverall struct {
 	File  string `csv:"file"`
@@ -20,6 +20,9 @@ type FormatManifestIPNet struct {
 	Format          string   `csv:"format"`
 	JsonPathRFC9535 string   `csv:"jsonpath_rfc9535"`
 	JsonPathJQ      string   `csv:"jsonpath_jq"`
+	Regex           string   `csv:"regex"`
+	CsvField        string   `csv:"csv_field"`
+	Plain           string   `csv:"plain"`
 	DocsUrl         string   `csv:"docs_url"`
 }
 

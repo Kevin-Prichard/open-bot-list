@@ -1,37 +1,14 @@
-package internal
+package manifest
 
 import (
-	"encoding/csv"
 	"fmt"
-	"io"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"git.oxl.at/open-bot-list/downloader/internal/config"
+	"git.oxl.at/open-bot-list/downloader/internal/util"
 )
-
-// ParseCSVFile reads a CSV file from the runtime path, skips the header, and returns the data records.
-func ParseCSVFile(filename string) ([][]string, error) {
-	targetPath := filepath.Join(PATH_RUNTIME, strings.ReplaceAll(filename, "/", "_"))
-
-	f, err := os.Open(targetPath)
-	if err != nil {
-		return nil, fmt.Errorf("failed to open manifest file %s: %w", targetPath, err)
-	}
-	defer f.Close()
-
-	reader := csv.NewReader(f)
-	_, err = reader.Read()
-	if err != nil && err != io.EOF {
-		return nil, fmt.Errorf("failed to read header from %s: %w", targetPath, err)
-	}
-
-	records, err := reader.ReadAll()
-	if err != nil {
-		return nil, fmt.Errorf("failed to read CSV records from %s: %w", targetPath, err)
-	}
-
-	return records, nil
-}
 
 // ProcessFingerprintManifests reads all fingerprint manifests (excluding _overall) and writes the resulting map files.
 // Output format: "<match_name><space><fingerprint>" in "fingerprint_<category>.map"
@@ -43,14 +20,14 @@ func ProcessFingerprintManifests() error {
 		FingerprintCol = 2
 	)
 
-	for category, filename := range FingerprintCategories {
+	for category, filename := range config.FingerprintCategories {
 		if category == "_overall" {
 			continue
 		}
 		outputFileName := fmt.Sprintf("fingerprint_%s.map", category)
-		outputPath := filepath.Join(PATH_OUTPUT, outputFileName)
+		outputPath := filepath.Join(config.PATH_OUTPUT, outputFileName)
 
-		records, err := ParseCSVFile(FILE_PREFIX_MATCH + filename)
+		records, err := util.ParseCSVFile(config.FILE_PREFIX_MATCH + filename)
 		if err != nil {
 			fmt.Printf("   - WARNING: Could not read manifest for category '%s' (%s): %v\n", category, filename, err)
 			continue
@@ -62,7 +39,7 @@ func ProcessFingerprintManifests() error {
 		}
 		defer f.Close()
 
-		fmt.Printf("   - Writing %s (%d records) -> %s\n", filename, len(records), outputFileName)
+		fmt.Printf("   - Writing %s (%d records) -> %s\n", filename, len(records), outputPath)
 
 		for _, record := range records {
 			if len(record) < 3 {
@@ -72,7 +49,7 @@ func ProcessFingerprintManifests() error {
 			matchName := record[MatchNameCol]
 			fingerprintStr := record[FingerprintCol]
 
-			fingerprints := strings.Split(fingerprintStr, VALUE_MULTI_DELIMITER)
+			fingerprints := strings.Split(fingerprintStr, config.VALUE_MULTI_DELIMITER)
 			for _, fp := range fingerprints {
 				fp = strings.TrimSpace(fp)
 				if fp != "" {
@@ -104,8 +81,8 @@ func ProcessOverallFingerprintManifests() error {
 		OverallMatchNameCol  = 2
 	)
 
-	overallFilename := FingerprintCategories["_overall"]
-	overallRecords, err := ParseCSVFile(FILE_PREFIX_MATCH + overallFilename)
+	overallFilename := config.FingerprintCategories["_overall"]
+	overallRecords, err := util.ParseCSVFile(config.FILE_PREFIX_MATCH + overallFilename)
 	if err != nil {
 		return fmt.Errorf("failed to read _overall manifest %s: %w", overallFilename, err)
 	}
@@ -125,7 +102,7 @@ func ProcessOverallFingerprintManifests() error {
 		outputMatchName := overallRecord[OverallMatchNameCol]
 
 		sourceFilename := fmt.Sprintf("fingerprint/%s.csv", sourceFileBaseName)
-		categoryRecords, err := ParseCSVFile(FILE_PREFIX_MATCH + sourceFilename)
+		categoryRecords, err := util.ParseCSVFile(config.FILE_PREFIX_MATCH + sourceFilename)
 		if err != nil {
 			fmt.Printf("   - WARNING: Could not read source manifest '%s' for overall match '%s': %v\n", sourceFilename, outputMatchName, err)
 			continue
@@ -145,7 +122,7 @@ func ProcessOverallFingerprintManifests() error {
 				continue
 			}
 
-			fingerprints := strings.Split(fingerprintStr, VALUE_MULTI_DELIMITER)
+			fingerprints := strings.Split(fingerprintStr, config.VALUE_MULTI_DELIMITER)
 			for _, fp := range fingerprints {
 				fp = strings.TrimSpace(fp)
 				if fp != "" {
@@ -156,7 +133,7 @@ func ProcessOverallFingerprintManifests() error {
 
 		// Write output file: "<match>.lst"
 		outputFileName := fmt.Sprintf("%s.lst", outputMatchName)
-		outputPath := filepath.Join(PATH_OUTPUT, outputFileName)
+		outputPath := filepath.Join(config.PATH_OUTPUT, outputFileName)
 
 		f, err := os.Create(outputPath)
 		if err != nil {
@@ -164,7 +141,7 @@ func ProcessOverallFingerprintManifests() error {
 		}
 		defer f.Close()
 
-		fmt.Printf("   - Writing list of %d fingerprints for match '%s' -> %s\n", len(uniqueFingerprints), outputMatchName, outputFileName)
+		fmt.Printf("   - Writing list of %d fingerprints for match '%s' -> %s\n", len(uniqueFingerprints), outputMatchName, outputPath)
 
 		// Write unique fingerprints, one per line
 		for fp := range uniqueFingerprints {
@@ -193,8 +170,8 @@ func ProcessOverallUserAgentManifests() error {
 		OverallMatchNameCol  = 2
 	)
 
-	overallFilename := UserAgentCategories["_overall"]
-	overallRecords, err := ParseCSVFile(FILE_PREFIX_MATCH + overallFilename)
+	overallFilename := config.UserAgentCategories["_overall"]
+	overallRecords, err := util.ParseCSVFile(config.FILE_PREFIX_MATCH + overallFilename)
 	if err != nil {
 		return fmt.Errorf("failed to read _overall manifest %s: %w", overallFilename, err)
 	}
@@ -214,7 +191,7 @@ func ProcessOverallUserAgentManifests() error {
 		outputMatchName := overallRecord[OverallMatchNameCol]
 
 		sourceFilename := fmt.Sprintf("user_agent/%s.csv", sourceFileBaseName)
-		categoryRecords, err := ParseCSVFile(FILE_PREFIX_MATCH + sourceFilename)
+		categoryRecords, err := util.ParseCSVFile(config.FILE_PREFIX_MATCH + sourceFilename)
 		if err != nil {
 			fmt.Printf("   - WARNING: Could not read source manifest '%s' for overall match: %v\n", sourceFilename, err)
 			continue
@@ -234,7 +211,7 @@ func ProcessOverallUserAgentManifests() error {
 				continue
 			}
 
-			userAgentSubs := strings.Split(userAgentSubStr, VALUE_MULTI_DELIMITER)
+			userAgentSubs := strings.Split(userAgentSubStr, config.VALUE_MULTI_DELIMITER)
 			for _, uas := range userAgentSubs {
 				uas = strings.TrimSpace(uas)
 				if uas != "" {
@@ -245,7 +222,7 @@ func ProcessOverallUserAgentManifests() error {
 
 		// Write output file: "<match_name>_sub.lst"
 		outputFileName := fmt.Sprintf("%s_sub.lst", outputMatchName)
-		outputPath := filepath.Join(PATH_OUTPUT, outputFileName)
+		outputPath := filepath.Join(config.PATH_OUTPUT, outputFileName)
 
 		f, err := os.Create(outputPath)
 		if err != nil {
@@ -253,7 +230,7 @@ func ProcessOverallUserAgentManifests() error {
 		}
 		defer f.Close()
 
-		fmt.Printf("   - Writing list of %d user-agent subs for match '%s' -> %s\n", len(uniqueUserAgentSubs), outputMatchName, outputFileName)
+		fmt.Printf("   - Writing list of %d user-agent subs for match '%s' -> %s\n", len(uniqueUserAgentSubs), outputMatchName, outputPath)
 
 		// Write unique user agent subs, one per line
 		for uas := range uniqueUserAgentSubs {
@@ -280,14 +257,14 @@ func ProcessUserAgentManifests() error {
 		UserAgentSubCol = 2
 	)
 
-	for category, filename := range UserAgentCategories {
+	for category, filename := range config.UserAgentCategories {
 		if category == "_overall" {
 			continue
 		}
 		outputFileName := fmt.Sprintf("http_user_agent_%s_sub.map", category)
-		outputPath := filepath.Join(PATH_OUTPUT, outputFileName)
+		outputPath := filepath.Join(config.PATH_OUTPUT, outputFileName)
 
-		records, err := ParseCSVFile(FILE_PREFIX_MATCH + filename)
+		records, err := util.ParseCSVFile(config.FILE_PREFIX_MATCH + filename)
 		if err != nil {
 			fmt.Printf("   - WARNING: Could not read manifest for category '%s' (%s): %v\n", category, filename, err)
 			continue
@@ -299,7 +276,7 @@ func ProcessUserAgentManifests() error {
 		}
 		defer f.Close()
 
-		fmt.Printf("   - Writing %s (%d records) -> %s\n", filename, len(records), outputFileName)
+		fmt.Printf("   - Writing %s (%d records) -> %s\n", filename, len(records), outputPath)
 
 		for _, record := range records {
 			if len(record) < 3 {
@@ -309,7 +286,7 @@ func ProcessUserAgentManifests() error {
 			matchName := record[MatchNameCol]
 			userAgentSubStr := record[UserAgentSubCol]
 
-			userAgentSubs := strings.Split(userAgentSubStr, VALUE_MULTI_DELIMITER)
+			userAgentSubs := strings.Split(userAgentSubStr, config.VALUE_MULTI_DELIMITER)
 			for _, uas := range userAgentSubs {
 				uas = strings.TrimSpace(uas)
 				if uas != "" {

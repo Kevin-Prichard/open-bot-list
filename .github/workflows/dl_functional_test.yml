@@ -1,19 +1,19 @@
 ---
 
-name: Unit Test Downloader
+name: Functional Tests for Downloader
 
 on:
   push:
     branches: [latest]
     paths:
       - 'downloader/**.go'
-      - '.github/workflows/dl_unit_test.yml'
+      - '.github/workflows/dl_functional_test.yml'
       - 'scripts/unit_test_downloader.sh'
   pull_request:
     branches: [latest]
     paths:
       - 'downloader/**.go'
-      - '.github/workflows/dl_unit_test.yml'
+      - '.github/workflows/dl_functional_test.yml'
       - 'scripts/unit_test_downloader.sh'
   workflow_dispatch:
 
@@ -34,10 +34,17 @@ jobs:
         with:
           go-version-file: 'downloader/go.mod'
 
-      - name: Install dependencies
-        run: |
-          sudo apt install git
-          go install gotest.tools/gotestsum@latest
+      - name: Building Go Binary
+        run: bash scripts/build_downloader.sh
+        env:
+          MODE_TEST: '1'
 
-      - name: Running Go Tests
-        run: bash scripts/unit_test_downloader.sh
+      - name: Functional Tests
+        run: |
+          FILE_LOG='/tmp/oxl-open-bot-list.log'
+          bash scripts/unit_test_downloader.sh | tee -a "$FILE_LOG"
+
+          if grep -E 'ERROR|failed' < "$FILE_LOG"
+          then
+            exit 1
+          fi
