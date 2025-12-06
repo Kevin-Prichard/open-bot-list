@@ -66,5 +66,5 @@
 "Apify","http_user_agent_crawler_apify","apify","https://docs.apify.com/academy/anti-scraping"
 "Imagesift","http_user_agent_crawler_imagesift","ImagesiftBot","https://imagesift.com/about"
 "LinkedIn","http_user_agent_crawler_linkedin","LinkedInBot",""
-"AdsDefender","http_user_agent_crawler_adsdefender","https://adsdefender.com"
+"AdsDefender","http_user_agent_crawler_adsdefender","Adsdefender","https://adsdefender.com"
 "CommonCrawl","http_user_agent_crawler_commoncrawl","CCBot",""
