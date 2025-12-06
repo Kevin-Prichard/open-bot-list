@@ -1,5 +1,5 @@
-""software","match_name","user_agent_sub","docs_url""
-""Akkoma","http_user_agent_software_akkoma","Akkoma","https://akkoma.dev/AkkomaGang/akkoma/"
+"software","match_name","user_agent_sub","docs_url"
+"Akkoma","http_user_agent_software_akkoma","Akkoma","https://akkoma.dev/AkkomaGang/akkoma/"
 "Ansible","http_user_agent_software_ansible","Ansible","https://www.ansible.com"
 "AnyConnect","http_user_agent_software_vpn_anyconnect","AnyConnect",""
 "Dell SonicWALL NetExtender","http_user_agent_software_vpn_sonicwall","Dell SonicWALL NetExtender",""
