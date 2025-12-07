@@ -4,4 +4,7 @@
 "AI Bots","http_user_agent_ai","bot|bot_crawler|crawler_ai_data"
 "Software Bots","http_user_agent_software","bot|bot_software"
 "Crawlers","http_user_agent_crawler","bot|bot_crawler"
-"Empty User-Agent","http_user_agent_empty","bot|bot_script"
+"Fallback Crawler","http_user_agent_random_fallback_crawler","bot|bot_random"
+"Fallback Spider","http_user_agent_random_fallback_spider","bot|bot_random"
+"Fallback Bot","http_user_agent_random_fallback_bot","bot|bot_random"
+"Empty User-Agent","http_user_agent_empty","bot|bot_random"

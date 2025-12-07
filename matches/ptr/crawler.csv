@@ -3,3 +3,5 @@
 "Pinterest","ptr_crawler_pinterest",".pinterest.com|.pinterestcrawler.com","https://help.pinterest.com/en/business/article/pinterestbot"
 "Qwant","ptr_crawler_qwant",".qwant.com","https://help.qwant.com/bot/"
 "CommonCrawl","ptr_crawler_commoncrawl",".crawl.commoncrawl.org","https://commoncrawl.org/ccbot"
+"Google","ptr_crawler_googlebot",".googlebot.com",""
+"Bingbot","ptr_crawler_bingbot",".search.msn.com",""
