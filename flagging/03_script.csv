@@ -1,2 +1,2 @@
 "comment","matching","flags"
-"Script-Bots from Tor-Network","src_net_proxy_tor & tls_ja4_script","bot|bot_script|proxy|proxy_tor"
+"Script-Bots from Tor-Network","src_net_proxy_tor & fingerprint_script_tls_ja4","bot|bot_script"

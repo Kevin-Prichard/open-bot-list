@@ -1,2 +1,2 @@
 "comment","matching","flags"
-"Scanners from Tor-Network","src_net_proxy_tor & tls_ja4_scanner","bot|bot_scanner|proxy|proxy_tor"
+"Scanners from Tor-Network","src_net_proxy_tor & fingerprint_scanner_tls_ja4","bot|bot_scanner"
