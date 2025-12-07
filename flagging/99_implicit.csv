@@ -1,6 +1,6 @@
 "comment","matching","flags"
 "Scanner-Bots","http_user_agent_scanner | tls_ja4_scanner","bot|bot_scanner"
 "Script-Bots","http_user_agent_script | tls_ja4_script","bot|bot_script"
-"AI Bots","http_user_agent_ai","bot|crawler|crawler_ai_data"
+"AI Bots","http_user_agent_ai","bot|bot_crawler|crawler_ai_data"
 "Software Bots","http_user_agent_software","bot|bot_software"
-"Crawlers","http_user_agent_crawler","bot|crawler"
+"Crawlers","http_user_agent_crawler","bot|bot_crawler"

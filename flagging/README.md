@@ -14,7 +14,7 @@ Examples:
 
 * `crawler|crawler_search|org_google` => A crawler, is used for search-engines, the organization is Google
 * `crawler|crawler_ai_data|org_google` => A crawler, gathers data for AI training, the organization is Google
-* `crawler|crawler_search|crawler_ai_search|crawler_user|org_openai` => A crawler, is used for search-engines and user-initiated AI-search, the organization is OpenAI
+* `crawler|crawler_search|crawler_ai_user|crawler_user|org_openai` => A crawler, is used for search-engines and user-initiated AI-search, the organization is OpenAI
 
 ----
 
