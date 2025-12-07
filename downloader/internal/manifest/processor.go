@@ -11,13 +11,13 @@ import (
 )
 
 // ProcessFingerprintManifests reads all fingerprint manifests (excluding _overall) and writes the resulting map files.
-// Output format: "<match_name><space><fingerprint>" in "fingerprint_<category>.map"
+// Output format: "<fingerprint><space><clients>" in "fingerprint_<category>.map"
 func ProcessFingerprintManifests() error {
 	fmt.Println("Processing Fingerprint Manifests...")
 
 	const (
-		MatchNameCol   = 1
 		FingerprintCol = 2
+		ClientCol      = 3
 	)
 
 	for category, filename := range config.FingerprintCategories {
@@ -46,15 +46,15 @@ func ProcessFingerprintManifests() error {
 				continue
 			}
 
-			matchName := record[MatchNameCol]
+			clientName := record[ClientCol]
 			fingerprintStr := record[FingerprintCol]
 
 			fingerprints := strings.Split(fingerprintStr, config.VALUE_MULTI_DELIMITER)
 			for _, fp := range fingerprints {
 				fp = strings.TrimSpace(fp)
 				if fp != "" {
-					// Format: "<match_name><space><fingerprint>"
-					if _, err := fmt.Fprintf(f, "%s %s\n", matchName, fp); err != nil {
+					// Format: "<fingerprint><space><clients>"
+					if _, err := fmt.Fprintf(f, "%s %s\n", fp, clientName); err != nil {
 						return fmt.Errorf("failed to write to file %s: %w", outputPath, err)
 					}
 				}

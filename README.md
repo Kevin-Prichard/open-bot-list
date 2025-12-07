@@ -146,6 +146,13 @@ t12d3805h1_10ed599f3404_aaf95bb78ec9
 t12d1909h2_ab14d9cb224d_70a28de75618
 t13d9112h2_0d5420ba6086_78b3e9c34d1f
 
+rath@gate:~ head -n 5 /tmp/oxl-open-bot-list-out/fingerprint_script.map 
+t13i4311h1_c7886603b240_b26ce05bbdd6 python-requests
+t13i3111h1_e8f1e7e78f70_d41ae481755e Python aiohttp
+t13i3111h1_e8f1e7e78f70_b26ce05bbdd6 python-requests
+t13i181000_85036bcba153_d41ae481755e Python-urllib
+t13i1712h1_ab0a1bf427ad_ecd0401ec68b Python aiohttp
+
 rath@gate:~ tree /tmp/oxl-open-bot-list-out
 /tmp/oxl-open-bot-list-out
 ├── fingerprint_crawler.lst
