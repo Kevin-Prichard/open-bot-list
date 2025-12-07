@@ -97,11 +97,55 @@ Currently, these kinds of files are generated:
 * ASN Lists ([Categorization: Hosting providers, ISPs, Education](https://github.com/O-X-L/risk-db-lists/tree/main/asn))
 * PTR's for crawler-verification
 
+#### IP/Network-List Validation & Sanitization
+
+These processing steps are performed:
+
+* Bogon networks are skipped (*internal ranges and so on*)
+* Invalid IPs/Networks are skipped
+* You will see a warning if many IPs are included in a list (*>10_000 for now*)
+* Where possible - Networks are summarized (*p.e. 10.0.0.0/24, 10.0.1.0/24, 10.0.1.1/32 = 10.0.0.0/23*)
+
 #### Example
 
 <details>
 
 ```bash
+rath@gate:~ head -n 5 /tmp/oxl-open-bot-list-out/http_user_agent_ai_sub.map 
+http_user_agent_crawler_google_aidata1 Google-Extended
+http_user_agent_crawler_google_aidata2 Google-LLM-Research
+http_user_agent_crawler_google_aiuser1 Google-CloudVertexBot
+http_user_agent_crawler_google_aiuser2 GoogleAI-ContentFetcher
+http_user_agent_crawler_google_aidata3 Gemini-Deep-Research
+
+rath@gate:~ head -n 5 /tmp/oxl-open-bot-list-out/http_user_agent_ai_sub.lst 
+Applebot-Extended
+Amazonbot
+Perplexity-User
+AliyunSecBot
+Google-CloudVertexBot
+
+rath@gate:~ head -n 5 /tmp/oxl-open-bot-list-out/src_net_crawler_google_common_net4.lst 
+34.22.85.0/27
+34.64.82.64/28
+34.65.242.112/28
+34.80.50.80/28
+34.88.194.0/28
+
+rath@gate:~ head -n 5 /tmp/oxl-open-bot-list-out/src_net_crawler_google_common_net6.lst 
+2001:4860:4801:2::/64
+2001:4860:4801:c::/64
+2001:4860:4801:f::/64
+2001:4860:4801:10::/64
+2001:4860:4801:12::/63
+
+rath@gate:~ head -n 5 /tmp/oxl-open-bot-list-out/fingerprint_script_tls_ja4.lst 
+t13d1909h2_9dc949149365_97f8aa674fd9
+t13d181100_85036bcba153_24695f2957a7
+t12d3805h1_10ed599f3404_aaf95bb78ec9
+t12d1909h2_ab14d9cb224d_70a28de75618
+t13d9112h2_0d5420ba6086_78b3e9c34d1f
+
 rath@gate:~ tree /tmp/oxl-open-bot-list-out
 /tmp/oxl-open-bot-list-out
 ├── fingerprint_crawler.lst
