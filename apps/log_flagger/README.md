@@ -8,6 +8,16 @@ In an enterprise-grade environment you can include such flagging in your log-pip
 
 ----
 
+## Setup
+
+It is a simple single binary file that can be executed. No install required.
+
+Download: [Releases](https://github.com/O-X-L/open-bot-list/releases)
+
+Or build [with Go](https://go.dev/doc/install): `cd apps/log_flagger/ && go build -o './open-bot-list-flagger' ./cmd/main.go`
+
+----
+
 ## Usage
 
 ```bash

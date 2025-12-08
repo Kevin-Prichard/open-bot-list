@@ -4,25 +4,26 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 BASE_DIR="$(pwd)"
+BUILD_DIR="${BASE_DIR}/build"
 
-mkdir -p "../build"
+mkdir -p "$BUILD_DIR"
 
-rm -f ../build/*
+rm -f "$BUILD_DIR"/*
 
 APP_PREFIX="open-bot-list"
 
 function compile() {
     app="${APP_PREFIX}-$1" os="$2" arch="$3"
     echo "COMPILING BINARY FOR ${os}-${arch}"
-    GOOS="$os" GOARCH="$arch" go build -o "../build/${app}-${os}-${arch}" ./cmd/main.go
-    GOOS="$os" GOARCH="$arch" CGO_ENABLED=0 go build -o "../build/${app}-${os}-${arch}-CGO0" ./cmd/main.go
+    GOOS="$os" GOARCH="$arch" go build -o "${BUILD_DIR}/${app}-${os}-${arch}" ./cmd/main.go
+    GOOS="$os" GOARCH="$arch" CGO_ENABLED=0 go build -o "${BUILD_DIR}/${app}-${os}-${arch}-CGO0" ./cmd/main.go
     if [[ "$os" == "windows" ]]
     then
-        zip "../build/${app}-${os}-${arch}.zip" "../build/${app}-${os}-${arch}"
-        zip "../build/${app}-${os}-${arch}-CGO0.zip" "../build/${app}-${os}-${arch}-CGO0"
+        zip "${BUILD_DIR}/${app}-${os}-${arch}.zip" "${BUILD_DIR}/${app}-${os}-${arch}"
+        zip "${BUILD_DIR}/${app}-${os}-${arch}-CGO0.zip" "${BUILD_DIR}/${app}-${os}-${arch}-CGO0"
     else
-        tar -czf "../build/${app}-${os}-${arch}.tar.gz" "../build/${app}-${os}-${arch}"
-        tar -czf "../build/${app}-${os}-${arch}-CGO0.tar.gz" "../build/${app}-${os}-${arch}-CGO0"
+        tar -czf "${BUILD_DIR}/${app}-${os}-${arch}.tar.gz" "${BUILD_DIR}/${app}-${os}-${arch}"
+        tar -czf "${BUILD_DIR}/${app}-${os}-${arch}-CGO0.tar.gz" "${BUILD_DIR}/${app}-${os}-${arch}-CGO0"
     fi
 }
 

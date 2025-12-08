@@ -20,7 +20,7 @@ It is a simple single binary file that can be executed. No install required.
 
 Download: [Releases](https://github.com/O-X-L/open-bot-list/releases)
 
-Or build [with Go](https://go.dev/doc/install): `cd downloader/ && go build -o './open-bot-list-downloader' ./cmd/main.go`
+Or build [with Go](https://go.dev/doc/install): `cd apps/downloader/ && go build -o './open-bot-list-downloader' ./cmd/main.go`
 
 ----
 
