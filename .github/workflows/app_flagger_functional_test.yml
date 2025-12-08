@@ -1,20 +1,20 @@
 ---
 
-name: Functional Tests for Downloader
+name: Functional Tests for Log-Flagger
 
 on:
   push:
     branches: [latest]
     paths:
-      - 'downloader/**.go'
-      - '.github/workflows/dl_functional_test.yml'
-      - 'scripts/unit_test_downloader.sh'
+      - 'apps/log_flagger/**.go'
+      - '.github/workflows/app_flagger_functional_test.yml'
+      - 'scripts/functional_test_flagger.sh'
   pull_request:
     branches: [latest]
     paths:
-      - 'downloader/**.go'
-      - '.github/workflows/dl_functional_test.yml'
-      - 'scripts/unit_test_downloader.sh'
+      - 'apps/log_flagger/**.go'
+      - '.github/workflows/app_flagger_functional_test.yml'
+      - 'scripts/functional_test_flagger.sh'
   workflow_dispatch:
 
 jobs:
@@ -32,17 +32,17 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v6
         with:
-          go-version-file: 'downloader/go.mod'
+          go-version-file: 'apps/log_flagger/go.mod'
 
       - name: Building Go Binary
-        run: bash scripts/build_downloader.sh
+        run: bash scripts/build_apps.sh
         env:
           MODE_TEST: '1'
 
       - name: Functional Tests
         run: |
           FILE_LOG='/tmp/oxl-open-bot-list.log'
-          bash scripts/functional_test_downloader.sh | tee -a "$FILE_LOG"
+          bash scripts/functional_test_flagger.sh | tee -a "$FILE_LOG"
 
           echo ''
           echo '### CHECKING FOR ERROR-LOGS ###'

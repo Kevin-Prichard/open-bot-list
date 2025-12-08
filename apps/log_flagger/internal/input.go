@@ -1,0 +1,38 @@
+package internal
+
+import (
+	"encoding/csv"
+	"os"
+
+	"git.oxl.at/open-bot-list/log_flagger/internal/config"
+)
+
+// OpenInputFile opens a CSV file and returns a pointer to the os.File and a CSV reader.
+func OpenInputFile(filePath string) (*os.File, *csv.Reader, []string, error) { // Updated function signature
+	file, err := os.Open(filePath)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+
+	reader := csv.NewReader(file)
+	reader.FieldsPerRecord = 0
+
+	header, err := reader.Read() // Capture the header
+	if err != nil {
+		file.Close()
+		return nil, nil, nil, err
+	}
+
+	return file, reader, header, nil
+}
+
+// ParseRecord takes a CSV record (slice of strings) and maps it to a LogEntry struct.
+func ParseRecord(record []string) config.LogEntry {
+	// todo: let user set the field-indices
+	return config.LogEntry{
+		ClientIP:       record[config.CSV_FIELD_CLIENT_IP],
+		FingerprintJA4: record[config.CSV_FIELD_FP_JA4],
+		UserAgent:      record[config.CSV_FIELD_UA],
+		AllFields:      record,
+	}
+}

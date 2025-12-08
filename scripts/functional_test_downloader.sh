@@ -30,6 +30,7 @@ OUT_FILES_EXIST=(
 
 rm -f "${PATH_RUN}/"* "${PATH_OUT}/"* "$FILE_ERROR"
 
+echo '### RUNNING ###'
 build/downloader -output-dir="$PATH_OUT" -runtime-dir="$PATH_RUN"
 
 function checkFile() {
@@ -46,6 +47,7 @@ function checkFile() {
   fi
 }
 
+echo '### CHECKING ###'
 for f in "${RUN_FILES_EXIST[@]}"
 do
   checkFile "${PATH_RUN}/${f}"

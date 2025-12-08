@@ -19,7 +19,7 @@ function lint() {
   echo -e '\033[0;33m'
   echo 'WARNINGS:'
   echo ''
-  warnings="$(golangci-lint --config=.golangci_warn.yml run || true)"
+  warnings="$(golangci-lint --config="${BASE_DIR}/.golangci_warn.yml" run || true)"
   if [[ "$CI" == "0" ]]
   then
     echo "$warnings"
@@ -32,9 +32,20 @@ function lint() {
   echo ''
   echo 'ERRORS:'
   echo ''
-  golangci-lint --config=.golangci_fail.yml run
+  golangci-lint --config="${BASE_DIR}/.golangci_fail.yml" run
   echo -e '\033[0m'
 }
 
-cd "${BASE_DIR}/downloader/"
+echo ''
+echo '### DOWNLOADER ###'
+echo ''
+
+cd "${BASE_DIR}/apps/downloader/"
+lint
+
+echo ''
+echo '### LOG-FLAGGER ###'
+echo ''
+
+cd "${BASE_DIR}/apps/log_flagger/"
 lint

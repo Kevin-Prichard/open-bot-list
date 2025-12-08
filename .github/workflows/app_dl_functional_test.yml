@@ -1,0 +1,52 @@
+---
+
+name: Functional Tests for Downloader
+
+on:
+  push:
+    branches: [latest]
+    paths:
+      - 'apps/downloader/**.go'
+      - '.github/workflows/app_dl_functional_test.yml'
+      - 'scripts/functional_test_downloader.sh'
+  pull_request:
+    branches: [latest]
+    paths:
+      - 'apps/downloader/**.go'
+      - '.github/workflows/app_dl_functional_test.yml'
+      - 'scripts/functional_test_downloader.sh'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: 'apps/downloader/go.mod'
+
+      - name: Building Go Binary
+        run: bash scripts/build_apps.sh
+        env:
+          MODE_TEST: '1'
+
+      - name: Functional Tests
+        run: |
+          FILE_LOG='/tmp/oxl-open-bot-list.log'
+          bash scripts/functional_test_downloader.sh | tee -a "$FILE_LOG"
+
+          echo ''
+          echo '### CHECKING FOR ERROR-LOGS ###'
+          if grep -E 'ERROR|failed' < "$FILE_LOG"
+          then
+            exit 1
+          fi

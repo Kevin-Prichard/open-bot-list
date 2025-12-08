@@ -2,31 +2,38 @@
 
 set -euo pipefail
 
-cd "$(dirname "$0")/../downloader"
+cd "$(dirname "$0")/.."
+BASE_DIR="$(pwd)"
 
 mkdir -p "../build"
 
 rm -f ../build/*
 
-APP_NAME="open-bot-list-downloader"
+APP_PREFIX="open-bot-list"
 
 function compile() {
-    os="$1" arch="$2"
+    app="${APP_PREFIX}-$1" os="$2" arch="$3"
     echo "COMPILING BINARY FOR ${os}-${arch}"
-    GOOS="$os" GOARCH="$arch" go build -o "../build/${APP_NAME}-${os}-${arch}" ./cmd/main.go
-    GOOS="$os" GOARCH="$arch" CGO_ENABLED=0 go build -o "../build/${APP_NAME}-${os}-${arch}-CGO0" ./cmd/main.go
+    GOOS="$os" GOARCH="$arch" go build -o "../build/${app}-${os}-${arch}" ./cmd/main.go
+    GOOS="$os" GOARCH="$arch" CGO_ENABLED=0 go build -o "../build/${app}-${os}-${arch}-CGO0" ./cmd/main.go
     if [[ "$os" == "windows" ]]
     then
-        zip "../build/${APP_NAME}-${os}-${arch}.zip" "../build/${APP_NAME}-${os}-${arch}"
-        zip "../build/${APP_NAME}-${os}-${arch}-CGO0.zip" "../build/${APP_NAME}-${os}-${arch}-CGO0"
+        zip "../build/${app}-${os}-${arch}.zip" "../build/${app}-${os}-${arch}"
+        zip "../build/${app}-${os}-${arch}-CGO0.zip" "../build/${app}-${os}-${arch}-CGO0"
     else
-        tar -czf "../build/${APP_NAME}-${os}-${arch}.tar.gz" "../build/${APP_NAME}-${os}-${arch}"
-        tar -czf "../build/${APP_NAME}-${os}-${arch}-CGO0.tar.gz" "../build/${APP_NAME}-${os}-${arch}-CGO0"
+        tar -czf "../build/${app}-${os}-${arch}.tar.gz" "../build/${app}-${os}-${arch}"
+        tar -czf "../build/${app}-${os}-${arch}-CGO0.tar.gz" "../build/${app}-${os}-${arch}-CGO0"
     fi
 }
 
+echo ''
+echo '### DOWNLOADER ###'
+echo ''
+
+cd "${BASE_DIR}/apps/downloader"
+
 #compile "linux" "386"
-compile "linux" "amd64"
+compile "downloader" "linux" "amd64"
 #compile "linux" "arm"
 #compile "linux" "arm64"
 
@@ -44,3 +51,10 @@ compile "linux" "amd64"
 
 #compile "windows" "386"
 #compile "windows" "amd64"
+
+echo ''
+echo '### LOG-FLAGGER ###'
+echo ''
+
+cd "${BASE_DIR}/apps/log_flagger"
+compile "log_flagger" "linux" "amd64"

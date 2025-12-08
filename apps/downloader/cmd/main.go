@@ -13,10 +13,10 @@ import (
 )
 
 func main() {
-	fmt.Printf("\nOXL Open-Bot-List Downloader\n")
+	fmt.Printf("\nOXL Open-Bot-List Downloader v%s\n", config.VERSION)
 	fmt.Println("> © OXL IT Services / Rath Pascal")
 	fmt.Println("> git.oxl.at/open-bot-list")
-	fmt.Printf("> License: BSD-3-Clause\n\n")
+	fmt.Printf("> License: GPLv3\n\n")
 
 	flag.StringVar(&config.PATH_RUNTIME, "runtime-dir", filepath.Join(os.TempDir(), "oxl-open-bot-list"), "Runtime directory to store downloaded manifest files.")
 	flag.StringVar(&config.PATH_OUTPUT, "output-dir", "", "Output directory for processed data (required).")

@@ -6,19 +6,19 @@ on:
   push:
     branches: [latest]
     paths:
-      - 'downloader/**.go'
-      - 'downloader/.golangci_fail.yml'
-      - 'downloader/.golangci_warn.yml'
-      - '.github/workflows/dl_lint.yml'
-      - 'scripts/lint_downloader.sh'
+      - '**.go'
+      - '.golangci_fail.yml'
+      - '.golangci_warn.yml'
+      - '.github/workflows/apps_lint.yml'
+      - 'scripts/lint_apps.sh'
   pull_request:
     branches: [latest]
     paths:
-      - 'downloader/**.go'
-      - 'downloader/.golangci_fail.yml'
-      - 'downloader/.golangci_warn.yml'
-      - '.github/workflows/dl_lint.yml'
-      - 'scripts/lint_downloader.sh'
+      - '**.go'
+      - '.golangci_fail.yml'
+      - '.golangci_warn.yml'
+      - '.github/workflows/apps_lint.yml'
+      - 'scripts/lint_apps.sh'
   workflow_dispatch:
 
 jobs:
@@ -36,7 +36,12 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v6
         with:
-          go-version-file: 'downloader/go.mod'
+          go-version-file: 'apps/downloader/go.mod'
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: 'apps/log_flagger/go.mod'
 
       # NOTE: not using 'golangci/golangci-lint-action' because of warn/error split
       - name: Install dependencies
@@ -50,4 +55,4 @@ jobs:
           golangci-lint version
 
       - name: Linting
-        run: bash scripts/lint_downloader.sh
+        run: bash scripts/lint_apps.sh
