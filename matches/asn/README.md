@@ -1,6 +1,41 @@
 # Open Bot List - ASN's
 
-For now see: [OXL IP-Abuse Database Lists](https://github.com/O-X-L/risk-db-lists/tree/main/asn)
+Information base-source: [OXL IP-Abuse Database Lists](https://github.com/O-X-L/risk-db-lists/tree/main/asn)
+
+## Guidelines
+
+ASN-Flagging can be tough because one organization can provide many services and only use one ASN.
+
+An ASN can be defined as:
+
+* **One Kind**:
+  * **ISP**
+    (*provides Internet-Access to end-users and businesses*)
+  * **Hosting**
+    (*server hosting for 3rd-parties, VPS, Serverless functions like Cloud-provider*)
+  * **Education**
+    (*Universities and so on*)
+
+* **Multiple Services**:
+  These have to be major services. Optimally a service that the ASN-owner-organization (*ASN-org*) itself provides.
+
+  * **Cloud**
+    (*if more than just server hosting/VPS*)
+  * **CDN**
+    (*the ASN-org provides a CDN service*)
+  * **VPN**
+    (*only if the ASN-org itself provides a VPN or large 'players' are using this ASN - some end-users running a VPN on a hosting-provider is not a valid*)
+  * **Proxy**
+    (*same as VPN - only if the ASN is specialized in it*)
+  * **Crawler**
+    (*the ASN-org itself provides services that crawl websites to gather information - examples: Search engine, Social Media*)
+  * **Scanner**
+    (*the ASN-org itself provides services that probe/scan networks and hosts to gather information - example: Attack surface checker*)
+
+----
+
+## How to Use
+
 
 You can look-up the ASN of IPs by using a GeoIP-Database: (*offline recommended for performance*)
 

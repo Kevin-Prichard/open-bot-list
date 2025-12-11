@@ -10,7 +10,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 BASE_DIR="$(pwd)"
 
-PATH_OUT="$(pwd)/build"
+PATH_OUT="${BASE_DIR}/build"
 mkdir -p "$PATH_OUT"
 
 echo ''

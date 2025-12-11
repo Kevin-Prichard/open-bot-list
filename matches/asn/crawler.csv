@@ -1,0 +1,6 @@
+"asn","organization","match_name","comment"
+"32934","Meta","src_asn_crawler_meta","Facebook & Meta-AI"
+"38365","Baidu","src_asn_crawler_baidu","Baidu Search-Engine & AI"
+"13238","Yandex","src_asn_crawler_yandex","Yandex Search-Engine"
+"8075","Microsoft","src_asn_crawler_microsoft_bing","MSN Bing Search-Engine, Warning: Crawler matching should be done via IP-Lists"
+"15169","Google","src_asn_crawler_google","Google Search-Engine, Warning: also includes GCP! Crawler matching should be done via IP-Lists"

@@ -1,0 +1,8 @@
+* Report-back bad matches (crawler, scanner) to Risk-DB
+* Script to
+  * Auto-format ASN-lists including match-names
+  * Add comments for auto-detection
+* Check for validity and add comments:
+  * Hosting
+  * ISP
+  * Education
