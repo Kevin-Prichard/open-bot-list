@@ -2,35 +2,57 @@
 
 Information base-source: [OXL IP-Abuse Database Lists](https://github.com/O-X-L/risk-db-lists/tree/main/asn)
 
-## Guidelines
+----
+
+## Differentiation
 
 ASN-Flagging can be tough because one organization can provide many services and only use one ASN.
 
-An ASN can be defined as:
+### Main Kind
 
-* **One Kind**:
-  * **ISP**
-    (*provides Internet-Access to end-users and businesses*)
-  * **Hosting**
-    (*server hosting for 3rd-parties, VPS, Serverless functions like Cloud-provider*)
-  * **Education**
-    (*Universities and so on*)
+An ASN can only be flagged as one of these:
 
-* **Multiple Services**:
-  These have to be major services. Optimally a service that the ASN-owner-organization (*ASN-org*) itself provides.
+* **Hosting** => server hosting for 3rd-parties, VPS, Serverless functions like Cloud-provider
 
-  * **Cloud**
-    (*if more than just server hosting/VPS*)
-  * **CDN**
-    (*the ASN-org provides a CDN service*)
-  * **VPN**
-    (*only if the ASN-org itself provides a VPN or large 'players' are using this ASN - some end-users running a VPN on a hosting-provider is not a valid*)
-  * **Proxy**
-    (*same as VPN - only if the ASN is specialized in it*)
-  * **Crawler**
-    (*the ASN-org itself provides services that crawl websites to gather information - examples: Search engine, Social Media*)
-  * **Scanner**
-    (*the ASN-org itself provides services that probe/scan networks and hosts to gather information - example: Attack surface checker*)
+  File match: `src_asn_hosting`
+
+* **ISP** => provides Internet-Access to end-users and businesses
+
+  File match: `src_asn_isp`
+
+* **Education** => Universities and so on
+
+  File match: `src_asn_edu`
+
+### Services
+
+These have to be major services.
+
+Optimally a service that the ASN-owner-organization (*ASN-org*) itself provides.
+
+* **Cloud** => the ASN-org does more than just server hosting/VPS
+
+  File match: `src_asn_cloud`
+
+* **CDN** => the ASN-org provides a CDN service
+
+  File match: `src_asn_cdn`
+
+* **VPN** => only if the ASN-org itself provides a VPN or large 'players' are using this ASN - some end-users running a VPN on a hosting-provider is not a valid
+
+  File match: `src_asn_vpn`
+
+* **Proxy** => same as VPN - only if the ASN is specialized in it
+
+  File match: `src_asn_proxy`
+
+* **Crawler** => the ASN-org itself provides services that crawl websites to gather information - examples: Search engine, Social Media
+
+  File match: `src_asn_crawler`
+
+* **Scanner** => the ASN-org itself provides services that probe/scan networks and hosts to gather information - example: Attack surface checker
+
+  File match: `src_asn_scanner`
 
 ----
 
