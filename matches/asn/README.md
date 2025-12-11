@@ -37,7 +37,7 @@ An ASN can be defined as:
 ## How to Use
 
 
-You can look-up the ASN of IPs by using a GeoIP-Database: (*offline recommended for performance*)
+You can lookup the ASN of IPs by using a GeoIP-Database: (*offline recommended for performance*)
 
 * Our [GeoIP-ASN Database](https://github.com/O-X-L/geoip-asn)
 * [IPInfo](https://ipinfo.io/)
@@ -47,4 +47,9 @@ If your system lacks GeoIP-lookup capabilities - you are able to translate AS-nu
 
 * Our [GeoIP-ASN Database](https://github.com/O-X-L/geoip-asn) ([API](https://geoip.oxl.app))
 
-* The `whois` cli-tool: `whois -h whois.radb.net -- '-i origin AS<NUMBER>' | grep ^route | awk '{gsub("(route:|route6:)","");print}' | awk '{gsub(/ /,""); print}'`
+* The `whois` cli-tool:
+
+  ```bash
+  sudo apt install whois
+  whois -h whois.radb.net -- '-i origin AS<NUMBER>' | grep -E '^(route:|route6:)' | tr -d ' ' | cut -d ':' -f2-
+  ```
