@@ -28,7 +28,7 @@ OXL Open-Bot-List Log-Flagger v1.0
 > git.oxl.at/open-bot-list
 > License: GPLv3
 
-Usage of build/log_flagger:
+Usage of ./log_flagger:
   -csv-field-client-ip int
         Index of the CSV-Field containing the timestamp. (default 0)
   -csv-field-fp-ja4 int

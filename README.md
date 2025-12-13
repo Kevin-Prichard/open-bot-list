@@ -18,18 +18,19 @@ We will auto-generate full lists in plaintext and JSON later on!
 
 ----
 
-## Contribute
+## Why
 
-Contributions are very welcome.
+For traffic-filtering rulesets it is essential to categorize requests.
 
-If you:
+This can allow you to easily restrict traffic from client-categories you do not want.
 
-* know of official IP-Lists we missed
-* found other missing/incorrect information
+**TLDR; What can you expect**:
 
-..feel free to either [open a ticket](https://github.com/O-X-L/open-bot-list/issues) or [email us directly](mailto://contact+openbotlist@OXL.at)
+* Detecting different kinds of bots
+* Validating crawler-bots - detecting spoofed crawlers
+* Categorizing the source-networks
 
----
+----
 
 ## How it works
 
@@ -38,7 +39,7 @@ To transparently match & categorize bots we need to combine:
 * **Traffic Matches**
   * Matching the source-IP with IP- or ASN-Lists
     * Separating different kinds of bots by their HTTP User-Agent (*if they use the same IP-range*)
-    * Categorizing the source-IP into hosting/vpn/isp/proxy/isp-cgnat (*not that easy.. (; *)
+    * Categorizing the source-networks into Hosting/ISP/Education/Cloud/CDN/VPN/Proxy/Scanner/CGNAT
   * Separating different bot-categories like:
     `script bots`, `hidden bots`, `search-engine crawlers`, `AI-data crawlers`, `AI-user crawlers`, `social-media crawlers`, `crawlers for ADs`, `crawlers for ecommerce`, and so on
 
@@ -64,6 +65,19 @@ See: [Downloader README](https://github.com/O-X-L/open-bot-list/blob/latest/apps
 ## Log-Flagger Application
 
 See: [Log-Flagger README](https://github.com/O-X-L/open-bot-list/blob/latest/apps/log_flagger/README.md)
+
+----
+
+## Contribute
+
+Contributions are very welcome.
+
+If you:
+
+* know of official IP-Lists we missed
+* found other missing/incorrect information
+
+..feel free to either [open a ticket](https://github.com/O-X-L/open-bot-list/issues) or [email us directly](mailto://contact+openbotlist@OXL.at)
 
 ----
 

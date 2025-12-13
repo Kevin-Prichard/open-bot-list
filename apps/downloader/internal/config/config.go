@@ -11,7 +11,7 @@ const (
 	USER_AGENT_STRING     = "OXL Open-Bot-List (http://git.oxl.at/open-bot-list)"
 	FILE_PREFIX_MATCH     = "match_"
 	FILE_PREFIX_IPLIST    = "iplist_"
-	VERSION               = "1.0"
+	VERSION               = "1.1"
 )
 
 var (
@@ -52,4 +52,17 @@ var UserAgentCategories = map[string]string{
 	"scanner":    "user_agent/scanner.csv",
 	"script":     "user_agent/script.csv",
 	"software":   "user_agent/software.csv",
+}
+
+var ASNCategories = map[string]string{
+	"_overall":  "asn/_overall.csv",
+	"cdn":       "asn/cdn.csv",
+	"cloud":     "asn/cloud.csv",
+	"crawler":   "asn/crawler.csv",
+	"education": "asn/education.csv",
+	"hosting":   "asn/hosting.csv",
+	"isp":       "asn/isp.csv",
+	"proxy":     "asn/proxy.csv",
+	"scanner":   "asn/scanner.csv",
+	"vpn":       "asn/vpn.csv",
 }

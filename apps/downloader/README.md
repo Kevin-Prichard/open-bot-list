@@ -29,12 +29,12 @@ Or build [with Go](https://go.dev/doc/install): `cd apps/downloader/ && go build
 ```bash
 rath@gate:~ ./open-bot-list-downloader
 
-OXL Open-Bot-List Downloader v1.0
+OXL Open-Bot-List Downloader v1.1
 > © OXL IT Services / Rath Pascal
 > git.oxl.at/open-bot-list
 > License: GPLv3
 
-Usage of build/downloader:
+Usage of ./downloader:
   -output-dir string
         Output directory for processed data (required).
   -runtime-dir string
@@ -47,7 +47,7 @@ Usage of build/downloader:
 
 Currently, these kinds of files are generated:
 
-* **User-Agents / Fingerprints:**
+* **User-Agents / Fingerprints / PTR's / ASN's:**
   * Map-files: maps `match_name` to the value to match
   * Lists: the whole file is a `match_name` - all values inside it need to be checked 
 
@@ -55,11 +55,6 @@ Currently, these kinds of files are generated:
   * IPv4 Networks in CIDR
   * IPv6 Networks in CIDR
   * IPv4 & IPv6 Networks in CIDR combined
-
-**Roadmap**:
-
-* ASN Lists ([Categorization: Hosting providers, ISPs, Education](https://github.com/O-X-L/risk-db-lists/tree/main/asn))
-* PTR's for crawler-verification
 
 ### IP/Network-List Validation & Sanitization
 

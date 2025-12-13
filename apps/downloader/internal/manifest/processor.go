@@ -158,31 +158,27 @@ func ProcessOverallFingerprintManifests() error {
 	return nil
 }
 
-// ProcessOverallUserAgentManifests reads the overall user agent manifest to generate
-// a list of unique user agent subs, filtered by 'kind' (Organization), for each source file.
-// Output format: "<user_agent_sub>" (one per line) in a file named "<match_name>_sub.lst"
-func ProcessOverallUserAgentManifests() error {
-	fmt.Println("Processing Overall User Agent Manifest...")
+// ProcessOverallPTRManifests reads the overall PTR-manifest to generate
+// a list of unique values, filtered by 'kind' for each source file.
+// Output format: "<value>" (one per line) in a file named "<match_name><outAppend>.lst"
+func ProcessOverallGenericManifests(categoryConfig map[string]string, categoryName string, cols int, kindCol int, valueCol int, outAppend string) error {
+	fmt.Println("Processing Overall Generic Manifest...")
 
 	const (
 		OverallFileCol       = 0
 		OverallKindFilterCol = 1
 		OverallMatchNameCol  = 2
+		OverallCols          = 3
 	)
 
-	overallFilename := config.UserAgentCategories["_overall"]
+	overallFilename := categoryConfig["_overall"]
 	overallRecords, err := util.ParseCSVFile(config.FILE_PREFIX_MATCH + overallFilename)
 	if err != nil {
 		return fmt.Errorf("failed to read _overall manifest %s: %w", overallFilename, err)
 	}
 
-	const (
-		CategoryOrganizationCol = 0
-		CategoryUserAgentSubCol = 2
-	)
-
 	for _, overallRecord := range overallRecords {
-		if len(overallRecord) < 3 {
+		if len(overallRecord) < OverallCols {
 			continue
 		}
 
@@ -190,38 +186,37 @@ func ProcessOverallUserAgentManifests() error {
 		kindFilter := overallRecord[OverallKindFilterCol]
 		outputMatchName := overallRecord[OverallMatchNameCol]
 
-		sourceFilename := fmt.Sprintf("user_agent/%s.csv", sourceFileBaseName)
+		sourceFilename := fmt.Sprintf("%s/%s.csv", categoryName, sourceFileBaseName)
 		categoryRecords, err := util.ParseCSVFile(config.FILE_PREFIX_MATCH + sourceFilename)
 		if err != nil {
 			fmt.Printf("   - WARNING: Could not read source manifest '%s' for overall match: %v\n", sourceFilename, err)
 			continue
 		}
 
-		uniqueUserAgentSubs := make(map[string]struct{})
+		uniqueValues := make(map[string]struct{})
 
 		for _, record := range categoryRecords {
-			if len(record) < 3 {
+			if len(record) < cols {
 				continue
 			}
 
-			recordOrganization := record[CategoryOrganizationCol]
-			userAgentSubStr := record[CategoryUserAgentSubCol]
+			recordOrganization := record[kindCol]
+			multiValues := record[valueCol]
 
 			if kindFilter != "*" && recordOrganization != kindFilter {
 				continue
 			}
 
-			userAgentSubs := strings.Split(userAgentSubStr, config.VALUE_MULTI_DELIMITER)
-			for _, uas := range userAgentSubs {
-				uas = strings.TrimSpace(uas)
-				if uas != "" {
-					uniqueUserAgentSubs[uas] = struct{}{}
+			for _, value := range strings.Split(multiValues, config.VALUE_MULTI_DELIMITER) {
+				value = strings.TrimSpace(value)
+				if value != "" {
+					uniqueValues[value] = struct{}{}
 				}
 			}
 		}
 
-		// Write output file: "<match_name>_sub.lst"
-		outputFileName := fmt.Sprintf("%s_sub.lst", outputMatchName)
+		// Write output file: "<match_name><outAppend>.lst"
+		outputFileName := fmt.Sprintf("%s%s.lst", outputMatchName, outAppend)
 		outputPath := filepath.Join(config.PATH_OUTPUT, outputFileName)
 
 		f, err := os.Create(outputPath)
@@ -230,10 +225,10 @@ func ProcessOverallUserAgentManifests() error {
 		}
 		defer f.Close()
 
-		fmt.Printf("   - Writing list of %d user-agent subs for match '%s' -> %s\n", len(uniqueUserAgentSubs), outputMatchName, outputPath)
+		fmt.Printf("   - Writing list of %d values for match '%s' -> %s\n", len(uniqueValues), outputMatchName, outputPath)
 
-		// Write unique user agent subs, one per line
-		for uas := range uniqueUserAgentSubs {
+		// Write unique values, one per line
+		for uas := range uniqueValues {
 			if _, err := fmt.Fprintf(f, "%s\n", uas); err != nil {
 				return fmt.Errorf("failed to write to file %s: %w", outputPath, err)
 			}
@@ -247,21 +242,16 @@ func ProcessOverallUserAgentManifests() error {
 	return nil
 }
 
-// ProcessUserAgentManifests reads all user agent manifests (excluding _overall) and writes the resulting map files.
-// Output format: "<match_name><space><user_agent_sub>" in "http_user_agent_<category>_sub.map"
-func ProcessUserAgentManifests() error {
-	fmt.Println("Processing User Agent Manifests...")
+// ProcessUserAgentManifests reads all manifests of this category (excluding _overall) and writes the resulting map files.
+// Output format: "<match_name><space><value>" in "<outPrefix><category><outAppend>.map"
+func ProcessGenericManifests(categoryConfig map[string]string, cols int, colMatchName int, colValue int, outPrefix string, outAppend string) error {
+	fmt.Printf("Processing Manifests of %s...\n", outPrefix)
 
-	const (
-		MatchNameCol    = 1
-		UserAgentSubCol = 2
-	)
-
-	for category, filename := range config.UserAgentCategories {
+	for category, filename := range categoryConfig {
 		if category == "_overall" {
 			continue
 		}
-		outputFileName := fmt.Sprintf("http_user_agent_%s_sub.map", category)
+		outputFileName := fmt.Sprintf("%s_%s%s.map", outPrefix, category, outAppend)
 		outputPath := filepath.Join(config.PATH_OUTPUT, outputFileName)
 
 		records, err := util.ParseCSVFile(config.FILE_PREFIX_MATCH + filename)
@@ -279,19 +269,18 @@ func ProcessUserAgentManifests() error {
 		fmt.Printf("   - Writing %s (%d records) -> %s\n", filename, len(records), outputPath)
 
 		for _, record := range records {
-			if len(record) < 3 {
+			if len(record) < cols {
 				continue
 			}
 
-			matchName := record[MatchNameCol]
-			userAgentSubStr := record[UserAgentSubCol]
+			matchName := record[colMatchName]
+			multiValues := record[colValue]
 
-			userAgentSubs := strings.Split(userAgentSubStr, config.VALUE_MULTI_DELIMITER)
-			for _, uas := range userAgentSubs {
-				uas = strings.TrimSpace(uas)
-				if uas != "" {
-					// Format: "<match_name><space><user_agent_sub>"
-					if _, err := fmt.Fprintf(f, "%s %s\n", matchName, uas); err != nil {
+			for _, value := range strings.Split(multiValues, config.VALUE_MULTI_DELIMITER) {
+				value = strings.TrimSpace(value)
+				if value != "" {
+					// Format: "<match_name><space><value>"
+					if _, err := fmt.Fprintf(f, "%s %s\n", matchName, value); err != nil {
 						return fmt.Errorf("failed to write to file %s: %w", outputPath, err)
 					}
 				}

@@ -27,7 +27,7 @@ func downloadCategoryManifests(categories map[string]string) error {
 	return nil
 }
 
-func DownloadManifests() error {
+func Download() error {
 	if err := downloadCategoryManifests(config.FingerprintCategories); err != nil {
 		return err
 	}
@@ -41,6 +41,10 @@ func DownloadManifests() error {
 	}
 
 	if err := downloadCategoryManifests(config.UserAgentCategories); err != nil {
+		return err
+	}
+
+	if err := downloadCategoryManifests(config.ASNCategories); err != nil {
 		return err
 	}
 
