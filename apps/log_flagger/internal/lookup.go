@@ -84,7 +84,10 @@ func LookupListsGenericExact(loadedLists map[string][]string, toMatch string) []
 }
 
 func generatePTRFlags(ptr string) []string {
-	var flags []string
+	if ptr == "" {
+		return []string{}
+	}
+	flags := []string{}
 	for baseFlag, endStrings := range LoadedPTRLists {
 		for _, endString := range endStrings {
 			if strings.HasSuffix(ptr, endString) {
@@ -93,11 +96,21 @@ func generatePTRFlags(ptr string) []string {
 		}
 	}
 
+	for _, valueMap := range LoadedPTRMapArray {
+		endString := valueMap[0]
+		baseFlag := valueMap[1]
+		if strings.HasSuffix(ptr, strings.ToLower(endString)) {
+			flags = append(flags, baseFlag)
+		}
+	}
+
 	return flags
 }
 
+// LookupPTRFlags queries the DNS-PTR-Record for the provided clientIP and returns the flags if any are configured for that PTR
 func LookupPTRFlags(clientIP string) []string {
 	ptr := util.LookupPTR(clientIP)
+	fmt.Printf("PTR: %v => %v\n", clientIP, ptr)
 	return generatePTRFlags(ptr)
 }
 
@@ -115,11 +128,14 @@ func generateGeoIPASNFlags(asn string, as_name string) []string {
 		as_name_safe = REGEX_COLLAPSE_HYPHENS.ReplaceAllString(as_name_safe, "-")
 		flags = append(flags, fmt.Sprintf("src_as_name_%s", as_name_safe))
 	}
+
+	// todo: asn map's (flags per ASN as seen in CSV-files)
+
 	return flags
 }
 
+// LookupGeoIPASNFlags queries the ASN for the provided clientIP and returns the flags if any are configured for that ASN
 func LookupGeoIPASNFlags(clientIP string) []string {
-	// todo: add as-name to logs
 	asn, as_name := util.LookupGeoIPASN(clientIP)
 	return generateGeoIPASNFlags(asn, as_name)
 }

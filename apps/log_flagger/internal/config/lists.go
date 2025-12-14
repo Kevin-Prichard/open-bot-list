@@ -61,7 +61,15 @@ var FINGERPRINT_LIST_FLAGS = map[string][]string{
 
 // PTR Files to load - mapping to file-specific flags
 var PTR_LIST_FLAGS = map[string][]string{
-	"ptr_crawler": {"bot", "bot_crawler"},
+	"ptr_crawler":       {"bot", "bot_crawler"},
+	"ptr_hosting":       {"src_ip_hosting", "src_hosting"},
+	"ptr_isp_base":      {"src_isp"},
+	"ptr_isp_cgnat":     {"src_isp", "src_isp_cgnat"},
+	"ptr_isp_copper":    {"src_isp", "src_isp_copper"},
+	"ptr_isp_dynamic":   {"src_isp", "src_isp_dynamic"},
+	"ptr_isp_satellite": {"src_isp", "src_isp_satellite"},
+	"ptr_isp_static":    {"src_isp", "src_isp_static"},
+	"ptr_isp_wireless":  {"src_isp", "src_isp_wireless"},
 }
 
 // ASN Files to load - mapping to file-specific flags
@@ -69,9 +77,9 @@ var ASN_LIST_FLAGS = map[string][]string{
 	"src_asn_cdn":       {},
 	"src_asn_cloud":     {},
 	"src_asn_crawler":   {},
-	"src_asn_education": {},
-	"src_asn_hosting":   {},
-	"src_asn_isp":       {},
+	"src_asn_education": {"src_education"},
+	"src_asn_hosting":   {"src_hosting"},
+	"src_asn_isp":       {"src_isp"},
 	"src_asn_proxy":     {},
 	"src_asn_scanner":   {},
 	"src_asn_vpn":       {},

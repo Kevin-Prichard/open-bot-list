@@ -302,12 +302,12 @@ func TestGeneratePTRFlags(t *testing.T) {
 		{
 			name:      "No match",
 			ptr:       "example.org",
-			wantFlags: nil,
+			wantFlags: []string{},
 		},
 		{
 			name:      "Empty PTR",
 			ptr:       "",
-			wantFlags: nil,
+			wantFlags: []string{},
 		},
 	}
 
@@ -322,7 +322,7 @@ func TestGeneratePTRFlags(t *testing.T) {
 			}
 
 			if !reflect.DeepEqual(flags, tt.wantFlags) {
-				t.Errorf("LookupPTRFlags() got = %v, want %v (Simulated PTR: %q)", flags, tt.wantFlags, tt.ptr)
+				t.Errorf("generatePTRFlags() got = %v, want %v (Simulated PTR: %q)", flags, tt.wantFlags, tt.ptr)
 			}
 		})
 	}
@@ -394,7 +394,7 @@ func TestGenerateGeoIPASNFlags(t *testing.T) {
 			}
 
 			if !reflect.DeepEqual(flags, tt.wantFlags) {
-				t.Errorf("LookupGeoIPASNFlags() got = %v, want %v (Simulated ASN/Name: %q/%q)", flags, tt.wantFlags, tt.asn, tt.asName)
+				t.Errorf("generateGeoIPASNFlags() got = %v, want %v (Simulated ASN/Name: %q/%q)", flags, tt.wantFlags, tt.asn, tt.asName)
 			}
 		})
 	}

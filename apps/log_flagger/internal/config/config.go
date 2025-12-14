@@ -1,6 +1,9 @@
 package config
 
-import "os"
+import (
+	"os"
+	"time"
+)
 
 const (
 	GEOIP_PROVIDER_OXL         = "oxl"
@@ -17,6 +20,7 @@ var (
 	CSV_FIELD_FP_JA4          = 1
 	CSV_FIELD_UA              = 2
 	LOOKUP_PTR                = true
+	DNS_RESOLVE_TIMEOUT       = 200 * time.Millisecond
 	GEOIP_PROVIDER            = "oxl"
 	PATH_GEOIP_ASN_DB         = ""
 	DEBUG                     = false

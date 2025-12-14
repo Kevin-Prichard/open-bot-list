@@ -122,6 +122,7 @@ func LoadListContents(fileName string, content string) error {
 		if _, exists := config.ASN_LIST_FLAGS[fileName]; exists {
 			LoadedASNLists[fileName] = append(LoadedASNLists[fileName], entries...)
 			return nil
+
 		} else {
 			fmt.Printf("ASN category not found: %s\n", fileName)
 		}
@@ -143,9 +144,11 @@ func LoadListContents(fileName string, content string) error {
 	}
 
 	// PTR lists
-	if strings.HasPrefix(fileName, "ptr_") && isList {
-		if _, exists := config.PTR_LIST_FLAGS[fileName]; exists {
-			LoadedPTRLists[fileName] = append(LoadedPTRLists[fileName], entries...)
+	if strings.HasPrefix(fileName, "ptr_") && isList && strings.HasSuffix(fileName, "_end") {
+		key := strings.TrimSuffix(fileName, "_end")
+
+		if _, exists := config.PTR_LIST_FLAGS[key]; exists {
+			LoadedPTRLists[key] = append(LoadedPTRLists[key], entries...)
 			return nil
 		}
 	}
