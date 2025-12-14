@@ -3,27 +3,31 @@
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
-BASE_DIR="$(pwd)"
-BUILD_DIR="${BASE_DIR}/build"
+PATH_BASE="$(pwd)"
+PATH_BUILD="${PATH_BASE}/build"
 
-mkdir -p "$BUILD_DIR"
+mkdir -p "$PATH_BUILD"
 
-rm -f "$BUILD_DIR"/*
+rm -f "$PATH_BUILD"/*
 
 APP_PREFIX="open-bot-list"
 
 function compile() {
     app="${APP_PREFIX}-$1" os="$2" arch="$3"
+
+    cd "$SRC_DIR"
     echo "COMPILING BINARY FOR ${os}-${arch}"
-    GOOS="$os" GOARCH="$arch" go build -o "${BUILD_DIR}/${app}-${os}-${arch}" ./cmd/main.go
-    GOOS="$os" GOARCH="$arch" CGO_ENABLED=0 go build -o "${BUILD_DIR}/${app}-${os}-${arch}-CGO0" ./cmd/main.go
+    GOOS="$os" GOARCH="$arch" go build -o "${PATH_BUILD}/${app}-${os}-${arch}" ./cmd/main.go
+    GOOS="$os" GOARCH="$arch" CGO_ENABLED=0 go build -o "${PATH_BUILD}/${app}-${os}-${arch}-CGO0" ./cmd/main.go
+
+    cd "$PATH_BUILD"
     if [[ "$os" == "windows" ]]
     then
-        zip "${BUILD_DIR}/${app}-${os}-${arch}.zip" "${BUILD_DIR}/${app}-${os}-${arch}"
-        zip "${BUILD_DIR}/${app}-${os}-${arch}-CGO0.zip" "${BUILD_DIR}/${app}-${os}-${arch}-CGO0"
+        zip "./${app}-${os}-${arch}.zip" "./${app}-${os}-${arch}"
+        zip "./${app}-${os}-${arch}-CGO0.zip" "./${app}-${os}-${arch}-CGO0"
     else
-        tar -czf "${BUILD_DIR}/${app}-${os}-${arch}.tar.gz" "${BUILD_DIR}/${app}-${os}-${arch}"
-        tar -czf "${BUILD_DIR}/${app}-${os}-${arch}-CGO0.tar.gz" "${BUILD_DIR}/${app}-${os}-${arch}-CGO0"
+        tar -czf "./${app}-${os}-${arch}.tar.gz" "./${app}-${os}-${arch}"
+        tar -czf "./${app}-${os}-${arch}-CGO0.tar.gz" "./${app}-${os}-${arch}-CGO0"
     fi
 }
 
@@ -31,7 +35,7 @@ echo ''
 echo '### DOWNLOADER ###'
 echo ''
 
-cd "${BASE_DIR}/apps/downloader"
+SRC_DIR="${PATH_BASE}/apps/downloader"
 
 #compile "linux" "386"
 compile "downloader" "linux" "amd64"
@@ -57,5 +61,7 @@ echo ''
 echo '### LOG-FLAGGER ###'
 echo ''
 
-cd "${BASE_DIR}/apps/log_flagger"
+SRC_DIR="${PATH_BASE}/apps/log_flagger"
 compile "log_flagger" "linux" "amd64"
+
+echo "COMMAND TO REMOVE ALL NON-ARCHIVES: find ${PATH_BUILD} -type f ! -name '*.*' -delete"
