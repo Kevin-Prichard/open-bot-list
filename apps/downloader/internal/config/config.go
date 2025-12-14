@@ -11,7 +11,7 @@ const (
 	USER_AGENT_STRING     = "OXL Open-Bot-List (http://git.oxl.at/open-bot-list)"
 	FILE_PREFIX_MATCH     = "match_"
 	FILE_PREFIX_IPLIST    = "iplist_"
-	VERSION               = 1.1
+	VERSION               = 1.2
 )
 
 var (
@@ -38,8 +38,16 @@ var FingerprintCategories = map[string]string{
 }
 
 var PtrCategories = map[string]string{
-	"_overall": "ptr/_overall.csv",
-	"crawler":  "ptr/crawler.csv",
+	"_overall":      "ptr/_overall.csv",
+	"crawler":       "ptr/crawler.csv",
+	"hosting":       "ptr/hosting.csv",
+	"isp_base":      "ptr/isp_base.csv",
+	"isp_cgnat":     "ptr/isp_cgnat.csv",
+	"isp_copper":    "ptr/isp_copper.csv",
+	"isp_dynamic":   "ptr/isp_dynamic.csv",
+	"isp_satellite": "ptr/isp_satellite.csv",
+	"isp_static":    "ptr/isp_static.csv",
+	"isp_wireless":  "ptr/isp_wireless.csv",
 }
 
 var UserAgentCategories = map[string]string{
