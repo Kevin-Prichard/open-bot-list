@@ -32,8 +32,8 @@ var IPLIST_FLAGS = map[string][]string{
 	"src_net_crawler_qwant":             {"bot", "bot_crawler", "org_qwant"},
 	"src_net_crawler_seekport":          {"bot", "bot_crawler", "org_seekport"},
 	"src_net_crawler_telegram":          {"bot", "bot_software", "org_telegram"},
-	"src_net_proxy_tor":                 {"src_proxy", "org_proxy_tor"},
-	"src_net_vpn_apple_privacyrelay":    {"src_vpn", "org_vpn_apple"},
+	"src_net_proxy_tor":                 {"src_ip_proxy", "org_proxy_tor"},
+	"src_net_vpn_apple_privacyrelay":    {"src_ip_vpn", "org_vpn_apple"},
 }
 
 // User-Agent Files to load - mapping to file-specific flags
@@ -51,10 +51,28 @@ var USER_AGENT_LIST_FLAGS = map[string][]string{
 // Fingerprint Files to load & kinds to process - mapping to file-specific flags
 // do not directly flag as bots as these might still be false-positives..
 var FINGERPRINT_LIST_FLAGS = map[string][]string{
-	"fingerprint_crawler": {},
-	// "fingerprint_crawler_tls_ja4": {"fingerprint_crawler_tls_ja4"},
-	"fingerprint_scanner": {},
-	// "fingerprint_scanner_tls_ja4": {"fingerprint_scanner_tls_ja4"},
-	"fingerprint_script": {},
-	// "fingerprint_script_tls_ja4":  {"fingerprint_script_tls_ja4"},
+	"fingerprint_crawler":         {},
+	"fingerprint_crawler_tls_ja4": {"fingerprint_crawler_tls_ja4"},
+	"fingerprint_scanner":         {},
+	"fingerprint_scanner_tls_ja4": {"fingerprint_scanner_tls_ja4"},
+	"fingerprint_script":          {},
+	"fingerprint_script_tls_ja4":  {"fingerprint_script_tls_ja4"},
+}
+
+// PTR Files to load - mapping to file-specific flags
+var PTR_LIST_FLAGS = map[string][]string{
+	"ptr_crawler": {"bot", "bot_crawler"},
+}
+
+// ASN Files to load - mapping to file-specific flags
+var ASN_LIST_FLAGS = map[string][]string{
+	"src_asn_cdn":       {},
+	"src_asn_cloud":     {},
+	"src_asn_crawler":   {},
+	"src_asn_education": {},
+	"src_asn_hosting":   {},
+	"src_asn_isp":       {},
+	"src_asn_proxy":     {},
+	"src_asn_scanner":   {},
+	"src_asn_vpn":       {},
 }

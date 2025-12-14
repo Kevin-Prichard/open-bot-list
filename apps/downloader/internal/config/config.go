@@ -11,7 +11,7 @@ const (
 	USER_AGENT_STRING     = "OXL Open-Bot-List (http://git.oxl.at/open-bot-list)"
 	FILE_PREFIX_MATCH     = "match_"
 	FILE_PREFIX_IPLIST    = "iplist_"
-	VERSION               = "1.1"
+	VERSION               = 1.1
 )
 
 var (

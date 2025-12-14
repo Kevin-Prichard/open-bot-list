@@ -6,11 +6,11 @@ package config
 // see also: https://github.com/O-X-L/open-bot-list/tree/latest/flagging
 var FLAGGING_RULESET = [][][]string{
 	{ // Scanners from Tor-Network
-		[]string{"org_proxy_tor", "fingerprint_scanner"},  // <== flags to check/match
-		[]string{"bot_scanner"},  // <== resulting flags if all matched
+		[]string{"org_proxy_tor", "fingerprint_scanner_tls_ja4"}, // <== flags to check/match
+		[]string{"bot_scanner"},                                  // <== resulting flags if all matched
 	},
 	{ // Script-Bots from Tor-Network
-		[]string{"org_proxy_tor", "fingerprint_script"},
+		[]string{"org_proxy_tor", "fingerprint_script_tls_ja4"},
 		[]string{"bot_script"},
 	},
 	{
@@ -214,7 +214,7 @@ var FLAGGING_RULESET = [][][]string{
 		[]string{"bot_scanner"},
 	},
 	{
-		[]string{"fingerprint_scanner"},
+		[]string{"fingerprint_scanner_tls_ja4"},
 		[]string{"bot_scanner"},
 	},
 	{
@@ -222,7 +222,7 @@ var FLAGGING_RULESET = [][][]string{
 		[]string{"bot_script"},
 	},
 	{
-		[]string{"fingerprint_script"},
+		[]string{"fingerprint_script_tls_ja4"},
 		[]string{"bot_script"},
 	},
 	{

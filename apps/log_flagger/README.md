@@ -39,8 +39,14 @@ Usage of ./log_flagger:
         Path to the directory containing the 'open-bot-list' data (required). See: https://github.com/O-X-L/open-bot-list/tree/latest?tab=readme-ov-file#downloader-application
   -debug
         Enable debug output.
+  -debug-user-agent string
+        Optional User-Agent substring to show debug-output of. (default "___")
+  -geoip-asn-file string
+        Path to GeoIP-ASN database-file (supported providers: OXL, IPInfo, MaxMind; if not supplied - ASN flagging will be skipped).
   -input-file string
         Path to the input CSV-file to process (required).
+  -lookup-ptr
+        Enable flagging via PTR-lookups - makes processing much slower.
   -output-file string
         Path to the output CSV-file to be written (required).
 ```

@@ -13,22 +13,35 @@ func EnrichLog(logEntry config.LogEntry) config.EnrichedLog {
 	debug := config.DEBUG || strings.Contains(logEntry.UserAgent, config.DEBUG_UA)
 
 	// check if the request has any matches in the open-bot-list config
-	ipFlags := LookupIP(logEntry.ClientIP)
-	flags = append(flags, ipFlags...)
+	flags = append(flags, LookupIP(logEntry.ClientIP)...)
 
-	uaCatFlag := LookupUserAgentCategory(logEntry.UserAgent)
-	if uaCatFlag != "" {
-		flags = append(flags, uaCatFlag)
+	flags = append(
+		flags,
+		LookupListsGenericSubstring(LoadedUserAgentLists, logEntry.UserAgent)...,
+	)
+
+	flags = append(
+		flags,
+		LookupMapsGenericSubstring(LoadedUserAgentMapArray, logEntry.UserAgent)...,
+	)
+
+	flags = append(
+		flags,
+		LookupListsGenericExact(LoadedFingerprintLists, logEntry.FingerprintJA4)...,
+	)
+
+	if config.LOOKUP_PTR {
+		flags = append(
+			flags,
+			LookupPTRFlags(logEntry.ClientIP)...,
+		)
 	}
 
-	uaFlag := LookupUserAgent(logEntry.UserAgent)
-	if uaFlag != "" {
-		flags = append(flags, uaFlag)
-	}
-
-	fpFlag := LookupFingerprint(logEntry.FingerprintJA4)
-	if fpFlag != "" {
-		flags = append(flags, fpFlag)
+	if config.PATH_GEOIP_ASN_DB != "" {
+		flags = append(
+			flags,
+			LookupGeoIPASNFlags(logEntry.ClientIP)...,
+		)
 	}
 
 	// apply flags specific to match-files
@@ -40,6 +53,12 @@ func EnrichLog(logEntry config.LogEntry) config.EnrichedLog {
 			flags = append(flags, value...)
 		}
 		if value, exists := config.FINGERPRINT_LIST_FLAGS[flag]; exists {
+			flags = append(flags, value...)
+		}
+		if value, exists := config.PTR_LIST_FLAGS[flag]; exists {
+			flags = append(flags, value...)
+		}
+		if value, exists := config.ASN_LIST_FLAGS[flag]; exists {
 			flags = append(flags, value...)
 		}
 	}

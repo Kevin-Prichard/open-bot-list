@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	fmt.Printf("\nOXL Open-Bot-List Downloader v%s\n", config.VERSION)
+	fmt.Printf("\nOXL Open-Bot-List Downloader v%v\n", config.VERSION)
 	fmt.Println("> © OXL IT Services / Rath Pascal")
 	fmt.Println("> git.oxl.at/open-bot-list")
 	fmt.Printf("> License: GPLv3\n\n")
