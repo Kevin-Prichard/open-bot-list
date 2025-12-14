@@ -165,8 +165,8 @@ func parseIPListPlain(plainValue string) ([]string, error) {
 	return processedIPs, nil
 }
 
-// html-json parser
-func parseIPListHtmlJson(filePath string, regexStr string, jsonPath string) ([]string, error) {
+// regex-json parser
+func parseIPListRegexJson(filePath string, regexStr string, jsonPath string) ([]string, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		return nil, err

@@ -96,8 +96,8 @@ func ProcessIPLists() error {
 						rawIPs, parseErr = parseIPListCsv(targetPath, csvField)
 					case "json":
 						rawIPs, parseErr = parseIPListJson(targetPath, jsonPath)
-					case "html-json":
-						rawIPs, parseErr = parseIPListHtmlJson(targetPath, regexStr, jsonPath)
+					case "regex-json":
+						rawIPs, parseErr = parseIPListRegexJson(targetPath, regexStr, jsonPath)
 					default:
 						parseErr = fmt.Errorf("unsupported format: %s", format)
 					}
@@ -176,7 +176,7 @@ func DownloadIPListsFromManifests() error {
 				targetFileBase := fmt.Sprintf("%s%s_%s_%d", config.FILE_PREFIX_IPLIST, category, matchName, i)
 				targetPath := filepath.Join(config.PATH_RUNTIME, targetFileBase)
 
-				fmt.Printf("   - Downloading URL %d for %s: %s... ", i, matchName, url)
+				fmt.Printf("   - Downloading URL %d for %s (%s)... ", i, matchName, url)
 
 				if err := util.DownloadFile(url, targetPath); err != nil {
 					fmt.Printf("FAILED: %v\n", err)
