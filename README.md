@@ -36,7 +36,7 @@ This can allow you to easily restrict traffic from client-categories you do not 
 
 To transparently match & categorize bots we need to combine:
 
-* **Traffic Matches**
+* **Traffic [Matches](https://github.com/O-X-L/open-bot-list/tree/latest/matches)**
   * Matching the source-IP with IP- or ASN-Lists
     * Separating different kinds of bots by their HTTP User-Agent (*if they use the same IP-range*)
     * Categorizing the source-networks into Hosting/ISP/Education/Cloud/CDN/VPN/Proxy/Scanner/CGNAT
@@ -50,7 +50,7 @@ To transparently match & categorize bots we need to combine:
 * **PTR-checks**
   * Some organizations only supply us with a PTR-match to validate if a crawler-IP is theirs (*no simple IP-list lookups*)
 
-* **Traffic Flagging**
+* **Traffic [Flagging](https://github.com/O-X-L/open-bot-list/tree/latest/flagging)**
   * We provide you with abstract configuration that shows how the matches can be combined
   * Practical configuration examples for proxy-services will be added later on
 
