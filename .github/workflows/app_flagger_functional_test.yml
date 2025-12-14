@@ -44,15 +44,19 @@ jobs:
           FILE_LOG='/tmp/oxl-open-bot-list.log'
           bash scripts/functional_test_flagger.sh | tee -a "$FILE_LOG"
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: test-output
+          path: '/tmp/oxl-open-bot-list-out.csv'
+          retention-days: 14
+
+      - name: Checking for Test-Errors
+        run: |
+          FILE_LOG='/tmp/oxl-open-bot-list.log'
+
           echo ''
           echo '### CHECKING FOR ERROR-LOGS ###'
           if grep -E 'ERROR|failed' < "$FILE_LOG"
           then
             exit 1
           fi
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: test-output
-          path: /tmp/oxl-open-bot-list-out.csv
-          retention-days: 14
