@@ -1,0 +1,1 @@
+* Extend by aggregating & analyzing the PTR's in our Risk-DB export: https://github.com/O-X-L/risk-db-lists/blob/main/other/ip_ptrs.csv
