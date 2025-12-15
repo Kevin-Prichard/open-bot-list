@@ -15,10 +15,7 @@ func EnrichLog(logEntry config.LogEntry) config.EnrichedLog {
 	// check if the request has any matches in the open-bot-list config
 	flags = append(flags, LookupIP(logEntry.ClientIP)...)
 
-	flags = append(
-		flags,
-		LookupListsGenericSubstring(LoadedUserAgentLists, logEntry.UserAgent)...,
-	)
+	flags = append(flags, LookupUserAgent(logEntry.UserAgent)...)
 
 	flags = append(
 		flags,

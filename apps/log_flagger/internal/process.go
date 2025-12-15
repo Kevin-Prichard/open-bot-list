@@ -49,6 +49,7 @@ func LoadAllLists() error {
 		return nil
 	})
 
+	CompileUAMatcher()
 	return err
 }
 
@@ -117,18 +118,18 @@ func Run() error {
 	count := 0
 	for {
 		if config.MODE_TEST && count >= TEST_LIMIT_COUNT {
-            fmt.Printf("LOGS: %d\n", count)
+			fmt.Printf("LOGS: %d\n", count)
 			fmt.Printf("TEST MODE: Stopped processing after %d records.\n", TEST_LIMIT_COUNT)
 			break
 		}
 
-        if count % 10000 == 0 {
-            fmt.Printf("LOGS: %d\n", count)
-        }
+		if count % 10000 == 0 {
+			fmt.Printf("LOGS: %d\n", count)
+		}
 
 		record, err := reader.Read()
 		if err == io.EOF {
-            fmt.Printf("LOGS: %d\n", count)
+			fmt.Printf("LOGS: %d\n", count)
 			fmt.Println("Finished processing file.")
 			break
 		}

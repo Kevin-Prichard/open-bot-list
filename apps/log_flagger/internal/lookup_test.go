@@ -114,7 +114,109 @@ func TestLookupIP(t *testing.T) {
 	}
 }
 
-func TestLookupUserAgentCategory(t *testing.T) { // Tests LookupListsGenericSubstring
+func TestLookupUserAgent(t *testing.T) {
+	originalLoadedUserAgentLists := LoadedUserAgentLists
+	originalLoadedUserAgentMapArray := LoadedUserAgentMapArray
+	originalLoadedUACategoryMatcher := LoadedUACategoryMatcher
+	originalUACategoryIndexToFlags := UACategoryIndexToFlags
+	originalLoadedUASpecificMatcher := LoadedUASpecificMatcher
+	originalUASpecificIndexToFlags := UASpecificIndexToFlags
+	originalUASpecificACIndexToArrayIndex := UASpecificACIndexToArrayIndex
+
+	t.Cleanup(func() {
+		LoadedUserAgentLists = originalLoadedUserAgentLists
+		LoadedUserAgentMapArray = originalLoadedUserAgentMapArray
+		LoadedUACategoryMatcher = originalLoadedUACategoryMatcher
+		UACategoryIndexToFlags = originalUACategoryIndexToFlags
+		LoadedUASpecificMatcher = originalLoadedUASpecificMatcher
+		UASpecificIndexToFlags = originalUASpecificIndexToFlags
+		UASpecificACIndexToArrayIndex = originalUASpecificACIndexToArrayIndex
+	})
+
+	// Clear and set up mock data for testing the compilation logic
+	LoadedUserAgentLists = map[string][]string{
+		"http_user_agent_crawler":    {"spider", "crawler"},
+		"http_user_agent_monitoring": {"uptime"},
+	}
+
+	// The order here defines priority: Index 0 is highest priority.
+	// NOTE: The pattern 'bot' is included as a low-priority, general match.
+	LoadedUserAgentMapArray = [][]string{
+		{"crawler", "http_user_agent_crawler_general"},       // Array Index 0 (Highest Priority)
+		{"my-specific-bot", "http_user_agent_crawler_niche"}, // Array Index 1 (Medium Priority)
+		{"BOT", "http_user_agent_fallback_bot"},              // Array Index 2 (Lowest Priority/Fallback)
+	}
+
+	// Set up mock config required by CompileUAMatcher to associate list names with flags
+	originalUAFlags := config.USER_AGENT_LIST_FLAGS
+	config.USER_AGENT_LIST_FLAGS = map[string][]string{
+		"http_user_agent_crawler":    {"bot", "bot_crawler"},
+		"http_user_agent_monitoring": {"bot", "bot_monitoring"},
+	}
+	t.Cleanup(func() {
+		config.USER_AGENT_LIST_FLAGS = originalUAFlags
+	})
+
+	CompileUAMatcher()
+
+	tests := []struct {
+		name      string
+		userAgent string
+		wantFlags []string
+	}{
+		{
+			name:      "Case 1: Only Fallback Matches (Lowest Priority Wins)",
+			userAgent: "I am a simple Bot",
+			// Matches only "bot" (Array Index 2).
+			// Result: Flag from Index 2.
+			wantFlags: []string{"http_user_agent_fallback_bot"},
+		},
+		{
+			name:      "Case 2: Priority Clash - Index 0 (crawler) wins over Index 2 (bot)",
+			userAgent: "Fast crawler v1.0",
+			// Matches "crawler" (Index 0) and "bot" (Index 2).
+			// Matches list "crawler"
+			// Result: Flag from Index 0 (lowest array index wins).
+			wantFlags: []string{"bot", "bot_crawler", "http_user_agent_crawler", "http_user_agent_crawler_general"},
+		},
+		{
+			name:      "Case 3: Priority Clash - Index 1 (niche) wins over Index 2 (bot)",
+			userAgent: "Mozilla/5.0 (compatible; my-specific-bot)",
+			// Matches "my-specific-bot" (Index 1) and "bot" (Index 2).
+			// Result: Flag from Index 1 (lowest array index wins).
+			wantFlags: []string{"http_user_agent_crawler_niche"},
+		},
+		{
+			name:      "Case 4: Category Match Only (No Specific Match)",
+			userAgent: "myspider checks uptime",
+			// Matches "spider" and "uptime" in the Category Matcher.
+			// Result: Fall back to Category results (all found).
+			wantFlags: []string{"bot", "bot_crawler", "bot_monitoring", "http_user_agent_crawler", "http_user_agent_monitoring"},
+		},
+		{
+			name:      "Case 5: No Match",
+			userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+			wantFlags: nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotFlags := LookupUserAgent(tt.userAgent)
+
+			if len(gotFlags) > 0 && tt.wantFlags != nil {
+				sort.Strings(gotFlags)
+				sort.Strings(tt.wantFlags)
+			}
+
+			if !reflect.DeepEqual(gotFlags, tt.wantFlags) {
+				t.Errorf("LookupUserAgent(%q) got = %v, want %v", tt.userAgent, gotFlags, tt.wantFlags)
+			}
+		})
+	}
+}
+
+func TestLookupListsGenericSubstring(t *testing.T) {
 	originalLoadedUserAgentLists := LoadedUserAgentLists
 
 	LoadedUserAgentLists = map[string][]string{
@@ -168,7 +270,7 @@ func TestLookupUserAgentCategory(t *testing.T) { // Tests LookupListsGenericSubs
 	}
 }
 
-func TestLookupUserAgent(t *testing.T) { // Tests LookupMapsGenericSubstring
+func TestLookupMapsGenericSubstring(t *testing.T) {
 	originalLoadedUserAgentMapArray := LoadedUserAgentMapArray
 
 	LoadedUserAgentMapArray = [][]string{

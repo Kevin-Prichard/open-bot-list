@@ -3,8 +3,10 @@ package internal
 import (
 	"fmt"
 	"net"
+	"slices"
 	"strings"
 
+	"github.com/cloudflare/ahocorasick"
 	"github.com/yl2chen/cidranger"
 
 	"git.oxl.at/open-bot-list/log_flagger/internal/config"
@@ -25,6 +27,20 @@ func (e *FlagRangerEntry) Network() net.IPNet {
 // It is initialized immediately, making it safe for concurrent read operations after initial loading.
 var LoadedIPTrie cidranger.Ranger = cidranger.NewPCTrieRanger()
 
+// LoadedUACategoryMatcher: For patterns from *.lst files (general categories/always match all).
+var LoadedUACategoryMatcher *ahocorasick.Matcher
+var UACategoryIndexToFlags = make(map[int][]string)
+
+// LoadedUASpecificMatcher: For patterns from *.map files (specific substrings/priority logic applies).
+var LoadedUASpecificMatcher *ahocorasick.Matcher
+
+// UASpecificIndexToFlags maps the Aho-Corasick index (int) to the original flag string (string).
+var UASpecificIndexToFlags = make(map[int]string)
+
+// UASpecificACIndexToArrayIndex maps the Aho-Corasick match index (int) back to the original
+// index in LoadedUserAgentMapArray (int). This is used to enforce the 'first match wins' priority rule.
+var UASpecificACIndexToArrayIndex = make(map[int]int)
+
 // Loaded*Lists hold lists of values from *.lst files.
 var LoadedUserAgentLists = make(map[string][]string)
 var LoadedFingerprintLists = make(map[string][]string)
@@ -36,6 +52,65 @@ var LoadedUserAgentMapArray [][]string
 var LoadedFingerprintMapArray [][]string
 var LoadedPTRMapArray [][]string
 var LoadedASNMapArray [][]string
+
+// CompileUAMatcher builds the two separate Aho-Corasick matchers.
+func CompileUAMatcher() {
+	// --- 1. Category Matcher (General Lists, allows multiple matches) ---
+	var categoryPatterns []string
+	categoryPatternToFlags := make(map[string][]string)
+
+	for listKey, subStrings := range LoadedUserAgentLists {
+		baseFlags := config.USER_AGENT_LIST_FLAGS[listKey]
+		for _, subString := range subStrings {
+			subString = strings.ToLower(subString)
+			existingFlags := categoryPatternToFlags[subString]
+			existingFlags = append(existingFlags, listKey)
+			for _, flag := range baseFlags {
+				if !slices.Contains(existingFlags, flag) {
+					existingFlags = append(existingFlags, flag)
+				}
+			}
+			categoryPatternToFlags[subString] = existingFlags
+		}
+	}
+
+	for pattern, flags := range categoryPatternToFlags {
+		categoryPatterns = append(categoryPatterns, pattern)
+		UACategoryIndexToFlags[len(categoryPatterns)-1] = flags
+	}
+
+	LoadedUACategoryMatcher = ahocorasick.NewStringMatcher(categoryPatterns)
+
+	// --- 2. Specific Matcher (Map Files, implements priority/fallback logic) ---
+	var specificPatterns []string
+	// Temporary map to ensure uniqueness and track the source index
+	specificPatternMap := make(map[string]int) // pattern -> original array index in LoadedUserAgentMapArray
+
+	// We must iterate over the map array directly to preserve the priority order (top-to-bottom)
+	for arrayIndex, valueMap := range LoadedUserAgentMapArray {
+		uaSubstring := strings.ToLower(valueMap[0])
+		baseFlag := valueMap[1]
+
+		// If the pattern is already added, we skip it to preserve the first-occurrence rule.
+		if _, exists := specificPatternMap[uaSubstring]; exists {
+			continue
+		}
+
+		specificPatterns = append(specificPatterns, uaSubstring)
+		acIndex := len(specificPatterns) - 1 // Aho-Corasick index
+
+		UASpecificIndexToFlags[acIndex] = baseFlag          // Store only the single resulting flag
+		UASpecificACIndexToArrayIndex[acIndex] = arrayIndex // Store the original map array index
+		specificPatternMap[uaSubstring] = arrayIndex        // Mark as added
+	}
+
+	LoadedUASpecificMatcher = ahocorasick.NewStringMatcher(specificPatterns)
+
+	if config.DEBUG {
+		fmt.Printf("Compiled Aho-Corasick Category Matcher with %d patterns.\n", len(categoryPatterns))
+		fmt.Printf("Compiled Aho-Corasick Specific Matcher with %d patterns.\n", len(specificPatterns))
+	}
+}
 
 // LoadListContents processes the content of a single list file and loads it into the appropriate global map.
 func LoadListContents(fileName string, content string) error {
@@ -72,6 +147,7 @@ func LoadListContents(fileName string, content string) error {
 					fmt.Printf("Warning: Failed to parse CIDR %s in file %s: %v\n", entry, fileName, err)
 					continue
 				}
+				// cidranger expects the network address from ParseCIDR
 				network.IP = ipAddr.Mask(network.Mask)
 
 				rangerEntry := &FlagRangerEntry{
@@ -109,8 +185,6 @@ func LoadListContents(fileName string, content string) error {
 			baseFlag := parts[0]
 			uaSubstring := parts[1]
 
-			// Store the base flag against the substring.
-			// The key is the substring for lookup, value is the base flag to return.
 			LoadedUserAgentMapArray = append(LoadedUserAgentMapArray, []string{uaSubstring, baseFlag})
 		}
 		return nil

@@ -41,6 +41,78 @@ func LookupIP(clientIP string) []string {
 	return matchingKeys
 }
 
+// LookupUACategories performs a fast, case-insensitive substring search of the User-Agent
+// against general category lists. This always returns all matches found.
+func LookupUACategories(userAgent string) []string {
+	if LoadedUACategoryMatcher == nil {
+		return nil
+	}
+
+	var flags []string
+	lowerUA := strings.ToLower(userAgent)
+
+	matches := LoadedUACategoryMatcher.MatchThreadSafe([]byte(lowerUA))
+
+	for _, index := range matches {
+		if flagSet, exists := UACategoryIndexToFlags[index]; exists {
+			for _, flag := range flagSet {
+				if !slices.Contains(flags, flag) {
+					flags = append(flags, flag)
+				}
+			}
+		}
+	}
+
+	return flags
+}
+
+// LookupUASpecifics implements the priority logic for user-agent map entries:
+// Only the match corresponding to the lowest index in LoadedUserAgentMapArray is returned ("first match wins").
+func LookupUASpecifics(userAgent string) []string {
+	if LoadedUASpecificMatcher == nil || LoadedUserAgentMapArray == nil {
+		return nil
+	}
+
+	lowerUA := strings.ToLower(userAgent)
+	matches := LoadedUASpecificMatcher.MatchThreadSafe([]byte(lowerUA))
+
+	if len(matches) == 0 {
+		return nil
+	}
+
+	minArrayIndex := -1
+	winningACIndex := -1
+
+	for _, acIndex := range matches {
+		arrayIndex, exists := UASpecificACIndexToArrayIndex[acIndex]
+		if !exists {
+			continue
+		}
+
+		if minArrayIndex == -1 || arrayIndex < minArrayIndex {
+			minArrayIndex = arrayIndex
+			winningACIndex = acIndex
+		}
+	}
+
+	if winningACIndex == -1 {
+		return nil
+	}
+
+	if flag, exists := UASpecificIndexToFlags[winningACIndex]; exists {
+		return []string{flag}
+	}
+
+	return nil
+}
+
+// LookupUserAgent is now the composite function that calls the two specialized lookups.
+// It implements the priority: Specific Map match > General Category match.
+func LookupUserAgent(userAgent string) []string {
+	specificFlags := LookupUASpecifics(userAgent)
+	return append(specificFlags, LookupUACategories(userAgent)...)
+}
+
 // LookupListsGenericSubstring performs a case-insensitive substring match of the value against all supplied lists.
 // It returns a list of keys (base flags) for the matching lists.
 func LookupListsGenericSubstring(loadedLists map[string][]string, toMatch string) []string {
