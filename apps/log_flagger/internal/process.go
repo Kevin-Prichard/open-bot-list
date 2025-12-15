@@ -59,20 +59,6 @@ func logDebugLoaded() {
 
 	fmt.Println("\n--- List Loading Complete. Proceeding with application logic. ---")
 
-	fmt.Println("\n--- Loaded IP Lists (partial view) ---")
-	countIP := 0
-	for key, entries := range LoadedIPLists {
-		if len(entries) > 0 {
-			if config.DEBUG {
-				fmt.Printf("Key: %s, Total entries: %d\n", key, len(entries))
-			}
-			countIP++
-		}
-	}
-	if countIP == 0 {
-		fmt.Println("No IP Lists Loaded.")
-	}
-
 	fmt.Println("\n--- Loaded User-Agent Lists (partial view) ---")
 	countUA := 0
 	for key, entries := range LoadedUserAgentLists {
@@ -131,12 +117,18 @@ func Run() error {
 	count := 0
 	for {
 		if config.MODE_TEST && count >= TEST_LIMIT_COUNT {
+            fmt.Printf("LOGS: %d\n", count)
 			fmt.Printf("TEST MODE: Stopped processing after %d records.\n", TEST_LIMIT_COUNT)
 			break
 		}
 
+        if count % 10000 == 0 {
+            fmt.Printf("LOGS: %d\n", count)
+        }
+
 		record, err := reader.Read()
 		if err == io.EOF {
+            fmt.Printf("LOGS: %d\n", count)
 			fmt.Println("Finished processing file.")
 			break
 		}

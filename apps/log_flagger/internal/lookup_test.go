@@ -7,30 +7,46 @@ import (
 	"sort"
 	"testing"
 
+	"github.com/yl2chen/cidranger"
+
 	"git.oxl.at/open-bot-list/log_flagger/internal/config"
 )
 
 var REGEX_COLLAPSE_HYPHENS_TEST = regexp.MustCompile(`-+`)
 
-func TestLookupIP(t *testing.T) {
-	originalLoadedIPLists := LoadedIPLists
+// Helper to reset and populate the global trie for tests
+func setupTestIPTrie() {
+	LoadedIPTrie = cidranger.NewPCTrieRanger()
 
-	_, net10_0_0_0_8, _ := net.ParseCIDR("10.0.0.0/8")
-	_, net192_168_1_0_24, _ := net.ParseCIDR("192.168.1.0/24")
-	_, net2001_db8_a_0_64, _ := net.ParseCIDR("2001:db8:a::/64")
-	_, net192_168_1_10_32, _ := net.ParseCIDR("192.168.1.10/32")
-	_, net66_249_76_0_23, _ := net.ParseCIDR("66.249.76.0/23")
-
-	LoadedIPLists = map[string][]net.IPNet{
-		"src_net_vpn_tor":               {*net10_0_0_0_8},
-		"src_net_crawler_google":        {*net192_168_1_0_24},
-		"src_net_crawler_special":       {*net192_168_1_10_32, *net2001_db8_a_0_64},
-		"src_net_crawler_google_common": {*net66_249_76_0_23},
+	testData := map[string][]string{
+		"src_net_vpn_tor":               {"10.0.0.0/8"},
+		"src_net_crawler_google":        {"192.168.1.0/24"},
+		"src_net_crawler_special":       {"192.168.1.10/32", "2001:db8:a::/64"},
+		"src_net_crawler_google_common": {"66.249.76.0/23"},
 	}
 
-	t.Cleanup(func() {
-		LoadedIPLists = originalLoadedIPLists
-	})
+	for key, cidrs := range testData {
+		for _, cidrStr := range cidrs {
+			ipAddr, network, err := net.ParseCIDR(cidrStr)
+			if err != nil {
+				panic(err)
+			}
+			network.IP = ipAddr.Mask(network.Mask)
+
+			rangerEntry := &FlagRangerEntry{
+				IPNet: *network,
+				Key:   key,
+			}
+
+			if err := LoadedIPTrie.Insert(rangerEntry); err != nil {
+				panic(err)
+			}
+		}
+	}
+}
+
+func TestLookupIP(t *testing.T) {
+	setupTestIPTrie()
 
 	tests := []struct {
 		name     string
@@ -50,6 +66,7 @@ func TestLookupIP(t *testing.T) {
 		{
 			name:     "IPv4 exact match on /32 and partial on /24 (Multiple matches)",
 			clientIP: "192.168.1.10",
+			// Should match "192.168.1.10/32" (special) and "192.168.1.0/24" (google)
 			wantKeys: []string{"src_net_crawler_google", "src_net_crawler_special"},
 		},
 		{

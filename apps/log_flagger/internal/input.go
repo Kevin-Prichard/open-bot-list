@@ -28,7 +28,6 @@ func OpenInputFile(filePath string) (*os.File, *csv.Reader, []string, error) { /
 
 // ParseRecord takes a CSV record (slice of strings) and maps it to a LogEntry struct.
 func ParseRecord(record []string) config.LogEntry {
-	// todo: let user set the field-indices
 	return config.LogEntry{
 		ClientIP:       record[config.CSV_FIELD_CLIENT_IP],
 		FingerprintJA4: record[config.CSV_FIELD_FP_JA4],

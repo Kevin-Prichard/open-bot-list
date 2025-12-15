@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"regexp"
+	"slices"
 	"strings"
 
 	"git.oxl.at/open-bot-list/log_flagger/internal/util"
@@ -20,15 +21,19 @@ func LookupIP(clientIP string) []string {
 	var matchingKeys []string
 
 	ip := net.ParseIP(clientIP)
-	if ip == nil {
+	if ip == nil || LoadedIPTrie == nil {
 		return nil
 	}
 
-	for key, networks := range LoadedIPLists {
-		for _, network := range networks {
-			if network.Contains(ip) {
-				matchingKeys = append(matchingKeys, key)
-				break
+	containingNetworks, err := LoadedIPTrie.ContainingNetworks(ip)
+	if err != nil {
+		return nil
+	}
+
+	for _, entry := range containingNetworks {
+		if flagEntry, ok := entry.(*FlagRangerEntry); ok {
+			if !slices.Contains(matchingKeys, flagEntry.Key) {
+				matchingKeys = append(matchingKeys, flagEntry.Key)
 			}
 		}
 	}
@@ -110,7 +115,7 @@ func generatePTRFlags(ptr string) []string {
 // LookupPTRFlags queries the DNS-PTR-Record for the provided clientIP and returns the flags if any are configured for that PTR
 func LookupPTRFlags(clientIP string) []string {
 	ptr := util.LookupPTR(clientIP)
-	fmt.Printf("PTR: %v => %v\n", clientIP, ptr)
+	fmt.Printf("  > PTR: %v => %v\n", clientIP, ptr)
 	return generatePTRFlags(ptr)
 }
 

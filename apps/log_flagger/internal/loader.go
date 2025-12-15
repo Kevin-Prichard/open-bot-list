@@ -5,12 +5,25 @@ import (
 	"net"
 	"strings"
 
+	"github.com/yl2chen/cidranger"
+
 	"git.oxl.at/open-bot-list/log_flagger/internal/config"
 )
 
-// LoadedIPLists holds lists of pre-parsed IP networks (CIDRs).
-// The keys match those in IPLIST_FLAGS (e.g., "src_net_crawler_google_common").
-var LoadedIPLists = make(map[string][]net.IPNet)
+// Custom Ranger Entry to implement cidranger.RangerEntry.
+// It holds the net.IPNet and the associated flag key as a string.
+type FlagRangerEntry struct {
+	net.IPNet
+	Key string
+}
+
+func (e *FlagRangerEntry) Network() net.IPNet {
+	return e.IPNet
+}
+
+// LoadedIPTrie replaces LoadedIPLists and the two kentik/patricia tries with a single Ranger.
+// It is initialized immediately, making it safe for concurrent read operations after initial loading.
+var LoadedIPTrie cidranger.Ranger = cidranger.NewPCTrieRanger()
 
 // Loaded*Lists hold lists of values from *.lst files.
 var LoadedUserAgentLists = make(map[string][]string)
@@ -54,12 +67,21 @@ func LoadListContents(fileName string, content string) error {
 
 		if _, exists := config.IPLIST_FLAGS[key]; exists {
 			for _, entry := range entries {
-				_, network, err := net.ParseCIDR(entry)
+				ipAddr, network, err := net.ParseCIDR(entry)
 				if err != nil {
 					fmt.Printf("Warning: Failed to parse CIDR %s in file %s: %v\n", entry, fileName, err)
 					continue
 				}
-				LoadedIPLists[key] = append(LoadedIPLists[key], *network)
+				network.IP = ipAddr.Mask(network.Mask)
+
+				rangerEntry := &FlagRangerEntry{
+					IPNet: *network,
+					Key:   key,
+				}
+
+				if err := LoadedIPTrie.Insert(rangerEntry); err != nil {
+					fmt.Printf("Warning: Ranger Insert error for %s in file %s: %v\n", entry, fileName, err)
+				}
 			}
 			return nil
 		}
