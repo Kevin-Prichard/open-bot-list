@@ -172,6 +172,14 @@ var FLAGGING_RULESET = [][][]string{
 		[]string{"bot_crawler", "crawler_ecommerce", "crawler_verified"},
 	},
 	{
+		[]string{"src_net_crawler_ecom_idealo", "http_user_agent_ecom_idealo_csv"},
+		[]string{"bot_crawler", "crawler_ecommerce", "crawler_verified"},
+	},
+	{
+		[]string{"src_net_crawler_ecom_idealo", "http_user_agent_ecom_idealo_fallback"},
+		[]string{"bot_crawler", "crawler_ecommerce", "crawler_verified"},
+	},
+	{
 		[]string{"src_net_crawler_ahrefs", "http_user_agent_crawler_ahrefs"},
 		[]string{"bot_crawler", "crawler_search", "crawler_verified"},
 	},
@@ -185,6 +193,14 @@ var FLAGGING_RULESET = [][][]string{
 	},
 	{
 		[]string{"src_net_crawler_seekport", "http_user_agent_crawler_seekport"},
+		[]string{"bot_crawler", "crawler_verified"},
+	},
+	{
+		[]string{"src_net_crawler_mojeek", "http_user_agent_crawler_mojeek"},
+		[]string{"bot_crawler", "crawler_search", "crawler_verified"},
+	},
+	{
+		[]string{"src_net_crawler_observer", "http_user_agent_crawler_observer"},
 		[]string{"bot_crawler", "crawler_verified"},
 	},
 	// ### MONITORING ###
@@ -208,6 +224,10 @@ var FLAGGING_RULESET = [][][]string{
 		[]string{"src_net_crawler_mon_qualys"},
 		[]string{"bot_crawler", "crawler_monitoring"},
 	},
+	{
+		[]string{"src_net_crawler_mon_statuscake", "http_user_agent_mon_statuscake"},
+		[]string{"bot_crawler", "crawler_monitoring", "crawler_verified"},
+	},
 	// ### IMPLICIT ###
 	{
 		[]string{"http_user_agent_scanner"},
@@ -228,6 +248,14 @@ var FLAGGING_RULESET = [][][]string{
 	{
 		[]string{"http_user_agent_crawler"},
 		[]string{"bot_crawler"},
+	},
+	{
+		[]string{"http_user_agent_ecommerce"},
+		[]string{"bot_crawler", "crawler_ecommerce"},
+	},
+	{
+		[]string{"http_user_agent_monitoring"},
+		[]string{"bot_crawler", "crawler_monitoring"},
 	},
 	{
 		[]string{"http_user_agent_ai"},
