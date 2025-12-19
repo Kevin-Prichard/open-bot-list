@@ -9,3 +9,7 @@
 "Mojeek","ptr_crawler_mojeek",".mojeek.com",""
 "Babbar","ptr_crawler_babbar",".babbar.eu",""
 "Facebook","ptr_crawler_facebook_proxy",".fbsv.net",""
+"Mojeek","ptr_crawler_mojeek",".mojeek.com.","https://www.mojeek.com/bot.html"
+"Sogou","ptr_crawler_sogou",".crawl.sogou.com",""
+"Observer","ptr_crawler_observer",".crawl.obsrvr.net","https://obsrvr.net/about"
+"Coc Coc","ptr_crawler_coccoc",".coccoc.com",""

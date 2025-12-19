@@ -4,3 +4,4 @@
 "Uptime Robot","http_user_agent_mon_uptimerobot","uptimerobot.com","https://uptimerobot.com/help/locations/"
 "Solarwinds","http_user_agent_mon_solarwinds","solarwinds",""
 "Catchpoint","http_user_agent_mon_catchpoint","catchpoint",""
+"TrafficCake","http_user_agent_mon_statuscake","StatusCake",""

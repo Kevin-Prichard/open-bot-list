@@ -2,6 +2,8 @@
 "AI Bots","http_user_agent_ai","bot|bot_crawler|crawler_ai_data"
 "Software Bots","http_user_agent_software","bot|bot_software"
 "Crawlers","http_user_agent_crawler","bot|bot_crawler"
+"Crawlers eCommerce","http_user_agent_ecommerce","bot|bot_crawler|crawler_ecommerce"
+"Crawlers Monitoring","http_user_agent_monitoring","bot|bot_crawler|crawler_monitoring"
 "Scanner-Bots","http_user_agent_scanner | fingerprint_scanner_tls_ja4","bot|bot_scanner"
 "Script-Bots","http_user_agent_script | fingerprint_script_tls_ja4","bot|bot_script"
 "Fallback Crawler","http_user_agent_unknown_fallback_crawler","bot|bot_unknown"

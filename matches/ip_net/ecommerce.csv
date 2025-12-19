@@ -1,2 +1,3 @@
 "organization","match_name","url","format","jsonpath_rfc9535","jsonpath_jq","regex","csv_field","plain","docs_url"
 "Stripe","src_net_crawler_ecom_stripe","https://stripe.com/files/ips/ips_webhooks.txt","nlsv","","","","","","https://docs.stripe.com/ips#ip-addresses"
+"Idealo","src_net_crawler_ecom_idealo","","plain","","","","","18.185.219.158/32|3.73.173.146/32|18.159.69.248/32|18.198.16.30/32|3.72.195.90/32|3.79.162.144/32|52.59.46.55/32","https://partner.idealo.com/de/bot"

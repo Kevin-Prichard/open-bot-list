@@ -1,2 +1,5 @@
 "organization","match_name","user_agent_sub","docs_url"
 "Stripe","http_user_agent_ecom_stripe","stripe",""
+"Idealo","http_user_agent_ecom_idealo_csv","csv@idealo.de",""
+"Idealo","http_user_agent_ecom_idealo_fallback","idealo-bot","https://partner.idealo.com/de/bot"
+"Comparor","http_user_agent_ecom_comparor","Comparor","https://www.comparor.com/uk/info/bot/"

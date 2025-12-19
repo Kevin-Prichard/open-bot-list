@@ -1,0 +1,3 @@
+"comment","matching","flags"
+"Stripe Webhooks","src_net_crawler_ecom_stripe & http_user_agent_ecom_stripe","bot|bot_crawler|crawler_ecommerce|crawler_verified|org_qualys"
+"Idealo","src_net_crawler_ecom_idealo & (http_user_agent_ecom_idealo_csv | http_user_agent_ecom_idealo_fallback)","bot|bot_crawler|crawler_ecommerce|crawler_verified|org_idealo"

@@ -17,3 +17,7 @@
 "ELinks","http_user_agent_software_elinks","ELinks",""
 "ImageVacuum","http_user_agent_software_imagevacuum","ImageVacuum",""
 "MechanicalSoup","http_user_agent_software_mechanicalsoup","MechanicalSoup",""
+"WhatsApp","http_user_agent_software_whatsapp","WhatsApp",""
+"DuckDuckGo App","http_user_agent_software_duckduckgo_app","duckduckgo.mobile.android",""
+"MacOS Password-Manger","http_user_agent_software_macos_pwd","Passwords/",""
+"Chrome-Lighthouse","http_user_agent_software_google_chromelighthouse","Chrome-Lighthouse","https://developer.chrome.com/docs/lighthouse/overview"
