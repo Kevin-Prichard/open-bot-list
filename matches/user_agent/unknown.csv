@@ -1,0 +1,7 @@
+"notes","match_name","user_agent_sub","docs_url"
+"","http_user_agent_unknown_alittlecli","ALittle Client",""
+"","http_user_agent_unknown_fidgetspinner","fidget-spinner-bot",""
+"","http_user_agent_unknown_tinybot","tiny-bot",""
+"Fallback","http_user_agent_unknown_generic_bot","bot",""
+"Fallback","http_user_agent_unknown_generic_crawler","crawler",""
+"Fallback","http_user_agent_unknown_generic_spider","spider",""

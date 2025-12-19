@@ -214,15 +214,7 @@ var FLAGGING_RULESET = [][][]string{
 		[]string{"bot_scanner"},
 	},
 	{
-		[]string{"fingerprint_scanner_tls_ja4"},
-		[]string{"bot_scanner"},
-	},
-	{
 		[]string{"http_user_agent_script"},
-		[]string{"bot_script"},
-	},
-	{
-		[]string{"fingerprint_script_tls_ja4"},
 		[]string{"bot_script"},
 	},
 	{
@@ -240,6 +232,14 @@ var FLAGGING_RULESET = [][][]string{
 	{
 		[]string{"http_user_agent_ai"},
 		[]string{"bot_crawler"},
+	},
+	{
+		[]string{"fingerprint_scanner_tls_ja4"},
+		[]string{"bot_scanner"},
+	},
+	{
+		[]string{"fingerprint_script_tls_ja4"},
+		[]string{"bot_script"},
 	},
 }
 

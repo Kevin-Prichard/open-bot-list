@@ -131,8 +131,8 @@ rath@gate:~ tree /tmp/oxl-open-bot-list-out
 ├── http_user_agent_ecommerce_sub.map
 ├── http_user_agent_monitoring_sub.lst
 ├── http_user_agent_monitoring_sub.map
-├── http_user_agent_random_sub.lst
-├── http_user_agent_random_sub.map
+├── http_user_agent_unknown_sub.lst
+├── http_user_agent_unknown_sub.map
 ├── http_user_agent_scanner_sub.lst
 ├── http_user_agent_scanner_sub.map
 ├── http_user_agent_script_sub.lst

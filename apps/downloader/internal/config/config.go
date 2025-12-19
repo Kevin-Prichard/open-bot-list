@@ -56,7 +56,7 @@ var UserAgentCategories = map[string]string{
 	"crawler":    "user_agent/crawler.csv",
 	"ecommerce":  "user_agent/ecommerce.csv",
 	"monitoring": "user_agent/monitoring.csv",
-	"random":     "user_agent/random.csv",
+	"unknown":    "user_agent/unknown.csv",
 	"scanner":    "user_agent/scanner.csv",
 	"script":     "user_agent/script.csv",
 	"software":   "user_agent/software.csv",

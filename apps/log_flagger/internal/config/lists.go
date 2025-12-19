@@ -42,7 +42,7 @@ var USER_AGENT_LIST_FLAGS = map[string][]string{
 	"http_user_agent_crawler":    {"bot"},
 	"http_user_agent_ecommerce":  {"bot"},
 	"http_user_agent_monitoring": {"bot"},
-	"http_user_agent_random":     {"bot"},
+	"http_user_agent_unknown":    {"bot"},
 	"http_user_agent_scanner":    {"bot"},
 	"http_user_agent_script":     {"bot"},
 	"http_user_agent_software":   {"bot"},

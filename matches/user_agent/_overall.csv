@@ -3,7 +3,7 @@
 "crawler","*","http_user_agent_crawler"
 "ecommerce","*","http_user_agent_ecommerce"
 "monitoring","*","http_user_agent_monitoring"
-"random","*","http_user_agent_random"
+"unknown","*","http_user_agent_unknown"
 "scanner","*","http_user_agent_scanner"
 "script","*","http_user_agent_script"
 "software","*","http_user_agent_software"

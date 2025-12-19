@@ -81,7 +81,7 @@ func EnrichLog(logEntry config.LogEntry) config.EnrichedLog {
 
 	// custom fallback flags (might be migrated to open-bot-list config later on)
 	if logEntry.UserAgent == "" {
-		flags = append(flags, "bot", "bot_random")
+		flags = append(flags, "bot", "bot_unknown")
 
 	} else if !slices.Contains(flags, "crawler_verified") {
 		for _, uaSub := range config.FALLBACK_SPOOFED_UA_SUB {
@@ -105,7 +105,7 @@ func EnrichLog(logEntry config.LogEntry) config.EnrichedLog {
 	if !flaggedAsBot {
 		uaLower := strings.ToLower(logEntry.UserAgent)
 		if strings.Contains(uaLower, "bot") || strings.Contains(uaLower, "crawler") || strings.Contains(uaLower, "spider") {
-			flags = append(flags, "bot", "bot_random")
+			flags = append(flags, "bot", "bot_unknown")
 		}
 	}
 

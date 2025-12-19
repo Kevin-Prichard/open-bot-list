@@ -20,9 +20,9 @@ All matches should be done case-insensitive!
 
   File match: `http_user_agent_monitoring`
 
-* **Random** => Non-Organizational random crawlers that you might want to block
+* **Unknown** => Non-Organizational or not-yet-listed 'unknown' crawlers that you might want to block
 
-  File match: `http_user_agent_random`
+  File match: `http_user_agent_unknown`
 
 * **Scanner** => End-user-software and libraries built to scan applications for vulnerabilities (or even run automated attacks)
 
