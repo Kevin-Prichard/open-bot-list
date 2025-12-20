@@ -83,7 +83,7 @@ If you:
 
 ## Motivation
 
-We are working on building a [FOSS WAF-platform](https://github.com/O-X-L/shieldwall-waf) (*and centrally manageable network-firewalls*) which require such a collection of bot-related information.
+We are working on building a [FOSS WAF-platform](https://github.com/O-X-L/wardenwall-waf) (*and centrally manageable network-firewalls*) which require such a collection of bot-related information.
 
 With our [IP-Abuse Reporting-System & Databases](https://github.com/O-X-L/risk-db) we have already started to collect information for it.
 
@@ -91,16 +91,16 @@ As the mindset of Open-Source is at the core of our being - we want to transpare
 
 ----
 
-### SHIELD-WALL WAF Project
+### WARDEN-WALL WAF Project
 
-This information-collection is part of our [SHIELD-WALL WAF Project](https://github.com/O-X-L/shieldwall-waf).
+This information-collection is part of our [WARDEN-WALL WAF Project](https://github.com/O-X-L/wardenwall-waf).
 
-Check-out the demo: [demo.waf.shield-wall.net](https://demo.waf.shield-wall.net)
+Check-out the demo: [demo.waf.wardenwall.com](https://demo.waf.wardenwall.com)
 
 ----
 
 ## License
 
-The Open-Bot-List data-collection uses the [BSD 3-Clause license]() and has very little restrictions.
+The Open-Bot-List data-collection uses the [BSD 3-Clause license](https://opensource.org/license/bsd-3-clause) and has very little restrictions.
 
 The Applications for processing (*downloader/log-flagger*) use the [GPLv3 license](https://www.gnu.org/licenses/gpl-3.0.en.html).

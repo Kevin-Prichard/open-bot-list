@@ -1,7 +1,5 @@
 package config
 
-// NOTE: ls shieldwall-waf/testdata/frontend/log_flagger/open_bot_list/ | cut -d '.' -f1 | rev | cut -d '_' -f2- | rev | uniq
-
 // IP/Network-List Files to load - mapping to file-specific flags
 var IPLIST_FLAGS = map[string][]string{
 	"src_net_cdn_bunnyway":              {"src_cdn", "org_cdn_bunnyway"},
