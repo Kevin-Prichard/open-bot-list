@@ -91,9 +91,9 @@ As the mindset of Open-Source is at the core of our being - we want to transpare
 
 ----
 
-### WARDEN-WALL WAF Project
+### FOSS WAF Project
 
-This information-collection is part of our [WARDEN-WALL WAF Project](https://github.com/O-X-L/wardenwall-waf).
+This information-collection is part of our [FOSS WAF Project](https://github.com/O-X-L/wardenwall-waf).
 
 Check-out the demo: [demo.waf.wardenwall.com](https://demo.waf.wardenwall.com)
 
