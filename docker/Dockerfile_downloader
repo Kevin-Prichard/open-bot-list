@@ -1,0 +1,36 @@
+FROM golang:alpine AS builder
+
+# BUILD: docker build -f Dockerfile_downloader -t open-bot-list-downloader --no-cache --network=host ..
+# PREP: mkdir /etc/open-bot-list && chown 9800 /etc/open-bot-list
+# RUN: docker run --rm --name open-bot-list-downloader --network=host --volume /etc/open-bot-list:/app open-bot-list-downloader
+
+COPY . /tmp/repo
+
+RUN cd /tmp/repo/apps/downloader && \
+    go mod tidy && \
+    CGO_ENABLED=0 go build -ldflags="-w -s" -o /usr/local/bin/open-bot-list-downloader ./cmd/main.go
+
+FROM alpine:3.23
+
+ARG UID=9800
+ARG USER=downloader
+
+RUN set -eux; \
+        addgroup --gid $UID --system $USER; \
+        adduser \
+                --disabled-password \
+                --ingroup $USER \
+                --no-create-home \
+                --system \
+                --uid $UID \
+                $USER \
+        ; \
+        mkdir /app; \
+        chown $USER:$USER /app
+
+COPY --from=builder /usr/local/bin/open-bot-list-downloader /usr/local/bin
+
+USER $USER
+WORKDIR /app
+
+CMD ["/usr/local/bin/open-bot-list-downloader", "-output-dir=/app"]

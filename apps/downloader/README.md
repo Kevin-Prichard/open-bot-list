@@ -41,6 +41,15 @@ Usage of ./downloader:
         Runtime directory to store downloaded manifest files. (default "/tmp/oxl-open-bot-list")
 ```
 
+### Containerized
+
+* Get the Image - either:
+  * Use the existing image: `oxlorg/open-bot-list-downloader`
+  * Build it: `cd $REPO/docker && docker build -f Dockerfile_downloader -t open-bot-list-downloader --no-cache --network=host ..`
+
+* Prepare the volume: `mkdir /etc/open-bot-list && chown 9800 /etc/open-bot-list`
+* Run: `docker run --rm --name open-bot-list-downloader --network=host --volume /etc/open-bot-list:/app open-bot-list-downloader`
+
 ----
 
 ## Output

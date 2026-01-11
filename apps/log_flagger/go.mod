@@ -1,6 +1,6 @@
 module git.oxl.at/open-bot-list/log_flagger
 
-go 1.25.3
+go 1.25.5
 
 require (
 	github.com/cloudflare/ahocorasick v0.0.0-20240916140611-054963ec9396
