@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+
+	"git.oxl.at/open-bot-list/downloader/internal/config"
 )
 
 // IPNetCollection holds the aggregated and validated IP networks, separated by version.
@@ -144,7 +146,7 @@ func aggregateIPNets(nets []netip.Prefix) []netip.Prefix {
 
 // parseAndValidate processes a list of raw IP/CIDR strings, validates them,
 // filters bogons, and aggregates the resulting prefixes.
-func parseAndValidate(rawIPs []string) IPNetCollection {
+func parseAndValidateIPList(rawIPs []string) IPNetCollection {
 	var v4Nets []netip.Prefix
 	var v6Nets []netip.Prefix
 	uniqueNets := make(map[netip.Prefix]struct{})
@@ -191,8 +193,8 @@ func writeIPLists(outputDir, baseName string, collection IPNetCollection) error 
 	v6Count := len(collection.IPv6)
 
 	totalCount := v4Count + v6Count
-	if totalCount > 10000 {
-		fmt.Printf("WARNING: IP list '%s' contains %d total entries (> 10000) ", baseName, totalCount)
+	if totalCount > config.WARN_IPLIST_COUNT {
+		fmt.Printf("WARNING: IP list '%s' contains %d total entries (> %d) ", baseName, totalCount, config.WARN_IPLIST_COUNT)
 	}
 
 	writer := func(filename string, prefixes []netip.Prefix) error {
@@ -231,6 +233,33 @@ func writeIPLists(outputDir, baseName string, collection IPNetCollection) error 
 		return err
 	}
 
+	return nil
+}
+
+// writASNLists writes the ASN lists to the specified output files.
+func writeASNLists(outputDir, baseName string, collection []int) error {
+	count := len(collection)
+	if count > config.WARN_ASNLIST_COUNT {
+		fmt.Printf("WARNING: ASN list '%s' contains %d total entries (> %d) ", baseName, count, config.WARN_ASNLIST_COUNT)
+	}
+
+	filename := fmt.Sprintf("%s.lst", baseName)
+	outputPath := filepath.Join(outputDir, filename)
+	f, err := os.Create(outputPath)
+	if err != nil {
+		return fmt.Errorf("failed to create output file %s: %w", outputPath, err)
+	}
+	defer f.Close()
+
+	for _, asn := range collection {
+		if _, err := fmt.Fprintf(f, "%d\n", asn); err != nil {
+			return fmt.Errorf("failed to write to file %s: %w", outputPath, err)
+		}
+	}
+
+	if err := f.Sync(); err != nil {
+		return fmt.Errorf("failed to sync output file %s: %w", outputPath, err)
+	}
 	return nil
 }
 

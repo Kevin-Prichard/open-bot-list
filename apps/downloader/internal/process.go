@@ -23,6 +23,11 @@ func Run() {
 		os.Exit(1)
 	}
 
+	if err := iplist.ProcessASNLists(); err != nil {
+		fmt.Printf("\nFATAL ERROR: ASN List processing failed: %v\n", err)
+		os.Exit(1)
+	}
+
 	if err := manifest.ProcessFingerprintManifests(); err != nil {
 		fmt.Printf("\nFATAL ERROR: Fingerprint map processing failed: %v\n", err)
 		os.Exit(1)

@@ -3,6 +3,7 @@ package config
 import (
 	"os"
 	"path/filepath"
+	"time"
 )
 
 const (
@@ -11,12 +12,17 @@ const (
 	USER_AGENT_STRING     = "OXL Open-Bot-List (http://git.oxl.at/open-bot-list)"
 	FILE_PREFIX_MATCH     = "match_"
 	FILE_PREFIX_IPLIST    = "iplist_"
-	VERSION               = 1.3
+	FILE_PREFIX_ASNLIST   = "asnlist_"
+	VERSION               = 1.4
 )
 
 var (
-	PATH_RUNTIME = filepath.Join(os.TempDir(), "oxl-open-bot-list")
-	PATH_OUTPUT  = ""
+	PATH_RUNTIME           = filepath.Join(os.TempDir(), "oxl-open-bot-list")
+	PATH_OUTPUT            = ""
+	MIN_LIST_LIFETIME_HOUR = 4
+	MIN_LIST_LIFETIME      = 4 * time.Hour
+	WARN_IPLIST_COUNT      = 10000
+	WARN_ASNLIST_COUNT     = 100
 )
 
 var IPListCategories = map[string]string{
@@ -74,4 +80,9 @@ var ASNCategories = map[string]string{
 	"proxy":     "asn/proxy.csv",
 	"scanner":   "asn/scanner.csv",
 	"vpn":       "asn/vpn.csv",
+}
+
+var ASNListCategories = map[string]string{
+	"_overall":  "asn_list/_overall.csv",
+	"malicious": "asn_list/malicious.csv",
 }

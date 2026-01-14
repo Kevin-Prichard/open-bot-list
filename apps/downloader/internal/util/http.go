@@ -5,9 +5,23 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"time"
 
 	"git.oxl.at/open-bot-list/downloader/internal/config"
 )
+
+// DownloadFile fetches a file from a URL and saves it to a local path.
+// It is now exported to be used by iplist_downloader.go.
+func DownloadFileWithCache(url string, filepath string) error {
+	info, err := os.Stat(filepath)
+	if err == nil {
+		if time.Since(info.ModTime()) < config.MIN_LIST_LIFETIME {
+			fmt.Printf("SKIP (fresh < %dh) ", config.MIN_LIST_LIFETIME_HOUR)
+			return nil
+		}
+	}
+	return DownloadFile(url, filepath)
+}
 
 // DownloadFile fetches a file from a URL and saves it to a local path.
 // It is now exported to be used by iplist_downloader.go.

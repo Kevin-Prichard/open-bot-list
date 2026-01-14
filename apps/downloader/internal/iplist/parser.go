@@ -5,6 +5,7 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
+	"html"
 	"io"
 	"os"
 	"regexp"
@@ -28,32 +29,27 @@ func jsonpathFind(data interface{}, path string) ([]string, error) {
 	for _, item := range resultRaw {
 		s, ok := item.(string)
 		if !ok {
-			fmt.Fprintf(os.Stderr, "   - WARNING: Got non-string JSON-query result\n")
-			return nil, fmt.Errorf("got non-string value")
+			result = append(result, fmt.Sprintf("%v", item))
+		} else {
+			result = append(result, s)
 		}
-		result = append(result, s)
 	}
 	return result, nil
 }
 
 // nlsv (New Line Separated Values) parser
-func parseIPListNLsv(filePath string) ([]string, error) {
+func parseListNLsv(filePath string) ([]string, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		return nil, err
 	}
 
-	var ips []string
+	var values []string
 	lines := strings.Split(string(data), "\n")
 	for _, line := range lines {
 		line = strings.TrimSpace(line)
-		if line == "" {
-			continue
-		}
-
-		// Ignore lines starting with non-IP/CIDR characters (commented-out or invalid)
-		// Heuristic: If it starts with non-digit, non-bracket, non-dot, it's a comment/non-IP.
-		if len(line) > 0 && (line[0] < '0' || line[0] > '9') && line[0] != '[' && line[0] != '.' {
+		// empty, commented-out or invalid
+		if len(line) == 0 || line[0] == '#' || line[0] == '/' || line[0] == ';' {
 			continue
 		}
 
@@ -62,17 +58,17 @@ func parseIPListNLsv(filePath string) ([]string, error) {
 			line = line[:hashIdx]
 		}
 
-		// If there is a space after the IP/CIDR - ignore anything after it (inline comments)
+		// If there is a space after the value - ignore anything after it (inline comments)
 		if spaceIdx := strings.Index(line, " "); spaceIdx != -1 {
 			line = line[:spaceIdx]
 		}
 
 		line = strings.TrimSpace(line)
 		if line != "" {
-			ips = append(ips, line)
+			values = append(values, line)
 		}
 	}
-	return ips, nil
+	return values, nil
 }
 
 // csv parser
@@ -133,7 +129,7 @@ func parseIPListCsv(filePath string, csvField string) ([]string, error) {
 }
 
 // json parser (uses rfc9535 jsonpath)
-func parseIPListJson(filePath string, jsonPath string) ([]string, error) {
+func parseListJson(filePath string, jsonPath string) ([]string, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		return nil, err
@@ -153,45 +149,47 @@ func parseIPListJson(filePath string, jsonPath string) ([]string, error) {
 }
 
 // newline-separated json-objects (uses rfc9535 jsonpath)
-func parseIPListNdjson(filePath string, jsonPath string) ([]string, error) {
-	data, err := os.ReadFile(filePath)
+func parseListNdjson(filePath string, jsonPath string) ([]string, error) {
+	f, err := os.Open(filePath)
 	if err != nil {
 		return nil, err
 	}
+	defer f.Close()
 
-	var buf bytes.Buffer
-	buf.WriteByte('[')
-	buf.Write(bytes.ReplaceAll(data, []byte("\n"), []byte(",")))
-	buf.WriteByte(']')
+	decoder := json.NewDecoder(f)
+	var jsonData []interface{}
 
-	var jsonData interface{}
-	if err := json.Unmarshal(buf.Bytes(), &jsonData); err != nil {
-		fmt.Fprintf(os.Stderr, "   - WARNING: Not valid JSON\n")
-		return nil, fmt.Errorf("failed to unmarshal JSON: %w", err)
+	for decoder.More() {
+		var entry interface{}
+		if err := decoder.Decode(&entry); err != nil {
+			fmt.Fprintf(os.Stderr, "   - WARNING: Not valid JSON entry: %v\n", err)
+			return nil, fmt.Errorf("failed to decode JSON entry: %w", err)
+		}
+		jsonData = append(jsonData, entry)
 	}
 
 	results, err := jsonpathFind(jsonData, jsonPath)
 	if err != nil {
-		return nil, fmt.Errorf("JSONPath execution failed with path '%s': %w", jsonPath, err)
+		return nil, fmt.Errorf("JSONPath execution failed: %w", err)
 	}
 	return results, nil
 }
 
 // plain parser
-func parseIPListPlain(plainValue string) ([]string, error) {
-	ips := strings.Split(plainValue, config.VALUE_MULTI_DELIMITER)
-	var processedIPs []string
-	for _, ip := range ips {
-		ip = strings.TrimSpace(ip)
-		if ip != "" {
-			processedIPs = append(processedIPs, ip)
+func parseListPlain(plainValue string) ([]string, error) {
+	input := strings.Split(plainValue, config.VALUE_MULTI_DELIMITER)
+	var values []string
+	for _, value := range input {
+		value = strings.TrimSpace(value)
+		if value != "" {
+			values = append(values, value)
 		}
 	}
-	return processedIPs, nil
+	return values, nil
 }
 
 // regex-json parser
-func parseIPListRegexJson(filePath string, regexStr string, jsonPath string) ([]string, error) {
+func parseListRegexJson(filePath string, regexStr string, jsonPath string) ([]string, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		return nil, err
@@ -209,7 +207,7 @@ func parseIPListRegexJson(filePath string, regexStr string, jsonPath string) ([]
 	}
 
 	// The captured content is expected to be JSON
-	jsonContent := matches[1]
+	jsonContent := []byte(html.UnescapeString(string(matches[1])))
 
 	var jsonData interface{}
 	if err := json.Unmarshal(jsonContent, &jsonData); err != nil {

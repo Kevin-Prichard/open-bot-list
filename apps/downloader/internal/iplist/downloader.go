@@ -3,17 +3,14 @@ package iplist
 import (
 	"fmt"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"git.oxl.at/open-bot-list/downloader/internal/config"
 	"git.oxl.at/open-bot-list/downloader/internal/util"
 )
 
-// ProcessIPLists reads the IP list manifest files, processes the downloaded IP lists based on format,
-// performs validation and aggregation, and writes the final output files.
-func ProcessIPLists() error {
-	fmt.Println("\nStarting IP List Processing from Manifests...")
-
+func processListsGeneric(kind string, categoryConfig map[string]string, filePrefix string, callback func(values []string, matchName string) error) error {
 	// Column indices based on FormatManifestIPNet struct
 	const (
 		MatchNameCol       = 1
@@ -25,7 +22,7 @@ func ProcessIPLists() error {
 		PlainCol           = 8
 	)
 
-	for category, filename := range config.IPListCategories {
+	for category, filename := range categoryConfig {
 		if category == "_overall" {
 			continue
 		}
@@ -53,7 +50,7 @@ func ProcessIPLists() error {
 			plainValue := record[PlainCol]
 
 			urls := strings.Split(urlStr, config.VALUE_MULTI_DELIMITER)
-			var combinedRawIPs []string
+			var combinedValues []string
 			hasError := false
 
 			// Check if any URL exists or if it's a 'plain' format entry
@@ -64,15 +61,16 @@ func ProcessIPLists() error {
 				continue
 			}
 
-			fmt.Printf("   - Processing entry '%s' (Format: %s)... ", matchName, format)
+			fmt.Printf("   - Processing entry '%s' (Format: %s)... \n", matchName, format)
 
 			if isPlain {
 				var parseErr error
-				combinedRawIPs, parseErr = parseIPListPlain(plainValue)
+				combinedValues, parseErr = parseListPlain(plainValue)
 				if parseErr != nil {
 					fmt.Printf("FAILED plain parsing: %v\n", parseErr)
 					hasError = true
 				}
+
 			} else {
 				// Iterate over all downloaded files for this single manifest entry
 				for i, url := range urls {
@@ -81,25 +79,26 @@ func ProcessIPLists() error {
 						continue
 					}
 
-					// Reconstruct the runtime file name used during download: iplist_<category>_<match_name>_<index>
-					targetFileBase := fmt.Sprintf("%s%s_%s_%d", config.FILE_PREFIX_IPLIST, category, matchName, i)
+					// Reconstruct the runtime file name used during download: <prefix>_<category>_<match_name>_<index>
+					targetFileBase := fmt.Sprintf("%s%s_%s_%d", filePrefix, category, matchName, i)
 					targetPath := filepath.Join(config.PATH_RUNTIME, targetFileBase)
 
-					var rawIPs []string
+					var values []string
 					var parseErr error
 
-					// 1. Parse the downloaded file based on format
 					switch format {
 					case "nlsv":
-						rawIPs, parseErr = parseIPListNLsv(targetPath)
+						values, parseErr = parseListNLsv(targetPath)
 					case "csv":
-						rawIPs, parseErr = parseIPListCsv(targetPath, csvField)
+						if kind == "ip" {
+							values, parseErr = parseIPListCsv(targetPath, csvField)
+						}
 					case "json":
-						rawIPs, parseErr = parseIPListJson(targetPath, jsonPath)
+						values, parseErr = parseListJson(targetPath, jsonPath)
 					case "ndjson":
-						rawIPs, parseErr = parseIPListNdjson(targetPath, jsonPath)
+						values, parseErr = parseListNdjson(targetPath, jsonPath)
 					case "regex-json":
-						rawIPs, parseErr = parseIPListRegexJson(targetPath, regexStr, jsonPath)
+						values, parseErr = parseListRegexJson(targetPath, regexStr, jsonPath)
 					default:
 						parseErr = fmt.Errorf("unsupported format: %s", format)
 					}
@@ -110,7 +109,7 @@ func ProcessIPLists() error {
 						// Continue processing other URLs if possible, but mark entry as failed
 						continue
 					}
-					combinedRawIPs = append(combinedRawIPs, rawIPs...)
+					combinedValues = append(combinedValues, values...)
 				}
 			}
 
@@ -118,16 +117,11 @@ func ProcessIPLists() error {
 				continue
 			}
 
-			// 2. Post-processing/Validation (done once on combined list)
-			collection := parseAndValidate(combinedRawIPs)
-
-			// 3. Write output files (using only matchName, removing category prefix and index)
-			outputBaseName := matchName
-			if err := writeIPLists(config.PATH_OUTPUT, outputBaseName, collection); err != nil {
-				fmt.Printf("FAILED writing output: %v\n", err)
+			err = callback(combinedValues, matchName)
+			if err != nil {
+				fmt.Printf("%v", err)
 				continue
 			}
-
 			fmt.Println("SUCCESS")
 		}
 	}
@@ -135,17 +129,57 @@ func ProcessIPLists() error {
 	return nil
 }
 
-// DownloadIPListsFromManifests reads the IP list manifest files and downloads the IP lists.
+func processIPListsFinish(values []string, matchName string) error {
+	collection := parseAndValidateIPList(values)
+	if err := writeIPLists(config.PATH_OUTPUT, matchName, collection); err != nil {
+		return fmt.Errorf("FAILED writing output: %v", err)
+	}
+	return nil
+}
+
+// ProcessIPLists reads the IP list manifest files, processes the downloaded IP lists based on format,
+// performs validation and aggregation, and writes the final output files.
+func ProcessIPLists() error {
+	fmt.Println("\nStarting IP-List Processing from Manifests...")
+	return processListsGeneric("ip", config.IPListCategories, config.FILE_PREFIX_IPLIST, processIPListsFinish)
+}
+
+func processASNListsFinish(values []string, matchName string) error {
+	var collection []int
+
+	for _, val := range values {
+		asn, err := strconv.Atoi(val)
+		if err != nil {
+			// fmt.Fprintf(os.Stderr, "   - SKIPPING: Could not parse '%s' as ASN integer\n", val)
+			continue
+		}
+		collection = append(collection, asn)
+	}
+
+	if err := writeASNLists(config.PATH_OUTPUT, matchName, collection); err != nil {
+		return fmt.Errorf("FAILED writing output: %v", err)
+	}
+	return nil
+}
+
+// ProcessASNLists reads the ASN list manifest files, processes the downloaded ASN lists based on format,
+// performs validation and aggregation, and writes the final output files.
+func ProcessASNLists() error {
+	fmt.Println("\nStarting ASN-List Processing from Manifests...")
+	return processListsGeneric("asn", config.ASNListCategories, config.FILE_PREFIX_ASNLIST, processASNListsFinish)
+}
+
+// DownloadListsFromManifests reads the IP list manifest files and downloads the IP lists.
 // It skips the _overall.csv manifest.
-func DownloadIPListsFromManifests() error {
-	fmt.Println("\nStarting IP List Download from Manifests...")
+func DownloadListsFromManifests(categoryConfig map[string]string, filePrefix string) error {
+	fmt.Println("\nStarting List Download from Manifests...")
 
 	const (
 		MatchNameCol = 1 // 0-based index
 		URLCol       = 2 // 0-based index
 	)
 
-	for category, filename := range config.IPListCategories {
+	for category, filename := range categoryConfig {
 		if category == "_overall" {
 			continue
 		}
@@ -175,12 +209,12 @@ func DownloadIPListsFromManifests() error {
 
 				// The file path includes: category, match_name, and array-index
 				// Example: "ip_net/ai.csv" -> runtime_dir/iplist_ai_matchname_0
-				targetFileBase := fmt.Sprintf("%s%s_%s_%d", config.FILE_PREFIX_IPLIST, category, matchName, i)
+				targetFileBase := fmt.Sprintf("%s%s_%s_%d", filePrefix, category, matchName, i)
 				targetPath := filepath.Join(config.PATH_RUNTIME, targetFileBase)
 
 				fmt.Printf("   - Downloading URL %d for %s (%s)... ", i, matchName, url)
 
-				if err := util.DownloadFile(url, targetPath); err != nil {
+				if err := util.DownloadFileWithCache(url, targetPath); err != nil {
 					fmt.Printf("FAILED: %v\n", err)
 					continue
 				}

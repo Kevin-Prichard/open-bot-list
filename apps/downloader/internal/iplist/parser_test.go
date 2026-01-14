@@ -91,7 +91,7 @@ func TestParseIPListNLsv(t *testing.T) {
 	path := createTempFile(t, content)
 	defer os.Remove(path)
 
-	ips, err := parseIPListNLsv(path)
+	ips, err := parseListNLsv(path)
 	if err != nil {
 		t.Fatalf("parseIPListNLsv failed: %v", err)
 	}
@@ -221,9 +221,9 @@ func TestParseIPListJson(t *testing.T) {
 		path := createTempFile(t, content)
 		defer os.Remove(path)
 
-		ips, err := parseIPListJson(path, jsonPath)
+		ips, err := parseListJson(path, jsonPath)
 		if err != nil {
-			t.Errorf("parseIPListJson unexpectedly failed: %v", err)
+			t.Errorf("parseListJson unexpectedly failed: %v", err)
 		}
 
 		if len(ips) != len(expectedIPs) {
@@ -240,9 +240,9 @@ func TestParseIPListJson(t *testing.T) {
 		path := createTempFile(t, `{"addresses": "no-array"`)
 		defer os.Remove(path)
 
-		_, err := parseIPListJson(path, jsonPath)
+		_, err := parseListJson(path, jsonPath)
 		if err == nil || !strings.Contains(err.Error(), "failed to unmarshal JSON") {
-			t.Errorf("parseIPListJson should have failed on invalid JSON, but got: %v", err)
+			t.Errorf("parseListJson should have failed on invalid JSON, but got: %v", err)
 		}
 	})
 }
@@ -264,9 +264,9 @@ func TestParseIPListNdjson(t *testing.T) {
 	tmpFile.Close()
 
 	t.Run("Valid NDJSON conversion", func(t *testing.T) {
-		got, err := parseIPListNdjson(tmpFile.Name(), "$[*].cidr")
+		got, err := parseListNdjson(tmpFile.Name(), "$[*].cidr")
 		if err != nil {
-			t.Errorf("parseIPListJsonNLSV() error = %v", err)
+			t.Errorf("parseListNdjson() error = %v", err)
 			return
 		}
 
@@ -277,7 +277,7 @@ func TestParseIPListNdjson(t *testing.T) {
 	})
 
 	t.Run("File not found", func(t *testing.T) {
-		_, err := parseIPListNdjson("non_existent.json", "$")
+		_, err := parseListNdjson("non_existent.json", "$")
 		if err == nil {
 			t.Error("Expected error for missing file, got nil")
 		}

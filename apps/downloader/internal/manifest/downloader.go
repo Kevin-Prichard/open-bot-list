@@ -36,6 +36,10 @@ func Download() error {
 		return err
 	}
 
+	if err := downloadCategoryManifests(config.ASNListCategories); err != nil {
+		return err
+	}
+
 	if err := downloadCategoryManifests(config.PtrCategories); err != nil {
 		return err
 	}
@@ -48,7 +52,11 @@ func Download() error {
 		return err
 	}
 
-	if err := iplist.DownloadIPListsFromManifests(); err != nil {
+	if err := iplist.DownloadListsFromManifests(config.IPListCategories, config.FILE_PREFIX_IPLIST); err != nil {
+		return err
+	}
+
+	if err := iplist.DownloadListsFromManifests(config.ASNListCategories, config.FILE_PREFIX_ASNLIST); err != nil {
 		return err
 	}
 

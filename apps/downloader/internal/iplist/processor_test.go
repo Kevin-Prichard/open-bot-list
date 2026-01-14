@@ -248,7 +248,7 @@ func TestParseAndValidate(t *testing.T) {
 		mustParsePrefix("2606:4700::/32"),
 	}
 
-	collection := parseAndValidate(rawIPs)
+	collection := parseAndValidateIPList(rawIPs)
 
 	if len(collection.IPv4) != len(wantV4) {
 		t.Fatalf("IPv4 length mismatch. Got %d, want %d. Got: %v", len(collection.IPv4), len(wantV4), collection.IPv4)
