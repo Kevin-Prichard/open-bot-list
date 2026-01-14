@@ -246,3 +246,40 @@ func TestParseIPListJson(t *testing.T) {
 		}
 	})
 }
+
+func TestParseIPListNdjson(t *testing.T) {
+	content := `{"cidr":"218.30.103.0/24","sblid":"SBL675022"}
+{"cidr":"218.99.0.0/16","sblid":"SBL675600"}
+{"type":"metadata","timestamp":1768311278}`
+
+	tmpFile, err := os.CreateTemp("", "test_ips_*.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.Remove(tmpFile.Name())
+
+	if _, err := tmpFile.Write([]byte(content)); err != nil {
+		t.Fatal(err)
+	}
+	tmpFile.Close()
+
+	t.Run("Valid NDJSON conversion", func(t *testing.T) {
+		got, err := parseIPListNdjson(tmpFile.Name(), "$[*].cidr")
+		if err != nil {
+			t.Errorf("parseIPListJsonNLSV() error = %v", err)
+			return
+		}
+
+		want := []string{"218.30.103.0/24", "218.99.0.0/16"}
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("got %v, want %v", got, want)
+		}
+	})
+
+	t.Run("File not found", func(t *testing.T) {
+		_, err := parseIPListNdjson("non_existent.json", "$")
+		if err == nil {
+			t.Error("Expected error for missing file, got nil")
+		}
+	})
+}

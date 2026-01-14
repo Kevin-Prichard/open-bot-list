@@ -96,6 +96,8 @@ func ProcessIPLists() error {
 						rawIPs, parseErr = parseIPListCsv(targetPath, csvField)
 					case "json":
 						rawIPs, parseErr = parseIPListJson(targetPath, jsonPath)
+					case "ndjson":
+						rawIPs, parseErr = parseIPListNdjson(targetPath, jsonPath)
 					case "regex-json":
 						rawIPs, parseErr = parseIPListRegexJson(targetPath, regexStr, jsonPath)
 					default:

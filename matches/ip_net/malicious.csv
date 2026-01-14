@@ -1,0 +1,4 @@
+"organization","match_name","url","format","jsonpath_rfc9535","jsonpath_jq","regex","csv_field","plain","docs_url"
+"Spamhaus","src_net_malicious_spamhaus_drop4","https://www.spamhaus.org/drop/drop_v4.json","ndjson","$.*.cidr","[.[] .cidr | select(. != null)]","","","","https://www.spamhaus.org/blocklists/do-not-route-or-peer/"
+"Spamhaus","src_net_malicious_spamhaus_drop6","https://www.spamhaus.org/drop/drop_v6.json","ndjson","$.*.cidr","[.[] .cidr | select(. != null)]","","","","https://www.spamhaus.org/blocklists/do-not-route-or-peer/"
+"Spamhaus","src_net_malicious_spamhaus_asndrop","https://www.spamhaus.org/drop/asndrop.json","ndjson","$.*.asn","[.[] .asn | select(. != null)]","","","","https://www.spamhaus.org/blocklists/do-not-route-or-peer/"

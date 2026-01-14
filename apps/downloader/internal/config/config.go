@@ -25,6 +25,7 @@ var IPListCategories = map[string]string{
 	"cdn":        "ip_net/cdn.csv",
 	"crawler":    "ip_net/crawler.csv",
 	"ecommerce":  "ip_net/ecommerce.csv",
+	"malicious":  "ip_net/malicious.csv",
 	"monitoring": "ip_net/monitoring.csv",
 	"proxy":      "ip_net/proxy.csv",
 	"vpn":        "ip_net/vpn.csv",

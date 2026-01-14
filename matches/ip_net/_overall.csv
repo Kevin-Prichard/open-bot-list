@@ -3,6 +3,7 @@
 "cdn","*","src_net_cdn"
 "crawler","*","src_net_crawler"
 "ecommerce","*","src_net_ecommerce"
+"malicious","*","src_net_malicious"
 "monitoring","*","src_net_monitoring"
 "proxy","*","src_net_proxy"
 "vpn","*","src_net_vpn"

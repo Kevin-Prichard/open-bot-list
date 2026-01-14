@@ -60,6 +60,8 @@ To transparently match & categorize bots we need to combine:
 
 See: [Downloader README](https://github.com/O-X-L/open-bot-list/blob/latest/apps/downloader/README.md)
 
+**IMPORTANT**: Do not run the downloader (and thus download the IP lists) frequently! Once a day (or even once a week) is sufficient for most systems.
+
 ----
 
 ## Log-Flagger Application

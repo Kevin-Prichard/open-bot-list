@@ -10,11 +10,15 @@ The lists are in CSV-format so they can be easily parsed by many systems.
 
 We only use IP-Lists that are published **official** by the providers.    
 
-Valid formats:
+**IMPORTANT**: Do not download these IP lists frequently! Once a day (or even once a week) is sufficient for most systems.
+
+**IMPORTANT**: Some IP-Lists have usage limitations! Make sure to read their usage policy that is linked in the CSV-files!
+
+**Valid formats:**
 
 * **JSON**
 
-  Selector => JSON-Query to extract the flat list in [RFC 9535](https://jsonpath.com/) and `jq`-cli-tool format
+  Selector => JSON-Query to extract the flat list in [RFC 9535](https://jsonpath.com/) and `jq`-cli-tool format (use `jq 'SELECTOR' < file.json`)
 
 * **CSV** => Comma-separated values
 

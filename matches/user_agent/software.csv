@@ -10,7 +10,7 @@
 "WordPress","http_user_agent_software_worpress","WordPress/",""
 "Ansible ARA","http_user_agent_software_ansible_ara","ara-http-client",""
 "AWS-CLI","http_user_agent_software_awscli","aws-cli/",""
-"Git","shttp_user_agent_software_git","git/",""
+"Git","http_user_agent_software_git","git/",""
 "Headless Chrome","http_user_agent_software_headless","headless",""
 "Cypress Automation Tool","http_user_agent_software_cypress","cypress",""
 "ZGrab","http_user_agent_software_zgrab","zgrab",""

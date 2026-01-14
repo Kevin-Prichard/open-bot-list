@@ -25,6 +25,12 @@ As we cannot control the contents of these lists - you have to keep some things 
 
   File match: `src_net_ecommerce`
 
+* **Malicious** => IP-Lists that flag malicious traffic
+
+  **WARNING**: These have usage limitations! Make sure to read their usage policy that is linked in the CSV-file!
+
+  File match: `src_net_malicious`
+
 * **Monitoring** => Organizational crawlers for Monitoring-related services
 
   File match: `src_net_monitoring`

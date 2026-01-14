@@ -152,6 +152,31 @@ func parseIPListJson(filePath string, jsonPath string) ([]string, error) {
 	return results, nil
 }
 
+// newline-separated json-objects (uses rfc9535 jsonpath)
+func parseIPListNdjson(filePath string, jsonPath string) ([]string, error) {
+	data, err := os.ReadFile(filePath)
+	if err != nil {
+		return nil, err
+	}
+
+	var buf bytes.Buffer
+	buf.WriteByte('[')
+	buf.Write(bytes.ReplaceAll(data, []byte("\n"), []byte(",")))
+	buf.WriteByte(']')
+
+	var jsonData interface{}
+	if err := json.Unmarshal(buf.Bytes(), &jsonData); err != nil {
+		fmt.Fprintf(os.Stderr, "   - WARNING: Not valid JSON\n")
+		return nil, fmt.Errorf("failed to unmarshal JSON: %w", err)
+	}
+
+	results, err := jsonpathFind(jsonData, jsonPath)
+	if err != nil {
+		return nil, fmt.Errorf("JSONPath execution failed with path '%s': %w", jsonPath, err)
+	}
+	return results, nil
+}
+
 // plain parser
 func parseIPListPlain(plainValue string) ([]string, error) {
 	ips := strings.Split(plainValue, config.VALUE_MULTI_DELIMITER)

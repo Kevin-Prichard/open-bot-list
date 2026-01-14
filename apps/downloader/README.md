@@ -12,6 +12,8 @@ This repository also contains an application for downloading and parsing these i
 * Parses the match-files
 * Generates simple lookup-files for your services
 
+**IMPORTANT**: Do not run the downloader (and thus download the IP lists) frequently! Once a day (or even once a week) is sufficient for most systems.
+
 ----
 
 ## Setup
