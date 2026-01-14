@@ -1,0 +1,2 @@
+"organization","match_name","url","format","jsonpath_rfc9535","jsonpath_jq","regex","csv_field","plain","docs_url"
+"Spamhaus","src_asnlist_malicious_spamhaus_asndrop","https://www.spamhaus.org/drop/asndrop.json","ndjson","$.*.asn","[.[] .asn | select(. != null)]","","","","https://www.spamhaus.org/blocklists/do-not-route-or-peer/"
