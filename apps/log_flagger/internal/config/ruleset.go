@@ -54,8 +54,8 @@ var FLAGGING_RULESET = [][][]string{
 		[]string{"src_net_crawler_duckduckgo_aiuser", "http_user_agent_crawler_duckduckgo_aiuser"},
 		[]string{"bot_crawler", "crawler_user", "crawler_ai_user", "crawler_verified"},
 	},
-	{ // todo: amazon IP-verification
-		[]string{"http_user_agent_crawler_amazon_main"},
+	{
+		[]string{"src_net_crawler_amazon_main", "http_user_agent_crawler_amazon_main"},
 		[]string{"bot_crawler", "crawler_ai_data", "org_amazon"},
 	},
 	{ // todo: meta/facebook IP-verification
@@ -103,8 +103,8 @@ var FLAGGING_RULESET = [][][]string{
 		[]string{"src_net_crawler_duckduckgo_search", "http_user_agent_crawler_duckduckgo_search"},
 		[]string{"bot_crawler", "crawler_search", "crawler_verified"},
 	},
-	{ // todo: amazon IP-verification
-		[]string{"http_user_agent_crawler_amazon_user"},
+	{
+		[]string{"src_net_crawler_amazon_user", "http_user_agent_crawler_amazon_user"},
 		[]string{"bot_crawler", "crawler_user", "org_amazon"},
 	},
 	{ // todo: meta/facebook IP-verification

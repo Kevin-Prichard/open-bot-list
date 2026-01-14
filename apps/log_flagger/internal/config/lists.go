@@ -6,11 +6,13 @@ var IPLIST_FLAGS = map[string][]string{
 	"src_net_cdn_cloudflare":            {"src_cdn", "org_cdn_cloudflare"},
 	"src_net_cdn_fastly":                {"src_cdn", "org_cdn_fastly"},
 	"src_net_crawler_ahrefs":            {"bot", "bot_crawler", "org_ahrefs"},
+	"src_net_crawler_amazon_main":       {"bot", "bot_crawler", "org_amazon"},
+	"src_net_crawler_amazon_user":       {"bot", "bot_crawler", "crawler_user", "org_amazon"},
 	"src_net_crawler_apple":             {"bot", "org_apple"},
 	"src_net_crawler_commoncrawl":       {"bot", "bot_crawler", "crawler_ai_data", "org_commoncrawl"},
 	"src_net_crawler_duckduckgo_aiuser": {"bot", "bot_crawler", "crawler_ai_user", "crawler_user", "org_duckduckgo"},
 	"src_net_crawler_duckduckgo_search": {"bot", "bot_crawler", "crawler_search", "org_duckduckgo"},
-	"src_net_crawler_ecom_stripe":       {"bot", "bot_crawler", "crawler_ecommerce", "org_stripe"},  // webhooks
+	"src_net_crawler_ecom_stripe":       {"bot", "bot_crawler", "crawler_ecommerce", "org_stripe"}, // webhooks
 	"src_net_crawler_ecom_idealo":       {"bot", "bot_crawler", "crawler_ecommerce", "org_idealo"},
 	"src_net_crawler_google_common":     {"bot", "org_google"},
 	"src_net_crawler_google_special":    {"bot", "org_google"},
@@ -34,6 +36,7 @@ var IPLIST_FLAGS = map[string][]string{
 	"src_net_crawler_mojeek":            {"bot", "bot_crawler", "org_mojeek"},
 	"src_net_crawler_observer":          {"bot", "bot_crawler", "org_observer"},
 	"src_net_crawler_telegram":          {"bot", "bot_crawler", "org_telegram"},
+	"src_net_malicious_spamhaus_drop":   {"src_ip_malicious", "org_intel_spamhaus"},
 	"src_net_proxy_tor":                 {"src_ip_proxy", "org_proxy_tor"},
 	"src_net_vpn_apple_privacyrelay":    {"src_ip_vpn", "org_vpn_apple"},
 }
@@ -76,13 +79,14 @@ var PTR_LIST_FLAGS = map[string][]string{
 
 // ASN Files to load - mapping to file-specific flags
 var ASN_LIST_FLAGS = map[string][]string{
-	"src_asn_cdn":       {},
-	"src_asn_cloud":     {},
-	"src_asn_crawler":   {},
-	"src_asn_education": {"src_education"},
-	"src_asn_hosting":   {"src_hosting"},
-	"src_asn_isp":       {"src_isp"},
-	"src_asn_proxy":     {},
-	"src_asn_scanner":   {},
-	"src_asn_vpn":       {},
+	"src_asn_cdn":                            {},
+	"src_asn_cloud":                          {},
+	"src_asn_crawler":                        {},
+	"src_asn_education":                      {"src_education"},
+	"src_asn_hosting":                        {"src_hosting"},
+	"src_asn_isp":                            {"src_isp"},
+	"src_asn_proxy":                          {},
+	"src_asn_scanner":                        {},
+	"src_asn_vpn":                            {},
+	"src_asnlist_malicious_spamhaus_asndrop": {"src_asn_malicious", "org_intel_spamhaus"},
 }
