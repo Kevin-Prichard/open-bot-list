@@ -1,2 +1,3 @@
 "organization","match_name","url","format","jsonpath_rfc9535","jsonpath_jq","regex","csv_field","plain","docs_url"
 "Tor","src_net_proxy_tor","https://check.torproject.org/torbulkexitlist","nlsv","","","","","","https://check.torproject.org"
+"Collection Avastel","src_net_proxy_avastel","https://raw.githubusercontent.com/antoinevastel/avastel-bot-ips-lists/refs/heads/master/avastel-proxy-bot-ips-blocklist-8days.txt","nlsv","","","","","","https://github.com/antoinevastel/avastel-bot-ips-lists"
