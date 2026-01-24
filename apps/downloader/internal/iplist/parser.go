@@ -53,8 +53,11 @@ func parseListNLsv(filePath string) ([]string, error) {
 			continue
 		}
 
-		// If there is a hash comment, ignore anything after it
+		// If there is a comment, ignore anything after it
 		if hashIdx := strings.Index(line, "#"); hashIdx != -1 {
+			line = line[:hashIdx]
+		}
+		if hashIdx := strings.Index(line, ";"); hashIdx != -1 {
 			line = line[:hashIdx]
 		}
 
