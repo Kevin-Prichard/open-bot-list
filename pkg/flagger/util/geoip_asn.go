@@ -4,11 +4,12 @@ package util
 
 import (
 	"fmt"
-	"git.oxl.at/open-bot-list/pkg/flagger/config"
-	"github.com/oschwald/maxminddb-golang"
 	"net"
 	"reflect"
 	"strings"
+
+	"git.oxl.at/open-bot-list/pkg/flagger/config"
+	"github.com/oschwald/maxminddb-golang"
 )
 
 // IPInfo schema: https://github.com/ipinfo/sample-database/

@@ -3,12 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
-	"git.oxl.at/open-bot-list/pkg/flagger/config"
 	"os"
 	"slices"
 	"strings"
 
 	"git.oxl.at/open-bot-list/apps/log_flagger/internal"
+	"git.oxl.at/open-bot-list/pkg/flagger/config"
 )
 
 func main() {

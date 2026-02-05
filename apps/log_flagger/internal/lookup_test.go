@@ -1,13 +1,13 @@
 package internal
 
 import (
-	config2 "git.oxl.at/open-bot-list/pkg/flagger/config"
 	"net"
 	"reflect"
 	"regexp"
 	"sort"
 	"testing"
 
+	"git.oxl.at/open-bot-list/pkg/flagger/config"
 	"github.com/yl2chen/cidranger"
 )
 
@@ -147,13 +147,13 @@ func TestLookupUserAgent(t *testing.T) {
 	}
 
 	// Set up mock config required by CompileUAMatcher to associate list names with flags
-	originalUAFlags := config2.USER_AGENT_LIST_FLAGS
-	config2.USER_AGENT_LIST_FLAGS = map[string][]string{
+	originalUAFlags := config.USER_AGENT_LIST_FLAGS
+	config.USER_AGENT_LIST_FLAGS = map[string][]string{
 		"http_user_agent_crawler":    {"bot", "bot_crawler"},
 		"http_user_agent_monitoring": {"bot", "bot_monitoring"},
 	}
 	t.Cleanup(func() {
-		config2.USER_AGENT_LIST_FLAGS = originalUAFlags
+		config.USER_AGENT_LIST_FLAGS = originalUAFlags
 	})
 
 	CompileUAMatcher()
@@ -388,8 +388,8 @@ func TestGeneratePTRFlags(t *testing.T) {
 	// NOTE: This test verifies the flag generation logic within LookupPTRFlags,
 	// assuming the dependency (util.LookupPTR) returns a known PTR record.
 	originalLoadedPTRLists := LoadedPTRLists
-	originalLookupPtr := config2.LOOKUP_PTR
-	config2.LOOKUP_PTR = true
+	originalLookupPtr := config.LOOKUP_PTR
+	config.LOOKUP_PTR = true
 
 	LoadedPTRLists = map[string][]string{
 		"ptr_crawler":  {"google.com", "yandex.net"},
@@ -399,7 +399,7 @@ func TestGeneratePTRFlags(t *testing.T) {
 
 	t.Cleanup(func() {
 		LoadedPTRLists = originalLoadedPTRLists
-		config2.LOOKUP_PTR = originalLookupPtr
+		config.LOOKUP_PTR = originalLookupPtr
 	})
 
 	tests := []struct {

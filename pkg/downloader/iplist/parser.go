@@ -11,9 +11,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/theory/jsonpath"
-
 	"git.oxl.at/open-bot-list/pkg/downloader/config"
+	"github.com/theory/jsonpath"
 )
 
 // run json-query on the json-data and return it as list of strings (should always be in this format)

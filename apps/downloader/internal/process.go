@@ -2,9 +2,9 @@ package internal
 
 import (
 	"fmt"
-	"git.oxl.at/open-bot-list/pkg/downloader/config"
 	"os"
 
+	"git.oxl.at/open-bot-list/pkg/downloader/config"
 	"git.oxl.at/open-bot-list/pkg/downloader/iplist"
 	"git.oxl.at/open-bot-list/pkg/downloader/manifest"
 )

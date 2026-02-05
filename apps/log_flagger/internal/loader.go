@@ -2,11 +2,11 @@ package internal
 
 import (
 	"fmt"
-	config2 "git.oxl.at/open-bot-list/pkg/flagger/config"
 	"net"
 	"slices"
 	"strings"
 
+	"git.oxl.at/open-bot-list/pkg/flagger/config"
 	"github.com/cloudflare/ahocorasick"
 	"github.com/yl2chen/cidranger"
 )
@@ -59,7 +59,7 @@ func CompileUAMatcher() {
 	categoryPatternToFlags := make(map[string][]string)
 
 	for listKey, subStrings := range LoadedUserAgentLists {
-		baseFlags := config2.USER_AGENT_LIST_FLAGS[listKey]
+		baseFlags := config.USER_AGENT_LIST_FLAGS[listKey]
 		for _, subString := range subStrings {
 			subString = strings.ToLower(subString)
 			existingFlags := categoryPatternToFlags[subString]
@@ -105,7 +105,7 @@ func CompileUAMatcher() {
 
 	LoadedUASpecificMatcher = ahocorasick.NewStringMatcher(specificPatterns)
 
-	if config2.DEBUG {
+	if config.DEBUG {
 		fmt.Printf("Compiled Aho-Corasick Category Matcher with %d patterns.\n", len(categoryPatterns))
 		fmt.Printf("Compiled Aho-Corasick Specific Matcher with %d patterns.\n", len(specificPatterns))
 	}
@@ -139,7 +139,7 @@ func LoadListContents(fileName string, content string) error {
 		key = strings.TrimSuffix(key, "_net6")
 		// Final key (e.g., "src_net_crawler_google_common")
 
-		if _, exists := config2.IPLIST_FLAGS[key]; exists {
+		if _, exists := config.IPLIST_FLAGS[key]; exists {
 			for _, entry := range entries {
 				ipAddr, network, err := net.ParseCIDR(entry)
 				if err != nil {
@@ -166,7 +166,7 @@ func LoadListContents(fileName string, content string) error {
 	if strings.HasPrefix(fileName, "http_user_agent_") && isList && strings.HasSuffix(fileName, "_sub") {
 		key := strings.TrimSuffix(fileName, "_sub")
 
-		if _, exists := config2.USER_AGENT_LIST_FLAGS[key]; exists {
+		if _, exists := config.USER_AGENT_LIST_FLAGS[key]; exists {
 			LoadedUserAgentLists[key] = append(LoadedUserAgentLists[key], entries...)
 			return nil
 		}
@@ -191,7 +191,7 @@ func LoadListContents(fileName string, content string) error {
 
 	// Fingerprint List
 	if strings.HasPrefix(fileName, "fingerprint_") && isList {
-		if _, exists := config2.FINGERPRINT_LIST_FLAGS[fileName]; exists {
+		if _, exists := config.FINGERPRINT_LIST_FLAGS[fileName]; exists {
 			LoadedFingerprintLists[fileName] = append(LoadedFingerprintLists[fileName], entries...)
 			return nil
 		}
@@ -214,7 +214,7 @@ func LoadListContents(fileName string, content string) error {
 
 	// ASN lists
 	if strings.HasPrefix(fileName, "src_asn_") && isList {
-		if _, exists := config2.ASN_LIST_FLAGS[fileName]; exists {
+		if _, exists := config.ASN_LIST_FLAGS[fileName]; exists {
 			LoadedASNLists[fileName] = append(LoadedASNLists[fileName], entries...)
 			return nil
 
@@ -242,7 +242,7 @@ func LoadListContents(fileName string, content string) error {
 	if strings.HasPrefix(fileName, "ptr_") && isList && strings.HasSuffix(fileName, "_end") {
 		key := strings.TrimSuffix(fileName, "_end")
 
-		if _, exists := config2.PTR_LIST_FLAGS[key]; exists {
+		if _, exists := config.PTR_LIST_FLAGS[key]; exists {
 			LoadedPTRLists[key] = append(LoadedPTRLists[key], entries...)
 			return nil
 		}
