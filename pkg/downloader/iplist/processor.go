@@ -8,7 +8,7 @@ import (
 	"sort"
 	"strings"
 
-	"git.oxl.at/open-bot-list/downloader/internal/config"
+	"git.oxl.at/open-bot-list/pkg/downloader/config"
 )
 
 // IPNetCollection holds the aggregated and validated IP networks, separated by version.

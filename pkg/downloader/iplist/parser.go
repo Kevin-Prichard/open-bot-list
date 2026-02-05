@@ -13,7 +13,7 @@ import (
 
 	"github.com/theory/jsonpath"
 
-	"git.oxl.at/open-bot-list/downloader/internal/config"
+	"git.oxl.at/open-bot-list/pkg/downloader/config"
 )
 
 // run json-query on the json-data and return it as list of strings (should always be in this format)

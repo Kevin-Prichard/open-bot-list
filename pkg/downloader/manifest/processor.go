@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"git.oxl.at/open-bot-list/downloader/internal/config"
-	"git.oxl.at/open-bot-list/downloader/internal/util"
+	"git.oxl.at/open-bot-list/pkg/downloader/config"
+	"git.oxl.at/open-bot-list/pkg/downloader/util"
 )
 
 // ProcessFingerprintManifests reads all fingerprint manifests (excluding _overall) and writes the resulting map files.

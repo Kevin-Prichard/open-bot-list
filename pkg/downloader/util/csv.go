@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"git.oxl.at/open-bot-list/downloader/internal/config"
+	"git.oxl.at/open-bot-list/pkg/downloader/config"
 )
 
 // ParseCSVFile reads a CSV file from the runtime path, skips the header, and returns the data records.

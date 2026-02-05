@@ -2,11 +2,10 @@ package internal
 
 import (
 	"encoding/csv"
+	"git.oxl.at/open-bot-list/pkg/flagger/config"
 	"os"
 	"slices"
 	"strings"
-
-	"git.oxl.at/open-bot-list/log_flagger/internal/config"
 )
 
 // SerializeFlags converts the Flags struct into a pipe-separated string of flag names.

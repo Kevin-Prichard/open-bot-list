@@ -2,15 +2,14 @@ package internal
 
 import (
 	"fmt"
+	config2 "git.oxl.at/open-bot-list/pkg/flagger/config"
 	"slices"
 	"strings"
-
-	"git.oxl.at/open-bot-list/log_flagger/internal/config"
 )
 
-func EnrichLog(logEntry config.LogEntry) config.EnrichedLog {
+func EnrichLog(logEntry config2.LogEntry) config2.EnrichedLog {
 	var flags []string
-	debug := config.DEBUG || strings.Contains(logEntry.UserAgent, config.DEBUG_UA)
+	debug := config2.DEBUG || strings.Contains(logEntry.UserAgent, config2.DEBUG_UA)
 
 	// check if the request has any matches in the open-bot-list config
 	flags = append(flags, LookupIP(logEntry.ClientIP)...)
@@ -27,14 +26,14 @@ func EnrichLog(logEntry config.LogEntry) config.EnrichedLog {
 		LookupListsGenericExact(LoadedFingerprintLists, logEntry.FingerprintJA4)...,
 	)
 
-	if config.LOOKUP_PTR {
+	if config2.LOOKUP_PTR {
 		flags = append(
 			flags,
 			LookupPTRFlags(logEntry.ClientIP)...,
 		)
 	}
 
-	if config.PATH_GEOIP_ASN_DB != "" {
+	if config2.PATH_GEOIP_ASN_DB != "" {
 		flags = append(
 			flags,
 			LookupGeoIPASNFlags(logEntry.ClientIP)...,
@@ -43,25 +42,25 @@ func EnrichLog(logEntry config.LogEntry) config.EnrichedLog {
 
 	// apply flags specific to match-files
 	for _, flag := range flags {
-		if value, exists := config.IPLIST_FLAGS[flag]; exists {
+		if value, exists := config2.IPLIST_FLAGS[flag]; exists {
 			flags = append(flags, value...)
 		}
-		if value, exists := config.USER_AGENT_LIST_FLAGS[flag]; exists {
+		if value, exists := config2.USER_AGENT_LIST_FLAGS[flag]; exists {
 			flags = append(flags, value...)
 		}
-		if value, exists := config.FINGERPRINT_LIST_FLAGS[flag]; exists {
+		if value, exists := config2.FINGERPRINT_LIST_FLAGS[flag]; exists {
 			flags = append(flags, value...)
 		}
-		if value, exists := config.PTR_LIST_FLAGS[flag]; exists {
+		if value, exists := config2.PTR_LIST_FLAGS[flag]; exists {
 			flags = append(flags, value...)
 		}
-		if value, exists := config.ASN_LIST_FLAGS[flag]; exists {
+		if value, exists := config2.ASN_LIST_FLAGS[flag]; exists {
 			flags = append(flags, value...)
 		}
 	}
 
 	// process ruleset and apply flags if rule matches (only one match)
-	for ruleId, rule := range config.FLAGGING_RULESET {
+	for ruleId, rule := range config2.FLAGGING_RULESET {
 		matching := true
 		for _, requireFlag := range rule[0] {
 			if !slices.Contains(flags, requireFlag) {
@@ -84,7 +83,7 @@ func EnrichLog(logEntry config.LogEntry) config.EnrichedLog {
 		flags = append(flags, "bot", "bot_unknown")
 
 	} else if !slices.Contains(flags, "crawler_verified") {
-		for _, uaSub := range config.FALLBACK_SPOOFED_UA_SUB {
+		for _, uaSub := range config2.FALLBACK_SPOOFED_UA_SUB {
 			if strings.Contains(logEntry.UserAgent, uaSub) {
 				flags = append(flags, "crawler_spoofed")
 				break

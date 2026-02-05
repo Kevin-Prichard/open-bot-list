@@ -1,27 +1,26 @@
 package internal
 
 import (
+	config2 "git.oxl.at/open-bot-list/pkg/flagger/config"
 	"reflect"
 	"testing"
-
-	"git.oxl.at/open-bot-list/log_flagger/internal/config"
 )
 
 func TestParseRecord(t *testing.T) {
 	// Temporarily set the indices to non-default values to ensure the logic works regardless of config.
-	originalIPIndex := config.CSV_FIELD_CLIENT_IP
-	originalFPIndex := config.CSV_FIELD_FP_JA4
-	originalUAIndex := config.CSV_FIELD_UA
+	originalIPIndex := config2.CSV_FIELD_CLIENT_IP
+	originalFPIndex := config2.CSV_FIELD_FP_JA4
+	originalUAIndex := config2.CSV_FIELD_UA
 
-	config.CSV_FIELD_CLIENT_IP = 2
-	config.CSV_FIELD_FP_JA4 = 4
-	config.CSV_FIELD_UA = 5
+	config2.CSV_FIELD_CLIENT_IP = 2
+	config2.CSV_FIELD_FP_JA4 = 4
+	config2.CSV_FIELD_UA = 5
 
 	t.Cleanup(func() {
 		// Restore original config values
-		config.CSV_FIELD_CLIENT_IP = originalIPIndex
-		config.CSV_FIELD_FP_JA4 = originalFPIndex
-		config.CSV_FIELD_UA = originalUAIndex
+		config2.CSV_FIELD_CLIENT_IP = originalIPIndex
+		config2.CSV_FIELD_FP_JA4 = originalFPIndex
+		config2.CSV_FIELD_UA = originalUAIndex
 	})
 
 	record := []string{
@@ -34,7 +33,7 @@ func TestParseRecord(t *testing.T) {
 		"extra_field",                          // 6
 	}
 
-	want := config.LogEntry{
+	want := config2.LogEntry{
 		ClientIP:       "213.55.221.232",
 		FingerprintJA4: "q13d0311h3_55b375c5d22e_f2a83c8e78ae",
 		UserAgent:      "Python requests someversion",

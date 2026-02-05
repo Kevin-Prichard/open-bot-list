@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"strings"
 
-	"git.oxl.at/open-bot-list/downloader/internal/config"
-	"git.oxl.at/open-bot-list/downloader/internal/util"
+	"git.oxl.at/open-bot-list/pkg/downloader/config"
+	"git.oxl.at/open-bot-list/pkg/downloader/util"
 )
 
 func processListsGeneric(kind string, categoryConfig map[string]string, filePrefix string, callback func(values []string, matchName string) error) error {

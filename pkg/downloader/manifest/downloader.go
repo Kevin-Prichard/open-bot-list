@@ -5,9 +5,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"git.oxl.at/open-bot-list/downloader/internal/config"
-	"git.oxl.at/open-bot-list/downloader/internal/iplist"
-	"git.oxl.at/open-bot-list/downloader/internal/util"
+	"git.oxl.at/open-bot-list/pkg/downloader/config"
+	"git.oxl.at/open-bot-list/pkg/downloader/iplist"
+	"git.oxl.at/open-bot-list/pkg/downloader/util"
 )
 
 func downloadCategoryManifests(categories map[string]string) error {

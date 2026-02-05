@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"git.oxl.at/open-bot-list/downloader/internal/config"
+	"git.oxl.at/open-bot-list/pkg/downloader/config"
 )
 
 // DownloadFile fetches a file from a URL and saves it to a local path.

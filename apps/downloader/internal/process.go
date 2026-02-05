@@ -2,11 +2,11 @@ package internal
 
 import (
 	"fmt"
+	"git.oxl.at/open-bot-list/pkg/downloader/config"
 	"os"
 
-	"git.oxl.at/open-bot-list/downloader/internal/config"
-	"git.oxl.at/open-bot-list/downloader/internal/iplist"
-	"git.oxl.at/open-bot-list/downloader/internal/manifest"
+	"git.oxl.at/open-bot-list/pkg/downloader/iplist"
+	"git.oxl.at/open-bot-list/pkg/downloader/manifest"
 )
 
 func Run() {

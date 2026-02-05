@@ -2,10 +2,9 @@ package util
 
 import (
 	"context"
+	"git.oxl.at/open-bot-list/pkg/flagger/config"
 	"net"
 	"strings"
-
-	"git.oxl.at/open-bot-list/log_flagger/internal/config"
 )
 
 var PTRCache = make(map[string]string)

@@ -7,8 +7,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"git.oxl.at/open-bot-list/downloader/internal"
-	"git.oxl.at/open-bot-list/downloader/internal/config"
+	"git.oxl.at/open-bot-list/apps/downloader/internal"
+	"git.oxl.at/open-bot-list/pkg/downloader/config"
 )
 
 func main() {

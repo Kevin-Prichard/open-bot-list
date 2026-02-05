@@ -2,12 +2,11 @@ package internal
 
 import (
 	"fmt"
+	"git.oxl.at/open-bot-list/pkg/flagger/config"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
-
-	"git.oxl.at/open-bot-list/log_flagger/internal/config"
 )
 
 const TEST_LIMIT_COUNT = 250
@@ -123,7 +122,7 @@ func Run() error {
 			break
 		}
 
-		if count % 10000 == 0 {
+		if count%10000 == 0 {
 			fmt.Printf("LOGS: %d\n", count)
 		}
 

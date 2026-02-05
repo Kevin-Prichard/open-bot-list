@@ -1,10 +1,9 @@
 package internal
 
 import (
+	"git.oxl.at/open-bot-list/pkg/flagger/config"
 	"reflect"
 	"testing"
-
-	"git.oxl.at/open-bot-list/log_flagger/internal/config"
 )
 
 func TestSerializeFlags(t *testing.T) {
