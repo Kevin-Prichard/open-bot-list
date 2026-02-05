@@ -2,11 +2,12 @@ package internal
 
 import (
 	"fmt"
-	util2 "git.oxl.at/open-bot-list/pkg/flagger/util"
 	"net"
 	"regexp"
 	"slices"
 	"strings"
+
+	"git.oxl.at/open-bot-list/pkg/flagger/util"
 )
 
 var (
@@ -185,7 +186,7 @@ func generatePTRFlags(ptr string) []string {
 
 // LookupPTRFlags queries the DNS-PTR-Record for the provided clientIP and returns the flags if any are configured for that PTR
 func LookupPTRFlags(clientIP string) []string {
-	ptr := util2.LookupPTR(clientIP)
+	ptr := util.LookupPTR(clientIP)
 	fmt.Printf("  > PTR: %v => %v\n", clientIP, ptr)
 	return generatePTRFlags(ptr)
 }
@@ -212,6 +213,6 @@ func generateGeoIPASNFlags(asn string, as_name string) []string {
 
 // LookupGeoIPASNFlags queries the ASN for the provided clientIP and returns the flags if any are configured for that ASN
 func LookupGeoIPASNFlags(clientIP string) []string {
-	asn, as_name := util2.LookupGeoIPASN(clientIP)
+	asn, as_name := util.LookupGeoIPASN(clientIP)
 	return generateGeoIPASNFlags(asn, as_name)
 }
